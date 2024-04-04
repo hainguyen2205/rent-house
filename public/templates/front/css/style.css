@@ -11,9 +11,9 @@
     --text-color: #4d4d4d;
 }
 
-html {
-    /* font-size: 62.5%; */
-}
+/* html {
+    font-size: 62.5%;
+} */
 
 body {
     /* font-size: 1.6rem; */
@@ -21,7 +21,9 @@ body {
     font-weight: 400;
     font-style: normal;
 }
-
+.text-color-primary{
+    color: #478ac9;
+}
 /* font open sans */
 .font-opensans {
     font-family: "Open Sans", sans-serif;
@@ -38,13 +40,23 @@ body {
 header a:hover {
     color: var(--primary-color)
 }
+/* footer */
+footer{
+    background-color: #478ac9;
+}
+.footer-box{
+    background: #ffffff;
+}
+footer p{
+    color: var(--text-color);
+}
 
 /* filter - block */
 .search-block {
-    height: 90vh;
+    height: 70vh;
     width: 100%;
     background-position: 50% 50%;
-    background-image: url(/images/1525.jpg);
+    background-image: url(/templates/front/images/1525.jpg);
     object-fit: cover;
     background-size: cover;
     background-repeat: no-repeat;
@@ -58,7 +70,9 @@ header a:hover {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
     width: 50vw !important;
 }
-
+.search-filer-input{
+    width: 24% !important;
+}
 .search-box h1,
 h4 {
     color: var(--text-color);
@@ -67,18 +81,19 @@ h4 {
 .box-filter {
     display: flex;
 }
+.box-filter .dropdown input {
+    width: 150px;
+}
 
 /* list district block */
 .districts {
     display: grid;
-    grid-template-areas:
-    'item-1 item-2 item-3'
-    'item-1 item-4 item-5';
-    gap: 20px;
-    padding: 15px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows:  repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
 }
 .district-item {
-    border-radius: 1%;
+    border-radius: 3%;
     position: relative;
     height: 0;
     padding-top: 75%;
@@ -104,20 +119,9 @@ h4 {
 .item-title p{
     margin: 0;
 }
-.item-1 {
-    grid-area: item-1;
-}
-.item-2 {
-    grid-area: item-2;
-}
-.item-3 {
-    grid-area: item-3;
-}
-.item-4 {
-    grid-area: item-4;
-}
-.item-5 {
-    grid-area: item-5;
+.district-item:first-child {
+    grid-row: span 2 / span 2;
+    grid-column: span 2 / span 2;
 }
 .districts-block{
     position: relative;
@@ -133,3 +137,17 @@ h4 {
 }
 
 /* popular posts  */
+.popular-posts-block h4{
+    color: var(--text-color);
+}
+/* features-block */
+.features-block{
+    --tw-bg-opacity: 1;
+    background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+/* new-posts-block */
+.new-posts-block .new-posts{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px; 
+}
