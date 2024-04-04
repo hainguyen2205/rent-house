@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #38d39f;
+    --text-color: #4d4d4d;
+}
+
+html {
+    /* font-size: 62.5%; */
+}
+
+body {
+    /* font-size: 1.6rem; */
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* font open sans */
+.font-opensans {
+    font-family: "Open Sans", sans-serif;
+    color: #111111;
+}
+
+/* Header */
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #478ac9;
+
+}
+
+header a:hover {
+    color: var(--primary-color)
+}
+
+/* filter - block */
+.search-block {
+    height: 90vh;
+    width: 100%;
+    background-position: 50% 50%;
+    background-image: url(/images/1525.jpg);
+    object-fit: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    width: 50vw !important;
+}
+
+.search-box h1,
+h4 {
+    color: var(--text-color);
+}
+
+.box-filter {
+    display: flex;
+}
+
+/* list district block */
+.districts {
+    display: grid;
+    grid-template-areas:
+    'item-1 item-2 item-3'
+    'item-1 item-4 item-5';
+    gap: 20px;
+    padding: 15px;
+}
+.district-item {
+    border-radius: 1%;
+    position: relative;
+    height: 0;
+    padding-top: 75%;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.district-item .item-title{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 4;
+}
+.districts a{
+    color: var(--text-color);
+}
+.district-item img{
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.item-title p{
+    margin: 0;
+}
+.item-1 {
+    grid-area: item-1;
+}
+.item-2 {
+    grid-area: item-2;
+}
+.item-3 {
+    grid-area: item-3;
+}
+.item-4 {
+    grid-area: item-4;
+}
+.item-5 {
+    grid-area: item-5;
+}
+.districts-block{
+    position: relative;
+}
+.districts-block .block-top{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 65%;
+    background-color: #478ac9;
+}
+
+/* popular posts  */
