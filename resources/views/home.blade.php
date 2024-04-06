@@ -8,10 +8,12 @@
                 <form class="text-center mt-4" action="/#" method="GET">
                     <input class="form-control my-3" name="title" type="text" placeholder="Cổng chính CNTT">
                     <div class="box-filter d-flex justify-content-between">
-                        <select class="mr-3 form-select search-filer-input" class="" name="district" id="">
+                        <select class="mr-3 form-select search-filer-input" class="" name="district" id=""
+                            aria-label="Default select example">
                             <option value="1">Tp Thái Nguyên</option>
                         </select>
-                        <select class="form-select search-filer-input" name="ward" id="">
+                        <select class="form-select search-filer-input" name="ward" id=""
+                            aria-label="Default select example">
                             <option value="1">Tân Thịnh</option>
                             <option value="2">Thịnh Đán</option>
                             <option value="3">Phan Đình Phùng</option>
@@ -60,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="mt-3 btn btn-primary">Tìm kiếm</button>
+                    <button type="submit" class="mt-3 btn btn-primary"><i class="bi bi-search"></i> Tìm kiếm</button>
                 </form>
             </div>
         </div>
@@ -255,7 +257,7 @@
                                                 stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
                                         </g>
                                     </svg>
-                                    <p class="mb-0 ms-1 text-danger">1.000.000đ</p>
+                                    <p class="mb-0 ms-1 text-danger">1.000.000 đ/tháng</p>
                                 </div>
 
                             </div>
@@ -645,13 +647,13 @@
                                                 stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
                                         </g>
                                     </svg>
-                                    <p class="mb-0 ms-1 text-danger">1.000.000đ</p>
+                                    <p class="mb-0 ms-1 text-danger">1.000.000 đ/tháng</p>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <p class="fw-bold text-decoration-underline fst-italic text-end m-0">Xem chi tiết</p>
                             </div>
-                            
+
                         </div>
                     @endfor
                 </div>
