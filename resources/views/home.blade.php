@@ -70,7 +70,7 @@
             <div class="block-top">
             </div>
             <div class="container">
-                <h1 class="py-4 mb-4 text-center fs-2 text-white">Khám phá ngay phòng trọ tại khu vực của bạn</h1>
+                <h1 class="py-4 mb-4 text-center fs-2 text-white position-relative">Khám phá ngay phòng trọ tại khu vực của bạn</h1>
                 <div class="districts">
                     <div class="district-item">
                         <img src="templates/front/images/tpthainguyen.jpg" alt="">
@@ -119,147 +119,17 @@
                             <img src="templates/front/images/uuu8.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title mb-1">Tìm người thuê trọ {{ $i }}</h5>
-                                <div class="post-services d-flex justify-content-start py-1">
-                                    <div class="service d-flex pe-2">
-                                        <svg fill="#383838" width="18px" viewBox="0 0 32 32" version="1.1"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <title>temperature-quarter</title>
-                                                <path
-                                                    d="M20.75 6.008c0-6.246-9.501-6.248-9.5 0v13.238c-1.235 1.224-2 2.921-2 4.796 0 3.728 3.022 6.75 6.75 6.75s6.75-3.022 6.75-6.75c0-1.875-0.765-3.572-2-4.796l-0.001-0zM16 29.25c-2.9-0-5.25-2.351-5.25-5.251 0-1.553 0.674-2.948 1.745-3.909l0.005-0.004 0.006-0.012c0.13-0.122 0.215-0.29 0.231-0.477l0-0.003c0.001-0.014 0.007-0.024 0.008-0.038l0.006-0.029v-13.52c-0.003-0.053-0.005-0.115-0.005-0.178 0-1.704 1.381-3.085 3.085-3.085 0.060 0 0.12 0.002 0.179 0.005l-0.008-0c0.051-0.003 0.11-0.005 0.17-0.005 1.704 0 3.085 1.381 3.085 3.085 0 0.063-0.002 0.125-0.006 0.186l0-0.008v13.52l0.006 0.029 0.007 0.036c0.015 0.191 0.101 0.36 0.231 0.482l0 0 0.006 0.012c1.076 0.966 1.75 2.361 1.75 3.913 0 2.9-2.35 5.25-5.25 5.251h-0zM16.75 21.367v-3.765c0-0.414-0.336-0.75-0.75-0.75s-0.75 0.336-0.75 0.75v0 3.765c-1.164 0.338-2 1.394-2 2.646 0 1.519 1.231 2.75 2.75 2.75s2.75-1.231 2.75-2.75c0-1.252-0.836-2.308-1.981-2.641l-0.019-0.005zM26.5 2.25c-1.795 0-3.25 1.455-3.25 3.25s1.455 3.25 3.25 3.25c1.795 0 3.25-1.455 3.25-3.25v0c-0.002-1.794-1.456-3.248-3.25-3.25h-0zM26.5 7.25c-0.966 0-1.75-0.784-1.75-1.75s0.784-1.75 1.75-1.75c0.966 0 1.75 0.784 1.75 1.75v0c-0.001 0.966-0.784 1.749-1.75 1.75h-0z">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                        <p style="font-size: 11px" class="ms-1 mt-1 mb-0">Nóng lạnh</p>
-                                    </div>
-                                    <div class="service d-flex pe-2">
-                                        <svg viewBox="0 0 1024 1024" width="18px" class="mr-1" version="1.1"
-                                            xmlns="http://www.w3.org/2000/svg" fill="#383838" stroke="#383838">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M500.6 653.5c37.1 58.4 34.2 76.3 1.9 108.6-41.2 41.2-46.4 73.4-1.9 143.4 4.2 6.5 12.8 8.4 19.3 4.3 6.5-4.2 8.4-12.8 4.3-19.3-37.1-58.4-34.2-76.3-1.9-108.6 41.2-41.2 46.4-73.4 1.9-143.4-4.2-6.5-12.8-8.4-19.3-4.3-6.5 4.1-8.5 12.8-4.3 19.3zM276.6 653.5c37.1 58.4 34.2 76.3 1.9 108.6-41.2 41.2-46.4 73.4-1.9 143.4 4.2 6.5 12.8 8.4 19.3 4.3 6.5-4.2 8.4-12.8 4.3-19.3-37.1-58.4-34.2-76.3-1.9-108.6 41.2-41.2 46.4-73.4 1.9-143.4-4.2-6.5-12.8-8.4-19.3-4.3-6.5 4.1-8.4 12.8-4.3 19.3zM726.5 762.1c-41.2 41.2-46.4 73.4-1.9 143.4 4.2 6.5 12.8 8.4 19.3 4.3 6.5-4.2 8.4-12.8 4.3-19.3-37.1-58.4-34.2-76.3-1.9-108.6 41.2-41.2 46.4-73.4 1.9-143.4-4.2-6.5-12.8-8.4-19.3-4.3-6.5 4.2-8.4 12.8-4.3 19.3 37.1 58.4 34.2 76.3 1.9 108.6zM64.4 226.1v223.8c0 61.9 50.1 112.1 112 112.1h672c61.8 0 112-50.2 112-112.1V226.1c0-61.9-50.1-112.1-112-112.1h-672c-61.8 0-112 50.2-112 112.1z"
-                                                    fill="#000000"></path>
-                                                <path
-                                                    d="M120.4 226.1c0-30.9 25.1-56.1 56-56.1h672c30.9 0 56 25.1 56 56.1v223.8c0 30.9-25.1 56.1-56 56.1h-672c-30.9 0-56-25.1-56-56.1V226.1z"
-                                                    fill="#FFFFFF"></path>
-                                                <path
-                                                    d="M400.4 268c0-23.1 18.4-42 41.7-42h84.5c23.2 0 41.7 19.1 41.7 42 0 23.1-18.4 42-41.7 42h-84.5c-23.1 0-41.7-19.1-41.7-42zM232.4 268c0-23.2 19-42 42-42 23.2 0 42 19 42 42 0 23.2-19 42-42 42-23.2 0-42-19-42-42zM246.4 394h532v-28h-532v28zM246.4 450h532v-28h-532v28z"
-                                                    fill="#000000"></path>
-                                                <path
-                                                    d="M428.4 268c0 7.5 6.1 14 13.7 14h84.5c7.7 0 13.7-6.3 13.7-14 0-7.5-6.1-14-13.7-14h-84.5c-7.7 0-13.7 6.3-13.7 14zM260.4 268c0 7.5 6.3 14 14 14 7.5 0 14-6.3 14-14 0-7.5-6.3-14-14-14-7.5 0-14 6.3-14 14z"
-                                                    fill="#FFFFFF"></path>
-                                            </g>
-                                        </svg>
-                                        <p style="font-size: 11px" class="ms-1 mt-1 mb-0">Điều hòa</p>
-                                    </div>
-                                    <div class="service d-flex pe-2">
-                                        <svg width="18px" class="mr-1" viewBox="0 0 100 100" data-name="Layer 1"
-                                            id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <defs>
-                                                    <style>
-                                                        .cls-1 {
-                                                            fill: none;
-                                                            stroke: #231f20;
-                                                            stroke-miterlimit: 10;
-                                                            stroke-width: 2px;
-                                                        }
-
-                                                        .cls-2 {
-                                                            fill: #231f20;
-                                                        }
-                                                    </style>
-                                                </defs>
-                                                <g>
-                                                    <path class="cls-1"
-                                                        d="M23.13,35.26v-15.12c0-1.36,1.1-2.46,2.46-2.46h10.41s.06,0,.09,0h.03c.66-.03,1.33,.21,1.84,.71l5.88,5.88-3.48,3.48-5.15-5.15h-7.15v28.08h-4.92v-14.15">
-                                                    </path>
-                                                    <path class="cls-1"
-                                                        d="M54.06,27.96l-10.02,10.02-4.28-4.29c-1.47-1.47-1.47-3.86,0-5.34l4.69-4.69c1.47-1.47,3.86-1.47,5.34,0l4.28,4.29Z">
-                                                    </path>
-                                                    <path class="cls-1"
-                                                        d="M56.76,29.41c0,.44-.17,.88-.51,1.22l-9.54,9.55c-.67,.67-1.76,.67-2.44,0-.34-.34-.51-.78-.51-1.22s.17-.88,.51-1.22l9.54-9.54c.67-.67,1.76-.67,2.44,0,.34,.34,.51,.78,.51,1.22Z">
-                                                    </path>
-                                                </g>
-                                                <g>
-                                                    <rect class="cls-2" height="2.84" width="1.16" x="52.61"
-                                                        y="42.88"></rect>
-                                                    <g>
-                                                        <g>
-                                                            <rect class="cls-2" height="2.84" width="1.16" x="49.92"
-                                                                y="40.04"></rect>
-                                                            <rect class="cls-2" height="2.84" width="1.16" x="49.92"
-                                                                y="45.72"></rect>
-                                                            <rect class="cls-2" height=".23" width="1.16" x="49.92"
-                                                                y="59.7"></rect>
-                                                        </g>
-                                                        <g>
-                                                            <rect class="cls-2" height="2.84" width="1.16" x="55.43"
-                                                                y="40.27"></rect>
-                                                            <rect class="cls-2" height="2.84" width="1.16" x="55.43"
-                                                                y="45.95"></rect>
-                                                            <rect class="cls-2" height=".45" width="1.16" x="55.42"
-                                                                y="59.7"></rect>
-                                                        </g>
-                                                        <rect class="cls-2" height="2.12" width="1.16" x="52.62"
-                                                            y="48.56"></rect>
-                                                    </g>
-                                                </g>
-                                                <path class="cls-1"
-                                                    d="M83.29,55.2c0,1.24-.5,2.37-1.32,3.18-.82,.82-1.94,1.32-3.18,1.32H23.22c-2.49,0-4.5-2.01-4.5-4.5,0-1.24,.5-2.37,1.32-3.19,.79-.79,1.88-1.3,3.09-1.32h55.66c2.49,0,4.5,2.02,4.5,4.51Z">
-                                                </path>
-                                                <path class="cls-1"
-                                                    d="M78.36,65.67v8.78c0,5.01-4.06,9.06-9.06,9.06H33.36c-5.01,0-9.07-4.05-9.07-9.06v-14.75h54.07v5">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                        <p style="font-size: 11px" class="ms-1 mt-1 mb-0">Khép kín</p>
-                                    </div>
+                                <div class="post-services d-flex justify-content-between">
+                                    <p class="mb-0"><i class="fa-solid fa-ruler"></i> 25m2</p>
+                                    <p class="mb-0"><i class="fa-solid fa-temperature-three-quarters"></i> Nóng lạnh</p>
+                                    <p class="mb-0"><i class="fa-solid fa-fan"></i> Điều hòa</p>
+                                    <p class="mb-0"><i class="fa-solid fa-toilet"></i> Khép kín</p>
                                 </div>
-                                <div class="post-address d-flex py-1">
-                                    <svg viewBox="0 0 1024 1024" width="18px" fill="#000000" class="icon"
-                                        version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                        <g id="SVGRepo_iconCarrier">
-                                            <path
-                                                d="M512 1012.8c-253.6 0-511.2-54.4-511.2-158.4 0-92.8 198.4-131.2 283.2-143.2h3.2c12 0 22.4 8.8 24 20.8 0.8 6.4-0.8 12.8-4.8 17.6-4 4.8-9.6 8.8-16 9.6-176.8 25.6-242.4 72-242.4 96 0 44.8 180.8 110.4 463.2 110.4s463.2-65.6 463.2-110.4c0-24-66.4-70.4-244.8-96-6.4-0.8-12-4-16-9.6-4-4.8-5.6-11.2-4.8-17.6 1.6-12 12-20.8 24-20.8h3.2c85.6 12 285.6 50.4 285.6 143.2 0.8 103.2-256 158.4-509.6 158.4z m-16.8-169.6c-12-11.2-288.8-272.8-288.8-529.6 0-168 136.8-304.8 304.8-304.8S816 145.6 816 313.6c0 249.6-276.8 517.6-288.8 528.8l-16 16-16-15.2zM512 56.8c-141.6 0-256.8 115.2-256.8 256.8 0 200.8 196 416 256.8 477.6 61.6-63.2 257.6-282.4 257.6-477.6C768.8 172.8 653.6 56.8 512 56.8z m0 392.8c-80 0-144.8-64.8-144.8-144.8S432 160 512 160c80 0 144.8 64.8 144.8 144.8 0 80-64.8 144.8-144.8 144.8zM512 208c-53.6 0-96.8 43.2-96.8 96.8S458.4 401.6 512 401.6c53.6 0 96.8-43.2 96.8-96.8S564.8 208 512 208z"
-                                                fill=""></path>
-                                        </g>
-                                    </svg>
-                                    <p style="font-size: 11px" class="mb-0 ms-1">Thành phố Thái Nguyên, Phường Tân Thịnh
-                                    </p>
-                                </div>
-                                <div class="post-price d-flex py-1">
-                                    <svg viewBox="0 0 24 24" width="16px" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                        <g id="SVGRepo_iconCarrier">
-                                            <path d="M12 17V17.5V18" stroke="#1C274C" stroke-width="1.5"
-                                                stroke-linecap="round"></path>
-                                            <path d="M12 6V6.5V7" stroke="#1C274C" stroke-width="1.5"
-                                                stroke-linecap="round"></path>
-                                            <path
-                                                d="M15 9.5C15 8.11929 13.6569 7 12 7C10.3431 7 9 8.11929 9 9.5C9 10.8807 10.3431 12 12 12C13.6569 12 15 13.1193 15 14.5C15 15.8807 13.6569 17 12 17C10.3431 17 9 15.8807 9 14.5"
-                                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
-                                            <path
-                                                d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
-                                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
-                                        </g>
-                                    </svg>
-                                    <p class="mb-0 ms-1 text-danger">1.000.000 đ/tháng</p>
-                                </div>
-
+                                <p class="mb-0 my-1"><i class="fa-solid fa-location-dot"></i> Thành phố Thái Nguyên,
+                                    Phường Tân Thịnh
+                                </p>
+                                <p class="mb-0 my-1 text-danger"> <i style="color: black" class="bi bi-coin"></i>
+                                    1.000.000 đ/tháng</p>
                             </div>
                         </div>
                     @endfor

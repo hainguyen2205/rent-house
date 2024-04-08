@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/login', [HomeController::class, 'displayLoginForm']);
+Route::get('/register', [HomeController::class, 'displayRegisterForm']);
+
 
 Route::prefix('/post')->group(function () {
     Route::get('/list', function () {

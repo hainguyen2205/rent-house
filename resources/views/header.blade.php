@@ -18,14 +18,15 @@
                     </ul>
                     <ul class="d-flex navbar-nav my-2 my-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><button class="btn btn-light">Đăng ký</button></a>
+                            <a class="nav-link" href="/register"><button class="btn btn-light">Đăng ký</button></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><button class="btn btn-primary">Đăng nhập</button></a>
+                            <a class="nav-link" href="/login"><button class="btn btn-primary">Đăng nhập</button></a>
                         </li>
                         
                     </ul>
                 </div>
         </nav>
+        
     </div>
 </header>

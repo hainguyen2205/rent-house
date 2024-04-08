@@ -1,18 +1,9 @@
-var elem = document.querySelector('.popular-posts-carousel');
-var elem2 = document.querySelector('.images-carousel');
-var flkty = new Flickity( elem, {
-  cellAlign: 'left',
-  contain: true,
-  wrapAround: true
+['.popular-posts-carousel', '.images-carousel'].forEach(selector => {
+  new Flickity(document.querySelector(selector), {
+    cellAlign: 'left',
+    contain: true,
+    wrapAround: true,
+    percentPosition: selector === '.images-carousel'
+  });
+});
 
-});
-var flkty2 = new Flickity( elem2, {
-  // imagesLoaded: true,
-  percentPosition: true,
-  contain: true,
-  wrapAround: true
-});
-var flkty2 = new Flickity( '.images-carousel', {
-});
-var flkty = new Flickity( '.popular-posts-carousel', {
-});
