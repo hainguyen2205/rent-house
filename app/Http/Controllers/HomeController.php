@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\AddressController;
 
 class HomeController extends Controller
 {
@@ -19,23 +20,25 @@ class HomeController extends Controller
  
     public function index()
     {
-        $this->addJs('main.js');
-        return view('home',[
-            'jss' => $this->jss,
+        $this->setTitle('Trang chủ');
+        $districts = new AddressController();
+        return view('home', [
+            'districts' => $districts->getAllDistrict(),
+            'title' => $this->title,
         ]);
     }
     public function displayLoginForm()
     {
-        $this->addJs('login.js');
+        $this->setTitle('Đăng nhập');
         return view('user.login',[
-            'jss' => $this->jss,
+            'title' => $this->title,
         ]);
     }
     public function displayRegisterForm()
     {
-        $this->addJs('login.js');
+        $this->setTitle('Đăng ký');
         return view('user.register',[
-            'jss' => $this->jss,
+            'title' => $this->title,
         ]);
     }
 }

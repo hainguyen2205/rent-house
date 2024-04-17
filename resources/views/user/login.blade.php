@@ -23,14 +23,15 @@
                                 </p>
                             </div>
                         </div>
-                        <form action="#" class="signin-form">
+                        <form action="/login" method="POST" class="signin-form">
+                            @csrf
                             <div class="form-floating mb-3">
-                                <input type="tel" class="form-control" id="phonenumberInput" placeholder="" required>
+                                <input type="tel" class="form-control" id="phonenumberInput" name="phone" placeholder="" required>
                                 <label for="phonenumberInput"><i class="bi bi-telephone"></i> Số điện thoại</label>
                             <div class="invalid-feedback" id="phonenumberFeedback"></div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" id="passwordInput" class="form-control" placeholder="" required>
+                                <input type="password" id="passwordInput" class="form-control" name="password" placeholder="" required>
                                 <label class="label" for="passwordInput"><i class="bi bi-lock"></i> Mật khẩu</label>
                                 <div class="invalid-feedback" id="passwordFeedback"></div>
                             </div>

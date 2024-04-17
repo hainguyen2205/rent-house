@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 * {
     margin: 0;
@@ -7,7 +8,7 @@
 }
 
 :root {
-    --primary-color: #38d39f;
+    --primary-color: #478ac9;
     --text-color: #4d4d4d;
 }
 
@@ -16,6 +17,13 @@ body {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--primary-color)
 }
 
 .content {
@@ -40,9 +48,12 @@ body {
     color: #111111;
 }
 
-a {
-    text-decoration: none;
+.mulish {
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
+
 
 /* Header */
 .navbar-light .navbar-nav .nav-link:focus,
@@ -51,9 +62,7 @@ a {
 
 }
 
-header a:hover {
-    color: var(--primary-color)
-}
+
 
 /* footer */
 footer {
@@ -90,6 +99,12 @@ footer p {
 
 .search-filer-input {
     width: 24% !important;
+    height: 37px !important;
+}
+
+.background-primary .search-filer-input {
+    width: 20% !important;
+    height: 37px !important;
 }
 
 .search-box h1,
@@ -183,9 +198,9 @@ h4 {
 }
 
 /* List post page */
-.search-bar {
+/* .search-bar {
     background-color: #3d3d3d;
-}
+} */
 
 .form-select option {
     border: 1px solid black;
@@ -299,6 +314,30 @@ h4 {
 .social-media .social-icon:focus span {
     color: #fff;
 }
+
+.user-block {
+    -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    background-color: #478ac9;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.create-post-block {
+    min-width: 50%;
+}
+
+.preview-img img {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+}
+/* .object-fill-cover{
+    object-fit: scale-down;
+} */
 
 @media (max-width: 991.98px) {
 

@@ -1,42 +1,76 @@
 @extends('layout')
 @section('content')
     <div class="main-content">
-        <div class="container d-flex justify-content-center">
-            <div class="create-post-block card w-50 my-5">
+
+        <div class="container d-flex justify-content-center position-relative">
+            @if (Session::has('error'))
+                <div class="alert alert-danger alert-dismissible fade show position-absolute z-3 w-75 text-center"
+                    role="alert">
+                    <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> {{ Session::get('error') }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-warning alert-dismissible fade show position-absolute z-3 w-75 text-center"
+                    role="alert">
+                    <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> Kiểm tra lại các thông tin.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if (Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show position-absolute z-3 w-75 text-center"
+                    role="alert">
+                    <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <div class="create-post-block card my-5">
                 <div class="card-header background-primary py-3">
                     <h4 class="card-title mb-1 fw-bold text-center text-white">TẠO BÀI ĐĂNG</h4>
                     <p class="cart-text m-0 text-center text-white">Vui lòng nhập thông tin về phòng trọ để đăng bài</p>
                 </div>
                 <div class="card-body">
-                    <form action="">
+                    <form action="/post/create" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-2">
                             <label class="form-label" for="titleTextarea">Tiêu đề</label>
-                            <textarea class="form-control is-invalid" name="title" id="titleTextarea" cols="30" rows="2"></textarea>
-                            <div class="invalid-feedback">Vui lòng nhập tiêu đề.</div>
+                            <textarea class="form-control" name="title" id="titleTextarea" cols="30" rows="2"></textarea>
+                            <div class="invalid-feedback">{{ $errors->first('title') }}</div>
                         </div>
                         <div class="mb-2">
                             <label class="form-label" for="describeTextarea">Mô tả</label>
-                            <textarea class="form-control is-invalid" name="descripbe" id="describeTextarea" cols="30" rows="3"></textarea>
-                            <div class="invalid-feedback">Vui lòng nhập mô tả.</div>
+                            <textarea class="form-control" name="description" id="describeTextarea" cols="30" rows="3"></textarea>
                         </div>
-                        <div class="input-group mb-2">
-                            <input type="file" class="form-control is-invalid" id="inputGroupFile02">
-                            <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                            <div class="invalid-feedback">Vui lòng chọn ít nhất 1 ảnh.</div>
+
+                        <div class="mb-2">
+                            <label class="form-label">Ảnh phòng</label>
+                            <div id="preview-img" class="preview-img mx-1 d-flex w-100">
+                            </div>
+                            <div data-mdb-button-init data-mdb-ripple-init>
+                                <label id="label-image" class="form-label btn btn-outline-secondary m-0" for="imageInput"><i
+                                        class="bi bi-card-image"></i> Tải ảnh</label>
+                                <input type="file" class="form-control is-invalid d-none" multiple accept="image/*"
+                                    id="imageInput" />
+                                <div class="invalid-feedback">{{ $errors->first('images') }}</div>
+                            </div>
                         </div>
                         <label class="form-label" for="addressSelect">Địa chỉ</label>
                         <div class="mb-2 row g-3">
                             <div class="col-md-6">
-                                <select class="form-select is-invalid" name="district" id="districtSelect">
-                                    <option value="1">Thành phố Thái Nguyên</option>
+                                <select class="form-select" name="id_district" id="districtSelect">
+                                    <option value="">Quận/Huyện</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                    @endforeach
                                 </select>
-                                <div class="invalid-feedback">Vui lòng chọn địa chỉ</div>
+                                <div class="invalid-feedback">{{ $errors->first('id_district') }}</div>
                             </div>
                             <div class="col-md-6">
-                                <select class="form-select is-invalid" name="ward" id="wardSelect">
-                                    <option value="1">Phường Tân Thịnh</option>
+                                <select class="form-select" name="id_ward" id="wardSelect">
+                                    <option value="">Phường/Xã</option>
                                 </select>
-                                <div class="invalid-feedback">Vui lòng chọn địa chỉ</div>
+                                <div class="invalid-feedback">{{ $errors->first('id_ward') }}</div>
                             </div>
                         </div>
                         <label class="form-label" for="serviceCheck">Dịch vụ</label>
@@ -57,41 +91,35 @@
                         <div class="mb-2 row g-3">
                             <div class="col-md-6">
                                 <label class="form-label" for="acreageInput">Diện tích phòng (m²)</label>
-                                <input type="number" id="acreageInput" class="form-control is-invalid">
-                                <div class="invalid-feedback">
-                                    Diện tích không hợp lệ
-                                </div>
+                                <input type="number" id="acreageInput" name="acreage" class="form-control">
+                                <div class="invalid-feedback">{{ $errors->first('acreage') }}</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="rentInput">Giá phòng (VND/Tháng)</label>
-                                <input type="number" id="rentInput" class="form-control is-invalid">
-                                <div class="invalid-feedback">
-                                    Số tiền không hợp lệ
-                                </div>
+                                <input type="number" name="rent" id="rentInput" class="form-control">
+                                <div class="invalid-feedback">{{ $errors->first('rent') }}</div>
                             </div>
                         </div>
                         <div class="mb-2 row g-3">
                             <div class="col-md-6">
                                 <label class="form-label" for="electricityPriceInput">Giá điện (VND/Số)</label>
-                                <input type="number" id="electricityPriceInput" class="form-control is-invalid">
-                                <div class="invalid-feedback">
-                                    Số tiền không hợp lệ
-                                </div>
+                                <input type="number" name="electric_price" id="electricityPriceInput"
+                                    class="form-control">
+                                <div class="invalid-feedback">{{ $errors->first('electric_price') }}</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="waterPriceInput">Giá nước (VND/Khối)</label>
-                                <input type="number" id="waterPriceInput" class="form-control is-invalid">
-                                <div class="invalid-feedback">
-                                    Số tiền không hợp lệ
-                                </div>
+                                <input type="number" id="waterPriceInput" name="water_price" class="form-control">
+                                <div class="invalid-feedback">{{ $errors->first('water_price') }}</div>
                             </div>
                         </div>
                         <div class="mb-2 form-check">
                             <input type="checkbox" class="form-check-input">
-                            <label class="form-check-label fst-italic" for="">Đồng ý đăng với mức phí 15k/bài đăng</label>
+                            <label class="form-check-label fst-italic" for="">Đồng ý đăng với mức phí 15k/bài
+                                đăng</label>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="submit" disabled class="btn btn-primary">Đăng tin ngay</button>
+                            <button type="submit" class="btn btn-primary">Đăng tin ngay</button>
                         </div>
                     </form>
                 </div>

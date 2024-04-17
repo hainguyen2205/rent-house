@@ -8,15 +8,16 @@
                 <form class="text-center mt-4" action="/#" method="GET">
                     <input class="form-control my-3" name="title" type="text" placeholder="Cổng chính CNTT">
                     <div class="box-filter d-flex justify-content-between">
-                        <select class="mr-3 form-select search-filer-input" class="" name="district" id=""
-                            aria-label="Default select example">
-                            <option value="1">Tp Thái Nguyên</option>
+                        <select class="mr-3 form-select search-filer-input" class="" name="district"
+                            id="districtSelect" aria-label="Default select example">
+                            <option value="">Quận/Huyện</option>
+                            @foreach ($districts as $district)
+                                <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                            @endforeach
                         </select>
-                        <select class="form-select search-filer-input" name="ward" id=""
+                        <select class="form-select search-filer-input" name="ward" id="wardSelect"
                             aria-label="Default select example">
-                            <option value="1">Tân Thịnh</option>
-                            <option value="2">Thịnh Đán</option>
-                            <option value="3">Phan Đình Phùng</option>
+                            <option value="">Phường/Xã</option>
                         </select>
                         <div class="dropdown search-filer-input">
                             <button class="form-control dropdown-toggle w-100" type="button" id="triggerId"
@@ -70,7 +71,8 @@
             <div class="block-top">
             </div>
             <div class="container">
-                <h1 class="py-4 mb-4 text-center fs-2 text-white position-relative">Khám phá ngay phòng trọ tại khu vực của bạn</h1>
+                <h1 class="py-4 mb-4 text-center fs-2 text-white position-relative">Khám phá ngay phòng trọ tại khu vực của
+                    bạn</h1>
                 <div class="districts">
                     <div class="district-item">
                         <img src="templates/front/images/tpthainguyen.jpg" alt="">

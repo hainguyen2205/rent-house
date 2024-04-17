@@ -6,18 +6,11 @@
                 <div class="col-8">
                     <div class="d-flex justify-content-center">
                         <div class="card w-75 images-carousel">
-                            <div class="mx-2 w-100">
-                                <img src="/templates/front/images/ff3.jpg" alt="">
-                            </div>
-                            <div class="mx-2 w-100">
-                                <img src="/templates/front/images/ffg4.jpg" alt="">
-                            </div>
-                            <div class="mx-2 w-100">
-                                <img src="/templates/front/images/fgfg4.jpg" alt="">
-                            </div>
-                            <div class="mx-2 w-100">
-                                <img src="/templates/front/images/rttr.jpg" alt="">
-                            </div>
+                            @foreach ($post->images as $image)
+                                <div class="mx-2 w-100">
+                                    <img class="object-fit-scale" src="{{ $image->url }}" alt="">
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
@@ -26,46 +19,44 @@
                                 Thông tin phòng trọ
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title fs-4 my-1 text-center">Tìm người thuê trọ</h5>
-                                <div class="mb-0 d-flex">
-                                    <img class="cicle-border" width="30px" height="30px"
-                                        src="/templates/front/images/avatar-temp.jpg" alt="">
-                                    <p class="fw-bold fs-5 my-0 mx-2">Nguyễn Văn Hải</p>
+                                <h5 class="card-title fs-4 my-1 text-center">{{ $post->title }}</h5>
+                                <div class="d-flex justify-content-between">
+                                    <div class="mb-0 d-flex">
+                                        <img class="cicle-border" width="30px" height="30px"
+                                            src="{{ $post->author->avatar_url }}" alt="">
+                                        <p class="fw-bold mt-1 mb-0 mx-2">{{ $post->author->name }}</p>
+                                    </div>
                                 </div>
-                                <p class="my-1"><i class="fa-solid fa-calendar-days"></i> 2024-04-06 15:26:44</p>
+
                                 <div class="d-flex justify-content-start">
-                                    <p class="mt-1 me-2 my-1"><i class="bi bi-clock"></i> 15 giờ trước</p>
-                                    <p class="mt-1 mx-2 my-1"><i class="bi bi-eye"></i> 15 lượt xem</p>
-                                    <p class="mt-1 mx-2 my-1"><i class="bi bi-person-heart"></i> 15 quan tâm</p>
+                                    <p class="mt-1 me-2 my-1"><i class="bi bi-clock"></i> {{ $post->created_at }}</p>
+                                    <p class="mt-1 mx-2 my-1"><i class="bi bi-eye"></i> {{ $post->views }} lượt xem</p>
+                                    <p class="mt-1 mx-2 my-1"><i class="bi bi-person-heart"></i> {{ $post->interests }} quan
+                                        tâm
+                                    </p>
                                 </div>
                                 <div class="post-services d-flex justify-content-start">
-                                    <p class="mt-1 me-2 my-1"><i class="fa-solid fa-ruler"></i> 25m2</p>
-                                    <p class="mt-1 mx-2 my-1"><i class="fa-solid fa-temperature-three-quarters"></i> Nóng
-                                        lạnh</p>
-                                    <p class="mt-1 mx-2 my-1"><i class="fa-solid fa-fan"></i> Điều hòa</p>
-                                    <p class="mt-1 mx-2 my-1"><i class="fa-solid fa-toilet"></i> Khép kín</p>
+                                    <p class="mt-1 me-2 my-1"><i class="fa-solid fa-ruler"></i> {{ $post->acreage }}m2</p>
+                                    @foreach ($post->services as $service)
+                                        <p class="mt-1 mx-2 my-1">{!! html_entity_decode($service->icon) !!} {{ $service->services_name }} </p>
+                                    @endforeach
                                 </div>
-                                <p class="my-1"><i class="fa-solid fa-location-dot"></i> Thành phố Thái Nguyên,
-                                    Phường Tân Thịnh
+                                <p class="my-1"><i class="fa-solid fa-location-dot me-2"></i>{{ $post->ward->ward_name }},
+                                    {{ $post->district->district_name }}
                                 </p>
                                 <div class="post-services d-flex justify-content-start">
-                                    <p class="mt-1 me-2 my-1 text-danger"><i style="color: black"
-                                            class="fa-solid fa-money-bill"></i>
-                                        Phòng: 1.000.000 đ/tháng</p>
-                                    <p class="mt-1 me-2 my-1 text-danger"><i style="color: black"
-                                            class="fa-solid fa-faucet"></i>
-                                        Nước: 35,500 đ/khối</p>
-                                    <p class="mt-1 me-2 my-1 text-danger"><i style="color: black"
-                                            class="fa-solid fa-plug-circle-bolt"></i>
-                                        Điện: 3,500 đ/số</p>
+                                    <p class="mt-1 me-2 my-1 text-danger"><i class="text-dark fa-solid fa-money-bill"></i>
+                                        Phòng: {{ $post->rent }} đ/tháng</p>
+                                    <p class="mt-1 me-2 my-1 text-danger"><i class="text-dark fa-solid fa-faucet"></i>
+                                        Nước: {{ $post->water_price }} đ/khối</p>
+                                    <p class="mt-1 me-2 my-1 text-danger"><i
+                                            class="text-dark fa-solid fa-plug-circle-bolt"></i>
+                                        Điện: {{ $post->electric_price }} đ/số</p>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <p class="fw-bold fst-italic mb-1">Mô tả:</p>
-                                <p class="card-text">Nhachothue.com là một nền tảng tương tác trực tuyến tiên tiến, mang đến
-                                    trải nghiệm độc đáo cho người dùng trong quá trình tìm kiếm và cho thuê phòng trọ. Với
-                                    giao diện đơn giản, dễ sử dụng và tối ưu hóa cho mọi thiết bị, trang web giúp người dùng
-                                    tiết kiệm thời gian và nỗ lực trong việc tìm kiếm nơi ở lý tưởng.</p>
+                                <p class="card-text">{{ $post->description }}</p>
                             </div>
                         </div>
                     </div>
@@ -181,27 +172,32 @@
                     </div>
                     <div class="card-body">
                         <div class="popular-posts-carousel mb-3">
-                            @for ($i = 1; $i <= 8; $i++)
-                                <div class="carousel-cell mb-3 mx-2 card" style="width: 17rem;">
-                                    <img src="/templates/front/images/uuu8.jpg" class="card-img-top" alt="...">
+                            @foreach ($posts_of_author as $post)
+                                <div class="carousel-cell mb-3 mx-2 card" style="width: 18rem;">
+                                    <img style="style="object-fit: fill; width="270px" height="180px"
+                                        src="{{ $post->images[0]->url }}" class="card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-1">Tìm người thuê trọ {{ $i }}</h5>
-                                        <div class="post-services d-flex justify-content-between">
-                                            <p class="mb-0"><i class="fa-solid fa-ruler"></i> 25m2</p>
-                                            <p class="mb-0"><i class="fa-solid fa-temperature-three-quarters"></i> Nóng
-                                                lạnh</p>
-                                            <p class="mb-0"><i class="fa-solid fa-fan"></i> Điều hòa</p>
-                                            <p class="mb-0"><i class="fa-solid fa-toilet"></i> Khép kín</p>
+                                        <h5 class="card-title mb-1">
+                                            {{ strlen($post->title) > 15 ? substr($post->title, 0, 29) . '...' : $post->title }}
+                                        </h5>
+                                        <div class="post-services d-flex justify-content-start">
+                                            <p class="mb-0 me-1"><i class="fa-solid fa-ruler"></i> {{ $post->acreage }}m2
+                                            </p>
+                                            @foreach ($post->services as $service)
+                                                <p class="mb-0 mx-1">{!! html_entity_decode($service->icon) !!}{{ $service->services_name }}
+                                                </p>
+                                            @endforeach
                                         </div>
-                                        <p class="mb-0 my-1"><i class="fa-solid fa-location-dot"></i> Thành phố Thái
-                                            Nguyên,
-                                            Phường Tân Thịnh
+                                        <p class="mb-0 my-1"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $post->ward->ward_name }},
+                                            {{ $post->district->district_name }}
                                         </p>
                                         <p class="mb-0 my-1 text-danger"> <i style="color: black" class="bi bi-coin"></i>
-                                            1.000.000 đ/tháng</p>
+                                            {{ $post->rent }} đ/tháng</p>
                                     </div>
                                 </div>
-                            @endfor
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

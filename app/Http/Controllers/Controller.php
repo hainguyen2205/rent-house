@@ -9,9 +9,14 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     public $jss = [];
+    public $title;
     use AuthorizesRequests, ValidatesRequests;
     public function addJs($js)
     {
         $this->jss[] = $js;
+    }
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 }

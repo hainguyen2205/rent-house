@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\AddressController;
+
+
 
 
 /*
@@ -18,19 +24,37 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [HomeController::class, 'displayLoginForm']);
 Route::get('/register', [HomeController::class, 'displayRegisterForm']);
+Route::get('/logout', [UserController::class, 'logout']);
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/register', [UserController::class, 'register']);
+
+Route::post('/upload', [UploadController::class, 'store']);
+Route::get('/address/getwards', [AddressController::class, 'getAllWard']);
 
 
-Route::prefix('/post')->group(function () {
-    Route::get('/list', function () {
-        return view('post.list');
-    });
-    Route::get('/single', function () {
-        return view('post.single');
-    });
-    Route::get('/create', function () {
-        return view('post.create');
-    });
-}
+Route::prefix('/post')->middleware('auth')->group(
+    function () {
+        Route::get('/list', [PostController::class, 'displayPostList']);
+        Route::get('/single/{id_post}', [PostController::class, 'displayPostSingle']);
+        Route::get('/create', [PostController::class, 'displayCreatePost']);
+        Route::get('/profile', [PostController::class, 'displayProfile']);
+    }
+);
+Route::prefix('/admin')->middleware('admin_auth')->group(
+    function () {
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        });
+    }
+);
+Route::prefix('/profile')->middleware('auth')->group(
+    function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::get('/edit', [UserController::class, 'edit']);
+    }
 );
 
-
+Route::prefix('/user')->middleware('auth')->group(
+    function () {
+    }
+);
