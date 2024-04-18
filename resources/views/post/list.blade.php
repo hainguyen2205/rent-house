@@ -80,7 +80,7 @@
         </div>
         <div class="row">
             <div class="col-3">
-                <div class="card w-75">
+                <div class="card w-75 border-left-primary shadow">
                     <div class="card-header fw-bold">
                         Tìm theo khoảng giá
                     </div>
@@ -92,7 +92,7 @@
                         <p class="card-text">1,600,000đ trở lên</p>
                     </div>
                 </div>
-                <div class="card w-75 my-4">
+                <div class="card w-75  border-left-primary shadow my-4">
                     <div class="card-header fw-bold">
                         Tìm theo diện tích
                     </div>
@@ -106,7 +106,7 @@
             <div class="col-9">
                 <div class="row row-cols-sm-1 row-cols-lg-2">
                     @foreach ($posts as $post)
-                        <div class="card p-0 m-2" style="width: 19rem;">
+                        <div class="card p-0 m-2 shadow-sm" style="width: 19rem;">
                             <a href="/post/single/{{ $post->id }}" class="text-color">
                                 <img class="object-fit-cover" width="300px" height="200px"
                                     src="{{ $post->images[0]->url }}" class="card-img-top" alt="...">

@@ -36,7 +36,7 @@
                         </g>
                     </g>
                 </svg>
-                <h2 class="fw-bold fs-1 mb-1">9</h2>
+                <h2 class="fw-bold fs-1 mb-1">{{ $approved_post_count }}</h2>
                 <p class="fw-bold fs-4 mb-2">Tin đã đăng</p>
             </a>
         </div>
@@ -61,7 +61,7 @@
                         </g>
                     </g>
                 </svg>
-                <h2 class="fw-bold fs-1 mb-1">9</h2>
+                <h2 class="fw-bold fs-1 mb-1">{{ $pending_post_count }}</h2>
                 <p class="fw-bold fs-4 mb-2">Tin chờ duyệt</p>
             </a>
         </div>
@@ -99,7 +99,7 @@
                         </g>
                     </g>
                 </svg>
-                <h2 class="fw-bold fs-1 mb-1">9</h2>
+                <h2 class="fw-bold fs-1 mb-1">{{ $rejected_post_count }}</h2>
                 <p class="fw-bold fs-4 mb-2">Tin bị từ chối</p>
             </a>
         </div>

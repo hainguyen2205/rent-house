@@ -140,7 +140,7 @@
         </div>
         <div class="features-block mt-5 py-4">
             <div class="container d-flex justify-content-between">
-                <div class="card text-center" style="width: 18rem;">
+                <div class="card text-center shadow border-bottom-primary" style="width: 18rem;">
                     <div class="card-body">
                         <svg width="50px" height="50px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
@@ -249,7 +249,7 @@
                         <h5 class="card-title mt-3 mb-0">Phòng trọ gần trường</h5>
                     </div>
                 </div>
-                <div class="card text-center" style="width: 18rem;">
+                <div class="card text-center shadow border-bottom-success" style="width: 18rem;">
                     <div class="card-body">
                         <svg width="50px" height="50px" viewBox="0 0 1024 1024" class="icon" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" fill="#000000">
@@ -301,7 +301,7 @@
                         <h5 class="card-title mt-3 mb-0">Phòng trọ gần khu công nghiệp</h5>
                     </div>
                 </div>
-                <div class="card text-center" style="width: 18rem;">
+                <div class="card text-center shadow border-bottom-warning" style="width: 18rem;">
                     <div class="card-body">
                         <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" width="50px" height="50px" viewBox="0 0 64 64"
@@ -340,7 +340,7 @@
                         <h5 class="card-title mt-3 mb-0">Căn hộ/Chung cư mini</h5>
                     </div>
                 </div>
-                <div class="card text-center" style="width: 18rem;">
+                <div class="card text-center shadow border-bottom-danger" style="width: 18rem;">
                     <div class="card-body">
                         <svg width="50px" height="50px" viewBox="0 0 32 32" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -377,7 +377,7 @@
                 <h4 class="fw-bold py-3">Tin đăng phòng mới</h4>
                 <div class="new-posts mt-4 mb-3">
                     @for ($i = 1; $i <= 8; $i++)
-                        <div class="card mb-1" style="width: 19rem;">
+                        <div class="card mb-1 shadow-sm" style="width: 19rem;">
                             <img src="templates/front/images/uuu8.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title mb-1">Tìm người thuê trọ {{ $i }}</h5>
@@ -522,9 +522,9 @@
                                     <p class="mb-0 ms-1 text-danger">1.000.000 đ/tháng</p>
                                 </div>
                             </div>
-                            <div class="card-footer">
+                            {{-- <div class="card-footer">
                                 <p class="fw-bold text-decoration-underline fst-italic text-end m-0">Xem chi tiết</p>
-                            </div>
+                            </div> --}}
 
                         </div>
                     @endfor

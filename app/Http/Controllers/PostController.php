@@ -47,7 +47,6 @@ class PostController extends Controller
     {
         $this->setTitle('Tạo bài đăng');
         $districts = new AddressController();
-        // dd('hehehe');
         return view('post.create', [
             'title' => $this->title,
             'districts' => $districts->getAllDistrict(),

@@ -1,9 +1,9 @@
 @extends('layout')
 @section('content')
-    <div class="container">
+    <div class="container position-relative">
         <div class="row py-5">
             <div class="col-md-3 col-sm-12 mb-2">
-                <div class="card d-flex flex-column position-relative py-4">
+                <div class="card d-flex flex-column position-relative py-4 border-left-primary shadow">
                     <div class="card-body">
                         <a href="/profile/edit" class="position-absolute top-0 end-0 mt-2 me-4"><i
                                 class="bi bi-pencil-square"></i>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-md-9 col-sm-12">
-                <div class="card d-flex flex-column py-4">
+                <div class="card d-flex flex-column border-left-primary shadow py-4">
                     <div class="card-body d-flex justify-content-center">
                         <div class="w-75">
                             @yield('right_content')

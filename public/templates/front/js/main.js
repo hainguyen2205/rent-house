@@ -149,6 +149,12 @@ displayValidateNotify('#acreageInput');
 displayValidateNotify('#rentInput');
 displayValidateNotify('#electricityPriceInput');
 displayValidateNotify('#waterPriceInput');
+
+displayValidateNotify('#nameInput');
+displayValidateNotify('#passwordInput');
+displayValidateNotify('#repasswordInput');
+displayValidateNotify('#addressInput');
+
 // End Validation Form
 
 // Ajax Upload Image
@@ -208,6 +214,7 @@ $('#avatarInput').on('change', function () {
       if (response.error == false) {
         var url_array = response.urls.split('&&');
         $('#avatar-preview').attr('src', url_array[0]);
+        $('#avatar-url-input').val(url_array[0]);
         console.log(url_array[0]);
       }
     },

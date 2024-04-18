@@ -37,10 +37,10 @@ Route::prefix('/post')->middleware('auth')->group(
         Route::get('/list', [PostController::class, 'displayPostList']);
         Route::get('/single/{id_post}', [PostController::class, 'displayPostSingle']);
         Route::get('/create', [PostController::class, 'displayCreatePost']);
-        Route::get('/profile', [PostController::class, 'displayProfile']);
+        Route::post('/create', [PostController::class, 'createPost']);
     }
 );
-Route::prefix('/admin')->middleware('admin_auth')->group(
+Route::prefix('/admin')->group(
     function () {
         Route::get('/', function () {
             return view('admin.dashboard');
@@ -50,7 +50,9 @@ Route::prefix('/admin')->middleware('admin_auth')->group(
 Route::prefix('/profile')->middleware('auth')->group(
     function () {
         Route::get('/', [UserController::class, 'index']);
-        Route::get('/edit', [UserController::class, 'edit']);
+        Route::get('/edit', [UserController::class, 'showEditForm']);
+        Route::post('/update', [UserController::class, 'updateUserInfo']);
+        Route::get('/post/{post_status}', [UserController::class, 'showPosts']);
     }
 );
 
