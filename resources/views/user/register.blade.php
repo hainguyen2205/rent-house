@@ -28,14 +28,14 @@
                             <div class="d-flex justify-content-between">
                                 <div class="me-1 w-50 form-floating mb-3 ">
                                     <input type="tel" class="form-control" name="phone" id="phonenumberInput" placeholder=""
-                                        required value="0965188209">
+                                        required>
                                     <label for="phonenumberInput"><i class="bi bi-telephone"></i> Số điện thoại</label>
                                     <div class="invalid-feedback" id="phonenumberFeedback">
                                         Số điện thoại không hợp lệ!
                                     </div>
                                 </div>
                                 <div class="ms-1 w-50 form-floating mb-3">
-                                    <input type="text" id="nameInput" name="name" class="form-control" placeholder="" required value="Nguyễn Văn Hải">
+                                    <input type="text" id="nameInput" name="name" class="form-control" placeholder="" required >
                                     <label class="label" for="nameInput"><i class="bi bi-person"></i> Tên đầy đủ</label>
                                     <div class="invalid-feedback" id="nameFeedback">
                                         Tên cá nhân không hợp lệ!
@@ -43,14 +43,14 @@
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" id="passwordInput" name="password" class="form-control" placeholder="" required value="12345">
+                                <input type="password" id="passwordInput" name="password" class="form-control" placeholder="" required >
                                 <label class="label" for="passwordInput"><i class="bi bi-lock"></i> Mật khẩu</label>
                                 <div class="invalid-feedback" id="passwordFeedback">
                                     Mật khẩu không hợp lệ!
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" id="repasswordInput" name="repassword" class="form-control" placeholder="" required value="12345">
+                                <input type="password" id="repasswordInput" name="repassword" class="form-control" placeholder="" required >
                                 <label class="label" for="repasswordInput"><i class="bi bi-lock"></i> Nhập lại mật
                                     khẩu</label>
                                 <div class="invalid-feedback" id="repasswordFeedback">
@@ -63,7 +63,7 @@
                                     Ký</button>
                             </div>
                         </form>
-                        <p class="text-center">Đã có tài khoản? <a data-toggle="tab" href="/login">Đăng nhập</a></p>
+                        <p class="text-center">Đã có tài khoản? <a data-toggle="tab" href="/login" class="text-primary">Đăng nhập</a></p>
                     </div>
                 </div>
             </div>

@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="rentInput">Giá phòng (VND/Tháng)</label>
-                                <input type="number" name="rent" id="rentInput" class="form-control">
+                                <input type="number" name="rent" id="rentInput" class="form-control" pattern="[0-9]{1,3}(?:[0-9]{3})*">
                                 <div class="invalid-feedback">{{ $errors->first('rent') }}</div>
                             </div>
                         </div>

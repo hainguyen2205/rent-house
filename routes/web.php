@@ -40,7 +40,7 @@ Route::prefix('/post')->middleware('auth')->group(
         Route::post('/create', [PostController::class, 'createPost']);
     }
 );
-Route::prefix('/admin')->group(
+Route::prefix('/admin')->middleware('admin_auth')->group(
     function () {
         Route::get('/', function () {
             return view('admin.dashboard');

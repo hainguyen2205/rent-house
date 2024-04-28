@@ -2,7 +2,7 @@
     <div class="container">
         <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
             <div class="me-5 d-none d-lg-block">
-                <span>Get connected with us on social networks:</span>
+                <span>Hãy kết nối với chúng tôi trên các mạng xã hội:</span>
             </div>
 
             <div>
@@ -13,16 +13,7 @@
                     <i class="fab fa-twitter"></i>
                 </a>
                 <a href="" class="me-4 text-white">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="" class="me-4 text-white">
                     <i class="fab fa-instagram"></i>
-                </a>
-                <a href="" class="me-4 text-white">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="" class="me-4 text-white">
-                    <i class="fab fa-github"></i>
                 </a>
             </div>
         </section>
@@ -32,56 +23,56 @@
                 <div class="row mt-3">
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>NHACHOTHUE
+                            <i class="bi bi-house-door-fill me-3"></i>NHACHOTHUE
                         </h6>
                         <p class="text-white">
-                            Here you can use rows and columns to organize your footer content. Lorem ipsum
-                            dolor sit amet, consectetur adipisicing elit.
+                            Tìm và đăng tin nhà cho thuê một cách dễ dàng và nhanh chóng với Nhachothue. <br> Nền tảng
+                            trực tuyến giúp kết nối chủ nhà và người thuê, cung cấp nhiều lựa chọn về căn hộ, nhà riêng
+                            và phòng trọ.
                         </p>
                     </div>
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
-                            Products
+                           Liên kết
                         </h6>
                         <p>
-                            <a href="#!" class="text-white">Angular</a>
+                            <a href="/login" class="text-white">Đăng nhập</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">React</a>
+                            <a href="/register" class="text-white">Đăng ký</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Vue</a>
+                            <a href="/profile" class="text-white">Tài khoản</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Laravel</a>
+                            <a href="#!" class="text-white">Nạp tiền</a>
                         </p>
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
-                            Useful links
+                            Hữu ích
                         </h6>
                         <p>
-                            <a href="#!" class="text-white">Pricing</a>
+                            <a href="/#" class="text-white">Chia sẻ kinh nghiệm</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Settings</a>
+                            <a href="#!" class="text-white">Bảng giá đăng tin</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Orders</a>
+                            <a href="#!" class="text-white">Bảng giá nạp tiền</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Help</a>
+                            <a href="#!" class="text-white">Khuyến mãi</a>
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                        <p class="text-white"><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                        <p class="text-white"><i class="fas fa-home me-3"></i>Thái Nguyên, Việt Nam</p>
                         <p class="text-white">
-                            <i class="fas fa-envelope me-3 "></i>
-                            info@example.com
+                            <i class="fas fa-envelope me-3 "></i>ng.vanhai@gmail.com
                         </p>
-                        <p class="text-white"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p class="text-white"><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        <p class="text-white"><i class="fas fa-phone me-3"></i>+84 965 188 209</p>
+                        <p class="text-white"><i class="fas fa-print me-3"></i>+84 965 188 209</p>
                     </div>
                 </div>
             </div>

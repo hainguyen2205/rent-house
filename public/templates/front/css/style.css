@@ -28,7 +28,7 @@ a:hover {
     color: var(--primary-color)
 }
 
-.content {
+.background-content {
     background-color: rgb(244 244 244 / 1);
 }
 
@@ -144,8 +144,6 @@ a:hover {
 
 }
 
-
-
 /* footer */
 footer {
     background-color: #478ac9;
@@ -161,32 +159,18 @@ footer p {
 
 /* filter - block */
 .search-block {
-    height: 70vh;
-    width: 100%;
     background-position: 50% 50%;
     background-image: url(/templates/front/images/1525.jpg);
     object-fit: cover;
     background-size: cover;
     background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 650px;
 }
 
 .search-box {
     background: rgba(0, 0, 0, 0.2);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
     width: 50vw !important;
-}
-
-.search-filer-input {
-    width: 24% !important;
-    height: 37px !important;
-}
-
-.background-primary .search-filer-input {
-    width: 20% !important;
-    height: 37px !important;
 }
 
 .search-box h1,
@@ -211,17 +195,54 @@ h4 {
 }
 
 .district-item {
-    border-radius: 3%;
+    border-radius: 4px;
     position: relative;
     height: 0;
     padding-top: 75%;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.district-item:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+    border-radius: 4px;
+    transform: rotate(-180deg);
+}
+
+.thainguyen-bg {
+    background-image: url(/templates/front/images/tpthainguyen.jpg);
+
+}
+
+.songcong-bg {
+    background-image: url(/templates/front/images/songcong.jpg);
+
+}
+
+.phoyen-bg {
+    background-image: url(/templates/front/images/phoyen.jpg);
+}
+
+.daitu-bg {
+    background-image: url(/templates/front/images/daitu.jpg);
+}
+
+.phubinh-bg {
+    background-image: url(/templates/front/images/phubinh.jpg);
 }
 
 .district-item .item-title {
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 20px;
     z-index: 4;
 }
 
@@ -280,9 +301,6 @@ h4 {
 }
 
 /* List post page */
-/* .search-bar {
-    background-color: #3d3d3d;
-} */
 
 .form-select option {
     border: 1px solid black;
@@ -323,7 +341,7 @@ h4 {
 }
 
 .images-carousel img {
-    max-width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
@@ -418,9 +436,54 @@ h4 {
     object-fit: cover;
 }
 
-/* .object-fill-cover{
-    object-fit: scale-down;
-} */
+.post-box-item {
+    height: 400px;
+}
+
+.post-box-item .img-post {
+    height: 60%;
+}
+
+.img-post .btn {
+    transition: .5s ease;
+    opacity: 0;
+}
+
+.img-post img {
+    transition: .5s ease;
+}
+
+.img-post:hover img {
+    opacity: 0.5;
+}
+
+.img-post:hover .btn {
+    opacity: 1;
+}
+
+.details-post p {
+    color: var(--text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.post-item img {
+    max-width: 100% !important;
+    max-height: 180px !important;
+}
+
+.white-space-pre {
+    white-space: pre-line;
+}
+
+.popular-posts-cell {
+    width: 280px !important;
+    height: 380px;
+}
+.popular-posts-cell .img-post{
+    height: 60%;
+}
 
 @media (max-width: 991.98px) {
 

@@ -16,7 +16,7 @@ class Post extends Model
         'id_ward',
         'acreage',
         'rent',
-        '',
+        'electric_price',
         'water_price',
         'views',
         'interests',

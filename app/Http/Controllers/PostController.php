@@ -36,11 +36,16 @@ class PostController extends Controller
     {
         $this->setTitle('Chi tiết bài đăng');
         $post = Post::findOrFail($id_post);
-        $posts_of_author = Post::where('id_user', $post->id_user)->get();
+        $posts_of_author = Post::where('id_user','=',$post->id_user)->where('id', '<>', $post->id)->get();
+        $related_address_posts = Post::where('id_district', '=', $post->id_district)->where('id_ward', '=', $post->id_ward)->where('id_status', '=', '2')->where('id', '<>', $post->id)->paginate(5);
+        if (count($related_address_posts) < 2) {
+            $related_address_posts = Post::where('id_district', '=', $post->id_district)->where('id_status', '=', '2')->where('id', '<>', $post->id)->paginate(5);
+        }
         return view('post.single', [
             'title' => $this->title,
             'post' => $post,
             'posts_of_author' => $posts_of_author,
+            'related_address_posts' => $related_address_posts
         ]);
     }
     public function displayCreatePost()

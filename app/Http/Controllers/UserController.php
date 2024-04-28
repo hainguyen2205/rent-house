@@ -71,11 +71,11 @@ class UserController extends Controller
         if (!array_key_exists($status, $id_status_map)) {
             return abort(404);
         }
-        $posts = Post::where('id_status', $id_status)->where('id_user', Auth::user()->id);
+        $posts = Post::where('id_status', $id_status)->where('id_user', Auth::user()->id)->get();
         return view('user.posts', [
             'title' => $this->title,
             'posts' => $posts,
-            'title_status' => $title_status
+            'title_status' => $title_status,
         ]);
     }
     public function updateUserInfo(UserInfoRequest $userInfoRequest)

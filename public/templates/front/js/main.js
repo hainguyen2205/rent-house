@@ -3,6 +3,7 @@
     cellAlign: 'left',
     contain: true,
     wrapAround: true,
+    autoPlay: true,
     percentPosition: selector === '.images-carousel'
   });
 });

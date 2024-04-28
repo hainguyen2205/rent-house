@@ -9,8 +9,14 @@
                                 class="bi bi-pencil-square"></i>
                             Sửa</a>
                         <div class="text-center">
-                            <img width="80px" height="80px" src="{{ Auth::user()->avatar_url }}" class="cicle-border"
-                                alt="">
+                            @if (Auth::user()->avatar_url == null)
+                                <img width="80px" height="80px" src="/templates/front/images/undraw_profile.svg"
+                                    class="cicle-border" alt="">
+                            @else
+                                <img width="80px" height="80px" src="{{ Auth::user()->avatar_url }}" class="cicle-border"
+                                    alt="">
+                            @endif
+
                             <p class="my-1 fw-bold fs-5">{{ Auth::user()->name }}</p>
                             <p class="my-1"><i class="bi bi-telephone"></i> {{ Auth::user()->phone }}</p>
                             <p class="my-1"><i class="fa-solid fa-coins"></i> Số dư: {{ Auth::user()->account_balance }}đ

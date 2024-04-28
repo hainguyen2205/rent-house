@@ -71,7 +71,7 @@
             </form>
         </div>
     </div>
-    <div class="container post-list pt-4 pb-5">
+    <div class="container post-list pt-4 pb-2">
         <div class="font-opensans">
             <h3 class="text-color text-center">DANH SÁCH BÀI ĐĂNG</h3>
             <p class="text-color fst-italic text-center">Tìm kiếm: Đại học CNTT, TP Thái Nguyên, Phường Tân Thịnh 300,000đ
@@ -128,7 +128,8 @@
                                         <p class="mt-1 me-1 mb-0"><i class="fa-solid fa-ruler"></i> {{ $post->acreage }}m2
                                         </p>
                                         @foreach ($post->services as $service)
-                                            <p class="mt-1 mx-1 mb-0">{!! html_entity_decode($service->icon) !!}{{ $service->services_name }}</p>
+                                            <p class="mt-1 mx-1 mb-0">{!! html_entity_decode($service->icon) !!}{{ $service->services_name }}
+                                            </p>
                                         @endforeach
                                     </div>
                                     <p class="mb-0 my-1"><i
@@ -136,13 +137,21 @@
                                         {{ $post->district->district_name }}
                                     </p>
                                     <p class="mb-0 my-1 text-danger"> <i style="color: black" class="bi bi-coin"></i>
-                                        {{ $post->rent }} đ/tháng</p>
+                                        {{ number_format($post->rent) }} đ/tháng</p>
                                 </div>
                             </a>
                         </div>
                     @endforeach
-                    {{ $posts->links() }}
                 </div>
+                <nav class="d-flex justify-content-end me-4 mt-3" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

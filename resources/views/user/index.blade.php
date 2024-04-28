@@ -2,7 +2,7 @@
 @section('right_content')
     <div class="row py-2">
         <div class="approved-posts-count text-center col-md-4 col-sm-12">
-            <a href="">
+            <a href="/profile/post/approved">
                 <svg width="100px" height="100px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -41,7 +41,7 @@
             </a>
         </div>
         <div class="pending-posts-count text-center col-md-4 col-sm-12">
-            <a href="">
+            <a href="/profile/post/pending">
                 <svg fill="#005875" height="100px" width="60px" version="1.1" id="Capa_1"
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297"
                     xml:space="preserve" stroke="#005875">
@@ -66,7 +66,7 @@
             </a>
         </div>
         <div class="rejected-posts-count text-center col-md-4 col-sm-12">
-            <a href="">
+            <a href="/profile/post/rejected">
                 <svg width="60px" height="100px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

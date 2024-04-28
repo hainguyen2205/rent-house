@@ -25,8 +25,14 @@
         <form action="/profile/update" method="POST">
             @csrf
             <div class="avatar-show position-relative mb-3 text-center">
-                <img id="avatar-preview" width="120px" height="120px" src="{{ Auth::user()->avatar_url }}"
-                    class="cicle-border object-fit-cover" alt="">
+                @if (Auth::user()->avatar_url == null)
+                    <img id="avatar-preview" width="120px" height="120px" src="/templates/front/images/undraw_profile.svg"
+                        class="cicle-border object-fit-cover" alt="">
+                @else
+                    <img id="avatar-preview" width="120px" height="120px" src="{{ Auth::user()->avatar_url }}"
+                        class="cicle-border object-fit-cover" alt="">
+                @endif
+
                 <input id="avatar-url-input" name="avatar_url" type="hidden" value="{{ Auth::user()->avatar_url }}">
                 <div data-mdb-button-init data-mdb-ripple-init class="mt-2">
                     <label id="label-image" class="form-label m-0 object-fill-cover" for="avatarInput"><i

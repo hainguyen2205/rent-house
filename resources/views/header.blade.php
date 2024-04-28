@@ -25,18 +25,23 @@
                         <a class="nav-link" href="/post/list">Danh sách bài đăng</a>
                     </li>
                 </ul>
-
             </div>
             <div class="d-flex py-2 my-2 my-lg-0">
                 @if (Auth::check())
                     <div class="dropdown open">
                         <div class="d-flex avatar-block dropdown-toggle" type="button" id="triggerId"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img width="38px" height="38px" class="cicle-border mt-1" src="{{ Auth::user()->avatar_url }}"
-                                alt="">
+                            @if (Auth::user()->avatar_url == null)
+                                <img width="38px" height="38px" class="cicle-border object-fit-cover mt-1"
+                                    src="/templates/front/images/undraw_profile.svg" alt="">
+                            @else
+                                <img width="38px" height="38px" class="cicle-border object-fit-cover mt-1"
+                                    src="{{ Auth::user()->avatar_url }}" alt="">
+                            @endif
                             <div class="ps-1">
                                 <p style="font-size: 14px" class="fw-bold m-0">{{ Auth::user()->name }}</p>
-                                <p style="font-size: 13px" class="m-0"><i class="bi bi-coin"> </i><span>{{  Auth::user()->account_balance}} vnd</span> </p>
+                                <p style="font-size: 13px" class="m-0"><i class="bi bi-coin">
+                                    </i><span>{{ number_format(Auth::user()->account_balance) }} vnd</span> </p>
                             </div>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start" aria-labelledby="triggerId">

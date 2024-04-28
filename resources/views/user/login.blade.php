@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </form>
-                        <p class="text-center pb-5">Chưa có tài khoản? <a data-toggle="tab" href="/register">Đăng ký ngay</a></p>
+                        <p class="text-center pb-5">Chưa có tài khoản? <a data-toggle="tab" class="text-primary" href="/register">Đăng ký ngay</a></p>
                     </div>
                 </div>
             </div>

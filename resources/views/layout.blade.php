@@ -23,7 +23,7 @@
 
 <body class="mulish">
     @include('header')
-    <div class="content">
+    <div class="background-content">
         @yield('content')
     </div>
     @include('footer')
