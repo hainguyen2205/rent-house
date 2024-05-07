@@ -1,31 +1,6 @@
 @extends('layout')
 @section('content')
     <div class="main-content">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <div class="search-block d-flex justify-content-center  align-items-center py-5">
             <div class="search-box px-5 py-5 w-75">
 
@@ -94,54 +69,66 @@
                     bạn</h1>
                 <div class="districts">
                     <div class="district-item thainguyen-bg">
-                        <div class="item-title text-white">
-                            <p class="fw-bold fs-5">TP. Thái Nguyên</p>
-                            <p class="fs-6">9 tin đăng</p>
-                        </div>
+                        <a href="/post/list?id_district=1">
+                            <div class="item-title text-white">
+                                <p class="fw-bold fs-5">TP. Thái Nguyên</p>
+                                <p class="fs-6">9 tin đăng</p>
+                            </div>
+                        </a>
                     </div>
+
                     <div class="district-item songcong-bg">
-                        <div class="item-title text-white">
-                            <p class="fw-bold fs-5">TP. Sông Công</p>
-                            <p class="fs-6">9 tin đăng</p>
-                        </div>
+                        <a href="/post/list?id_district=2">
+                            <div class="item-title text-white">
+                                <p class="fw-bold fs-5">TP. Sông Công</p>
+                                <p class="fs-6">9 tin đăng</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="district-item phoyen-bg">
-                        <div class="item-title text-white">
-                            <p class="fw-bold fs-5">TP. Phổ Yên</p>
-                            <p class="fs-6">9 tin đăng</p>
-                        </div>
+                        <a href="/post/list?id_district=8">
+                            <div class="item-title text-white">
+                                <p class="fw-bold fs-5">TP. Phổ Yên</p>
+                                <p class="fs-6">9 tin đăng</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="district-item phubinh-bg">
-                        <div class="item-title text-white">
-                            <p class="fw-bold fs-5">Huyện Phú Bình</p>
-                            <p class="fs-6">9 tin đăng</p>
-                        </div>
+                        <a href="/post/list?id_district=9">
+                            <div class="item-title text-white">
+                                <p class="fw-bold fs-5">Huyện Phú Bình</p>
+                                <p class="fs-6">9 tin đăng</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="district-item daitu-bg">
-                        <div class="item-title text-white">
-                            <p class="fw-bold fs-5">Huyện Đại Từ</p>
-                            <p class="fs-6">9 tin đăng</p>
-                        </div>
+                        <a href="/post/list?id_district=7">
+                            <div class="item-title text-white">
+                                <p class="fw-bold fs-5">Huyện Đại Từ</p>
+                                <p class="fs-6">9 tin đăng</p>
+                            </div>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </div>
         <div class="popular-posts-block pb-4">
             <div class="container">
-                <h4 class="fw-bold mb-4 py-3">Phòng trọ đang được quan tâm</h4>
-                <div class="popular-posts-carousel" data-flickity='{ "autoPlay": true }'>
+                <h4 class="fw-bold mb-4 text-color">Phòng trọ đang được quan tâm</h4>
+                <div class="popular-posts-carousel">
                     @foreach ($popular_posts as $post)
-                        <div class="popular-posts-cell card w-100 mx-2 shadow">
-                            <div class="img-post p-2 position-relative">
-                                <img class="object-fit-cover w-100 h-100" src="{{ $post->images[0]->url }}"
-                                    class="card-img-top" alt="...">
+                        <div class="popular-posts-cell w-100 mx-2 border rounded shadow-sm pb-2">
+                            <div class="img-post position-relative mb-2">
+                                <img class="object-fit-cover w-100 rounded-top h-100" src="{{ $post->images[0]->url }}"
+                                    alt="...">
                                 <a href="/post/single/{{ $post->id }}"
                                     class="btn btn-primary position-absolute top-50 start-50 translate-middle"><i
                                         class="bi bi-eye"></i> Xem chi
                                     tiết</a>
                             </div>
-                            <div class="details-post px-3 border-top mx-2">
-                                <p class="fs-5 fw-bold card-title mb-1 text-center">
+                            <div class="details-post px-3 mx-2">
+                                <p class="fs-5 fw-bold mb-1 text-center">
                                     {{ $post->title }}
                                 </p>
                                 <div class="row mb-1">
@@ -286,7 +273,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <h5 class="card-title mt-3 mb-0 fs-5 text-color">Phòng trọ gần trường</h5>
+                                <h5 class= "mt-3 mb-0 fs-5 text-color">Phòng trọ gần trường</h5>
                             </div>
                         </div>
                     </div>
@@ -343,7 +330,7 @@
                                             fill="#333E48"></path>
                                     </g>
                                 </svg>
-                                <h5 class="card-title mt-3 mb-0 fs-5 text-color">Phòng trọ gần khu công nghiệp</h5>
+                                <h5 class= "mt-3 mb-0 fs-5 text-color">Phòng trọ gần khu công nghiệp</h5>
                             </div>
                         </div>
                     </div>
@@ -386,7 +373,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <h5 class="card-title mt-3 mb-0 fs-5 text-color">Căn hộ/Chung cư mini</h5>
+                                <h5 class= "mt-3 mb-0 fs-5 text-color">Căn hộ/Chung cư mini</h5>
                             </div>
                         </div>
                     </div>
@@ -421,7 +408,7 @@
                                         </defs>
                                     </g>
                                 </svg>
-                                <h5 class="card-title mt-3 mb-0 fs-5 text-color">Tìm bạn ở ghép</h5>
+                                <h5 class=" mt-3 mb-0 fs-5 text-color">Tìm bạn ở ghép</h5>
                             </div>
                         </div>
                     </div>
@@ -430,21 +417,21 @@
         </div>
         <div class="new-posts-block py-4">
             <div class="container">
-                <h4 class="fw-bold py-3 fs-4 text-color">Tin đăng phòng mới</h4>
+                <h4 class="fw-bold pb-3 fs-4 text-color">Tin đăng phòng mới</h4>
                 <div class="row mb-3">
                     @foreach ($new_posts as $post)
-                        <div class="col-md-3 col-sm-6 mb-3">
-                            <div class="post-box-item card w-100 shadow">
-                                <div class="img-post p-2 position-relative">
-                                    <img class="object-fit-cover w-100 h-100" src="{{ $post->images[0]->url }}"
-                                        class="card-img-top" alt="...">
+                        <div class="col-md-3 col-sm-6 mb-3 px-2">
+                            <div class="post-box-item w-100 border rounded shadow-sm pb-2">
+                                <div class="img-post position-relative">
+                                    <img class="object-fit-cover rounded-top w-100 h-100"
+                                        src="{{ $post->images[0]->url }}" alt="...">
                                     <a href="/post/single/{{ $post->id }}"
                                         class="btn btn-primary position-absolute top-50 start-50 translate-middle"><i
                                             class="bi bi-eye"></i> Xem chi
                                         tiết</a>
                                 </div>
-                                <div class="details-post px-3 border-top mx-2">
-                                    <p class="fs-4 fw-bold card-title mb-1 text-center">
+                                <div class="details-post px-3 mt-2 mx-2">
+                                    <p class="fs-4 fw-bold mb-1 text-center">
                                         {{ $post->title }}
                                     </p>
                                     <div class="row mb-1">

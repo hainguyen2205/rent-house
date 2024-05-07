@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\AddressController;
-
-
-
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::get('/register', [HomeController::class, 'displayRegisterForm']);
 Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
+Route::get('/post/list', [PostController::class, 'displayPostList']);
 
 Route::post('/upload', [UploadController::class, 'store']);
 Route::get('/address/getwards', [AddressController::class, 'getAllWard']);
@@ -34,19 +36,38 @@ Route::get('/address/getwards', [AddressController::class, 'getAllWard']);
 
 Route::prefix('/post')->middleware('auth')->group(
     function () {
-        Route::get('/list', [PostController::class, 'displayPostList']);
         Route::get('/single/{id_post}', [PostController::class, 'displayPostSingle']);
         Route::get('/create', [PostController::class, 'displayCreatePost']);
         Route::post('/create', [PostController::class, 'createPost']);
     }
 );
-Route::prefix('/admin')->middleware('admin_auth')->group(
+Route::prefix('/feedback')->middleware('auth')->group(
     function () {
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        });
+        Route::post('/create', [FeedbackController::class, 'createFeedback']);
     }
 );
+Route::prefix('/admin')->middleware('admin_auth')->group(function () {
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    });
+    Route::prefix('/user')->group(function () {
+        Route::get('/list', [AdminUserController::class, 'displayUsersPage']);
+        Route::get('/getuser', [AdminUserController::class, 'getUser']);
+        Route::post('/create', [AdminUserController::class, 'createUser']);
+        Route::post('/update', [AdminUserController::class, 'updateUser']);
+        Route::get('/delete/{id_user}', [AdminUserController::class, 'deleteUser']);
+    });
+    Route::prefix('/post')->group(function () {
+        Route::get('/list/{status}', [AdminPostController::class, 'displayPostsPage']);
+        Route::get('/getpost', [AdminPostController::class, 'getPost']);
+        Route::get('/approve/{id_posr}', [AdminPostController::class, 'approvePost']);
+        Route::get('/reject/{id_posr}', [AdminPostController::class, 'rejectPost']);
+    });
+    Route::prefix('/service')->group(function () {
+        Route::get('/list', [AdminServiceController::class, 'displayServicesPage']);
+    });
+});
+
 Route::prefix('/profile')->middleware('auth')->group(
     function () {
         Route::get('/', [UserController::class, 'index']);

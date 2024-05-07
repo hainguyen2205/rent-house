@@ -83,16 +83,17 @@ function displayValidateNotifyImage() {
     if ($('#label-image').hasClass('btn-outline-secondary')) {
       $('#label-image').removeClass('btn-outline-secondary');
       $('#label-image').addClass('btn-outline-danger');
-      // $('#imageInput').addClass
     } else {
       $('#label-image').addClass('btn-outline-danger');
     }
   }
 }
-
 function displayValidateNotify(input) {
   var invalidFeedback = $(input).next('.invalid-feedback');
-  if (invalidFeedback.text() != '') {
+  if (invalidFeedback.length === 0) {
+    invalidFeedback = $(input).parent().find('.invalid-feedback');
+  }
+  if (invalidFeedback.text().trim() != '') {
     $(input).addClass('is-invalid');
   }
 }
@@ -155,6 +156,8 @@ displayValidateNotify('#nameInput');
 displayValidateNotify('#passwordInput');
 displayValidateNotify('#repasswordInput');
 displayValidateNotify('#addressInput');
+
+displayValidateNotify('#phonenumberInput');
 
 // End Validation Form
 
@@ -223,7 +226,6 @@ $('#avatarInput').on('change', function () {
       console.error(xhr.responseText);
     }
   });
-
 });
 
 $('#wardSelect').on('change', function () {
@@ -277,6 +279,44 @@ $('#districtSelect2').on('change', function () {
     });
   }
 })
+function toggleDropdown(element) {
+  var dropdown = $(element).find('.custom-dropdown');
+  var dropdownVisible = dropdown.hasClass('show');
+
+  if (dropdownVisible) {
+    dropdown.removeClass('show');
+  } else {
+    $('.custom-dropdown').removeClass('show');
+    dropdown.addClass('show');
+  }
+}
+$('.filter-post').click(function (event) {
+  event.stopPropagation();
+  toggleDropdown(this);
+});
+$('.custom-dropdown').click(function (event) {
+  event.stopPropagation();
+});
+
+$(document).click(function () {
+  $('.custom-dropdown').removeClass('show');
+});
+
+$('#orderby-btn').on('click', function () {
+  var isDropdownMenuVisible = $('#orderby-menu').hasClass('show');
+  if (!isDropdownMenuVisible) $('#orderby-menu').addClass('show');
+  else $('#orderby-menu').removeClass('show')
+});
+
+function orderByPosts(key) {
+  var url = new URL(window.location.href);
+  if (url.searchParams.has('orderby')) {
+    url.searchParams.delete('orderby');
+  }
+  url.searchParams.set('orderby', key);
+  window.location.href = url.toString();
+}
+
 
 
 

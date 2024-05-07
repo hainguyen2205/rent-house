@@ -19,10 +19,13 @@
                     </svg></a>
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/post/create">Đăng bài</a>
+                        <a class="nav-link fw-bold" href="/">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/post/list">Danh sách bài đăng</a>
+                        <a class="nav-link fw-bold" href="/post/create">Đăng bài</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="/post/list">Danh sách bài đăng</a>
                     </li>
                 </ul>
             </div>

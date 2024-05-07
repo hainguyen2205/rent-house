@@ -3,22 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserInfoRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function login(Request $request)
+    public function login(UserRequest $request)
     {
-        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
+        $credentials = $request->only('phone', 'password');
+        if (Auth::attempt($credentials)) {
             return redirect('/');
         }
-        return redirect()->back();
+        return redirect()->back()->with('incorrect', 'Số điện thoại hoặc mật khẩu không chính xác');
     }
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
         $request->merge(['password' => Hash::make($request->password)]);
         try {
@@ -78,9 +80,11 @@ class UserController extends Controller
             'title_status' => $title_status,
         ]);
     }
-    public function updateUserInfo(UserInfoRequest $userInfoRequest)
+    public function updateUserInfo(UserRequest $userInfoRequest)
     {
-        $userInfoRequest->merge(['password' => Hash::make($userInfoRequest->password)]);
+        if ($userInfoRequest->password != '') {
+            $userInfoRequest->merge(['password' => Hash::make($userInfoRequest->password)]);
+        }
         $data = $userInfoRequest->except(['_method', '_token', 'repassword']);
         $updateData = [];
         foreach ($data as $key => $value) {

@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('status__posts', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('status_name');
-            $table->string('color');
+            $table->integer('id_user');
+            $table->string('title');
+            $table->string('description');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('status__posts');
+        Schema::dropIfExists('feedback');
     }
 };

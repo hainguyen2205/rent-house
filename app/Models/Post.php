@@ -22,9 +22,18 @@ class Post extends Model
         'interests',
         'id_status'
     ];
+
+    public function getSinglePost($id)
+    {
+        return Post::findOrFail($id);
+    }
     public function district()
     {
         return $this->hasOne(District::class, 'id', 'id_district');
+    }
+    public function getStatus()
+    {
+        return $this->hasOne(Status_Post::class, 'id', 'id_status');
     }
     public function ward()
     {
@@ -36,9 +45,10 @@ class Post extends Model
     }
     public function services()
     {
-        return $this->belongsToMany(Service::class,'service__posts', 'id_post', 'id_service');
+        return $this->belongsToMany(Service::class, 'service__posts', 'id_post', 'id_service');
     }
-    public function images() {
+    public function images()
+    {
         return $this->hasMany(Image_Post::class, 'id_post', 'id');
     }
 }

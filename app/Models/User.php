@@ -28,6 +28,15 @@ class User extends Authenticatable
         'account_balance',
         'role'
     ];
+    public function status()
+    {
+        return $this->hasOne(StatusAccount::class, 'id', 'status_of_account');
+    }
+    public function getRole()
+    {
+        return $this->hasOne(Role::class, 'id', 'role');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -11,3 +11,17 @@
     --primary-color: #478ac9;
     --text-color: #4d4d4d;
 }
+.text-color-primary {
+    color: #478ac9;
+}
+
+.background-primary {
+    background-color: #478ac9;
+}
+
+.text-color {
+    color: var(--text-color);
+}
+#userTable tbody tr td{
+   text-align: center;
+}

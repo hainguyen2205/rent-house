@@ -5,16 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Nhachothue - Admin</title>
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <link href="/templates/admin/css/style.css" rel="stylesheet">
     <link href="/templates/admin/css/admin.min.css" rel="stylesheet">
+    <link href="/templates/admin/css/style.css" rel="stylesheet">
 
     <script src="/templates/admin/js/main.js" defer></script>
     <script src="/templates/admin/js/sidebar.min.js" defer></script>
@@ -46,7 +45,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item active">
-                <a class="nav-link" href="admin/">
+                <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -66,7 +65,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý người dùng</h6>
-                        <a class="collapse-item" href="#">Danh sách người dùng</a>
+                        <a class="collapse-item" href="/admin/user/list">Danh sách người dùng</a>
+                        <a class="collapse-item" href="#">Phản hồi người dùng</a>
                         <a class="collapse-item" href="#">Nạp tiền</a>
                     </div>
                 </div>
@@ -82,13 +82,27 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý tin đăng</h6>
-                        <a class="collapse-item" href="#">Tin chờ duyệt</a>
-                        <a class="collapse-item" href="#">Tin đã duyệt</a>
-                        <a class="collapse-item" href="#">Tin từ chối</a>
+                        <a class="collapse-item" href="/admin/post/list/pending">Tin chờ duyệt</a>
+                        <a class="collapse-item" href="/admin/post/list/approved">Tin đã duyệt</a>
+                        <a class="collapse-item" href="/admin/post/list/rejected">Tin từ chối</a>
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider">
 
+            <div class="sidebar-heading">
+                Nội dung
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/service/list">
+                    <i class="fa-solid fa-house-signal"></i>
+                    <span>Dịch vụ</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                    <span>Phí đăng tin</span></a>
+            </li>
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
@@ -188,7 +202,8 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="/templates/admin/images/undraw_profile_1.svg" alt="...">
+                                        <img class="rounded-circle" src="/templates/admin/images/undraw_profile_1.svg"
+                                            alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -199,7 +214,8 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="/templates/admin/images/undraw_profile_2.svg" alt="...">
+                                        <img class="rounded-circle" src="/templates/admin/images/undraw_profile_2.svg"
+                                            alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -210,7 +226,8 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="/templates/admin/images/undraw_profile_3.svg" alt="...">
+                                        <img class="rounded-circle" src="/templates/admin/images/undraw_profile_3.svg"
+                                            alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -261,7 +278,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                <a class="dropdown-item" href="/logout" data-toggle="modal"
                                     data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -300,7 +317,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
