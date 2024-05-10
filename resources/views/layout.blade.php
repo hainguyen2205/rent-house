@@ -22,6 +22,28 @@
 </head>
 
 <body class="mulish">
+
+    <div class="position-fixed top-0 w-100 z-3 d-flex justify-content-center">
+        @if (Session::has('error'))
+            <div class="alert alert-danger alert-dismissible fade show mt-3 z-3 w-75 text-center" role="alert">
+                <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> {{ Session::get('error') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-warning alert-dismissible fade show mt-3 z-3 w-75 text-center" role="alert">
+                <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> Kiểm tra lại các thông tin.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-3 z-3 w-75 text-center" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+
     @if (Auth::check())
         <div class="feedback-box position-fixed cursor-pointer bg-success shadow" data-bs-toggle="modal"
             data-bs-target="#feedbackModal">
@@ -40,16 +62,19 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="title-feedback" class="form-label">Tiêu đề</label>
-                                <input type="text" class="form-control" name="title" id="title-feedback" required>
+                                <input type="text" class="form-control is-invalid" name="title" id="title-feedback" required>
+                                <div class="invalid-feedback"></div>
                             </div>
-                            <div >
+                            <div>
                                 <label for="description-feedback" class="form-label">Nôi dung phản hồi</label>
-                                <textarea class="form-control" name="description" id="description-feedback" required rows="3"></textarea>
+                                <textarea class="form-control is-invalid" name="description" id="description-feedback" required rows="3"></textarea>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="px-3 pb-3 d-flex justify-content-end">
                             <button type="button" class="btn btn-light mx-2 w-25" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-primary mx-2 w-25"><i class="bi bi-send-fill"></i> Gửi</button>
+                            <button type="submit" class="btn btn-primary mx-2 w-25"><i class="bi bi-send-fill"></i>
+                                Gửi</button>
                         </div>
                     </form>
                 </div>

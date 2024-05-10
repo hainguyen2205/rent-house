@@ -19,50 +19,106 @@
                     </svg></a>
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="/">Trang chủ</a>
+                        <a class="nav-link" href="/">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="/post/create">Đăng bài</a>
+                        <a class="nav-link" href="/post/create">Đăng bài</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="/post/list">Danh sách bài đăng</a>
+                        <a class="nav-link" href="/post/list">Danh sách bài đăng</a>
                     </li>
                 </ul>
             </div>
-            <div class="d-flex py-2 my-2 my-lg-0">
-                @if (Auth::check())
-                    <div class="dropdown open">
-                        <div class="d-flex avatar-block dropdown-toggle" type="button" id="triggerId"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (Auth::user()->avatar_url == null)
-                                <img width="38px" height="38px" class="cicle-border object-fit-cover mt-1"
-                                    src="/templates/front/images/undraw_profile.svg" alt="">
-                            @else
-                                <img width="38px" height="38px" class="cicle-border object-fit-cover mt-1"
-                                    src="{{ Auth::user()->avatar_url }}" alt="">
-                            @endif
-                            <div class="ps-1">
-                                <p style="font-size: 14px" class="fw-bold m-0">{{ Auth::user()->name }}</p>
-                                <p style="font-size: 13px" class="m-0"><i class="bi bi-coin">
-                                    </i><span>{{ number_format(Auth::user()->account_balance) }} vnd</span> </p>
-                            </div>
-                        </div>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start" aria-labelledby="triggerId">
-                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-person-video"></i> Thông tin cá
-                                    nhân</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-cash"></i> Nạp tiền</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-postcard"></i> Quản lý bài
-                                    đăng</a></li>
-                            <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Đăng
-                                    xuất</a></li>
-                        </ul>
-                    </div>
-                @else
-                    <a class="nav-link me-2" href="/register"><button class="btn btn-light">Đăng ký</button></a>
-                    <a class="nav-link" href="/login"><button class="btn btn-primary">Đăng nhập</button></a>
-                @endif
-            </div>
 
+            <ul class="nav justify-content-center">
+                @if (Auth::check())
+                    <li class="nav-item mx-2">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" type="button" id="dropdownChat" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="nav-icon fs-4 text-color bi bi-envelope-fill"></i>
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
+                                aria-labelledby="dropdownChat">
+                                <li><a class="dropdown-item" href="#">Action dqsadasdasdsadaseqweqw3123123</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item mx-2">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" type="button" id="dropdownNotify" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fs-4 nav-icon bi bi-bell-fill text-color"></i>
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
+                                aria-labelledby="dropdownNotify">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <div class="navbar-divider"></div>
+                    <li class="nav-item mx-2">
+                        <div class="dropdown open">
+                            <div class="avatar-block dropdown-toggle" type="button" id="triggerId"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if (Auth::user()->avatar_url == null)
+                                    <img width="32px" height="32px" class="cicle-border object-fit-cover"
+                                        src="/templates/front/images/undraw_profile.svg" alt="">
+                                @else
+                                    <img width="32px" height="32px" class="cicle-border object-fit-cover"
+                                        src="{{ Auth::user()->avatar_url }}" alt="">
+                                @endif
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
+                                aria-labelledby="triggerId">
+                                <li>
+                                    <div class="dropdown-item">
+                                        <p class="m-0 fw-bold">{{ Auth::user()->name }}</p>
+                                        <i class="bi bi-coin"></i><span>
+                                            {{ number_format(Auth::user()->account_balance) }}
+                                            vnđ</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/profile">
+                                        <i class="bi bi-person-video"></i> Thông tin cá nhân
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-cash"></i> Nạp tiền
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-postcard"></i> Quản lý bài đăng</a>
+                                    </li>
+                                <li>
+                                    <a class="dropdown-item" href="/logout">
+                                        <i class="bi bi-box-arrow-right"></i>Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="btn btn-light me-1" href="/register">Đăng ký</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="/login">Đăng nhập</a>
+                    </li>
+                @endif
+            </ul>
         </nav>
     </div>
 </header>

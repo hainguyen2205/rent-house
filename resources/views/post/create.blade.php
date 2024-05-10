@@ -1,30 +1,7 @@
 @extends('layout')
 @section('content')
     <div class="main-content">
-
-        <div class="container d-flex justify-content-center position-relative">
-            @if (Session::has('error'))
-                <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 mt-3 z-3 w-75 text-center"
-                    role="alert">
-                    <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> {{ Session::get('error') }}.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-warning alert-dismissible fade show position-fixed top-0 mt-3 z-3 w-75 text-center"
-                    role="alert">
-                    <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> Kiểm tra lại các thông tin.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if (Session::has('success'))
-                <div class="alert alert-success alert-dismissible fade show position-fixed mt-3 z-3 w-75 text-center"
-                    role="alert">
-                    <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
+        <div class="container d-flex justify-content-center">
             <div class="create-post-block card my-5">
                 <div class="card-header background-primary py-3">
                     <h4 class="card-title mb-1 fw-bold text-center text-white">TẠO BÀI ĐĂNG</h4>

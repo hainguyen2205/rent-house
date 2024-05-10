@@ -163,38 +163,43 @@ displayValidateNotify('#phonenumberInput');
 
 // Ajax Upload Image
 $('#imageInput').on('change', function () {
-  var formData = new FormData();
-  var files = $(this)[0].files;
-  for (var i = 0; i < files.length; i++) {
-    if (isValidImage(files[i])) {
-      formData.append('file[]', files[i]);
+  var imgCount = $('#preview-img img').length;
+  if (imgCount > 5) {
+    alert('Ảnh tối đa là 6');
+  } else {
+    var formData = new FormData();
+    var files = $(this)[0].files;
+    for (var i = 0; i < files.length; i++) {
+      if (isValidImage(files[i])) {
+        formData.append('file[]', files[i]);
+      }
     }
-  }
-  var csrfToken = $('meta[name="csrf-token"]').attr('content');
-  $.ajax({
-    url: '/upload',
-    method: 'POST',
-    data: formData,
-    contentType: false,
-    processData: false,
-    headers: {
-      'X-CSRF-TOKEN': csrfToken
-    },
-    success: function (response) {
-      if (response.error == false) {
-        var url_array = response.urls.split('&&');
-        for (let index = 0; index < url_array.length; index++) {
-          if (url_array[index] != '') {
-            $('#preview-img').append('<img class="mx-1 mb-2" src="' + url_array[index] + '" alt="">');
-            $('#preview-img').append('<input type="hidden" name="images[]" value="' + url_array[index] + '">');
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+      url: '/upload',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      },
+      success: function (response) {
+        if (response.error == false) {
+          var url_array = response.urls.split('&&');
+          for (let index = 0; index < url_array.length; index++) {
+            if (url_array[index] != '') {
+              $('#preview-img').append('<img class="mx-1 mb-2" src="' + url_array[index] + '" alt="">');
+              $('#preview-img').append('<input type="hidden" name="images[]" value="' + url_array[index] + '">');
+            }
           }
         }
+      },
+      error: function (xhr, status, error) {
+        console.error(xhr.responseText);
       }
-    },
-    error: function (xhr, status, error) {
-      console.error(xhr.responseText);
-    }
-  });
+    });
+  }
 });
 $('#avatarInput').on('change', function () {
   var formData = new FormData();
@@ -233,52 +238,42 @@ $('#wardSelect').on('change', function () {
   handleInputValidation($(this), invalidFeedback, defaulValidate, "Vui lòng chọn địa chỉ.");
 })
 // Ajax Get Ward's Name
+function fetchWards(idDistrict, wardSelect) {
+  if (idDistrict != '') {
+    $.ajax({
+      url: '/address/getwards',
+      type: 'GET',
+      data: {
+        id_district: idDistrict
+      },
+      success: function (response) {
+        var wards = response.wards;
+        $(wardSelect).children('option:not([value=""])').remove();
+        for (let index = 0; index < wards.length; index++) {
+          $(wardSelect).append('<option value="' + wards[index].id + '">' + wards[index].ward_name + '</option>')
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      }
+    });
+  }
+}
+
 $('#districtSelect').on('change', function () {
+  var idDistrict = $(this).val();
+  var wardSelect = '#wardSelect';
   var invalidFeedback = $(this).next('.invalid-feedback');
-  handleInputValidation($(this), invalidFeedback, defaulValidate, "Vui lòng chọn địa chỉ.")
-  if ($(this).val() != '') {
-    $.ajax({
-      url: '/address/getwards',
-      type: 'GET',
-      data: {
-        id_district: $(this).val()
-      },
-      success: function (response) {
-        wards = response.wards;
-        $('#wardSelect').children('option:not([value=""])').remove();
-        for (let index = 0; index < wards.length; index++) {
-          $('#wardSelect').append('<option value="' + wards[index].id + '">' + wards[index].ward_name + '</option>')
-        }
+  handleInputValidation($(this), invalidFeedback, defaulValidate, "Vui lòng chọn địa chỉ.");
+  fetchWards(idDistrict, wardSelect);
+});
 
-      },
-      error: function (xhr, status, error) {
-        console.error(error);
-      }
-    });
-  }
-})
 $('#districtSelect2').on('change', function () {
-  if ($(this).val() != '') {
-    $.ajax({
-      url: '/address/getwards',
-      type: 'GET',
-      data: {
-        id_district: $(this).val()
-      },
-      success: function (response) {
-        wards = response.wards;
-        $('#wardSelect').children('option:not([value=""])').remove();
-        for (let index = 0; index < wards.length; index++) {
-          $('#wardSelect').append('<option value="' + wards[index].id + '">' + wards[index].ward_name + '</option>')
-        }
+  var idDistrict = $(this).val();
+  var wardSelect = '#wardSelect2';
+  fetchWards(idDistrict, wardSelect);
+});
 
-      },
-      error: function (xhr, status, error) {
-        console.error(error);
-      }
-    });
-  }
-})
 function toggleDropdown(element) {
   var dropdown = $(element).find('.custom-dropdown');
   var dropdownVisible = dropdown.hasClass('show');

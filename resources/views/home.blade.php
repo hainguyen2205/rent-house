@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
     <div class="main-content">
-        <div class="search-block d-flex justify-content-center  align-items-center py-5">
+        <div class="search-block d-flex justify-content-center align-items-center py-5">
             <div class="search-box px-5 py-5 w-75">
 
                 <div class="d-sm-none d-md-block mb-3">
@@ -10,46 +10,58 @@
                         cầu</span>
                 </div>
 
-                <form class="text-center" action="/#" method="GET">
+                <form class="text-center" action="/post/list" method="GET">
                     <div class="row">
                         <div class="col-12 mb-3">
                             <input class="form-control" name="title" type="text" placeholder="Cổng chính CNTT">
                         </div>
-                        <div class="col-md-3 col-sm-6 mb-3">
-                            <select class="mr-3 form-select" name="district" id="districtSelect"
-                                aria-label="Default select example">
+                        <div class="col-3 mb-3">
+                            <select class="w-100 form-select custom-select border border-0 text-dark" name="id_district"
+                                id="districtSelect2">
                                 <option value="">Quận/Huyện</option>
                                 @foreach ($districts as $district)
-                                    <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                    <option value="{{ $district->id }}">{{ $district->district_name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3 col-sm-6 mb-3">
-                            <select class="form-select" name="ward" id="wardSelect" aria-label="Default select example">
-                                <option value="">Phường/Xã</option>
+                        <div class="col-3 mb-3">
+                            <select class="w-100 form-select custom-select border border-0 text-dark" name="id_ward"
+                                id="wardSelect2">
+                                <option class="" value="">Phường/Xã</option>
                             </select>
                         </div>
-                        <div class="col-md-3 col-sm-6 mb-3">
-                            <select name="prices" id="" class="form-select">
-                                <option value="">Mức giá</option>
-                                <option value="min-price=500000">Dưới 500.000đ</option>
-                                <option value="min-price=500000&&max-price=800000">500.000đ - 800.000 đ</option>
-                                <option value="min-price=1000000&&max-price=1300000">1.000.000đ - 1.300.000đ</option>
-                                <option value="min-price=1300000&&max-price=1600000">1.300.000đ - 1.600.000đ</option>
-                                <option value="min-price=1300000&&max-price=1600000">Từ 1.600.000đ trở lên</option>
-                            </select>
+                        <div class="col-3 mb-3 d-flex justify-content-center">
+                            <div class="form-control filter-post positon-relative text-dark">
+                                <div class="d-flex justify-content-between">
+                                    <p class="m-0 d-inline text-start">Diện tích</p>
+                                    <i style="font-size: 11px" class="mt-2 fa-solid fa-angle-down"></i>
+                                </div>
+                                <div style="margin-left: -13px; margin-top:10px"
+                                    class="p-1 bg-light border custom-dropdown">
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control" name="min_acreage" min="1" placeholder="15m2"
+                                            type="number">
+                                        <i class="text-dark bi bi-arrow-right mx-1"></i>
+                                        <input class="form-control" name="max_acreage" min="1" placeholder="25m2"
+                                            type="number">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 col-sm-6 mb-3">
-                            <div class="dropdown">
-                                <button class="form-control dropdown-toggle w-100 text-start" type="button" id="triggerId"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Diện tích
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="triggerId">
-                                    <div class="px-2 d-flex justify-content-between">
-                                        <input name="min-acreage" type="number" class="form-control" placeholder="15m²">
-                                        <i class="bi bi-arrow-right mt-2 mx-1"></i>
-                                        <input type="number" name="max-acreage" class="form-control" placeholder="25m²">
+                        <div class="col-3 mb-3 d-flex justify-content-center">
+                            <div class="form-control filter-post positon-relative text-dark">
+                                <div class="d-flex justify-content-between">
+                                    <p class="m-0 d-inline text-start">Mức giá</p>
+                                    <i style="font-size: 11px" class="mt-2 fa-solid fa-angle-down"></i>
+                                </div>
+                                <div style="margin-left: -13px; margin-top: 12px" class="p-1 bg-light custom-dropdown">
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control" name="min_rent" min="0" placeholder="600.000đ"
+                                            type="number">
+                                        <i class="text-dark bi bi-arrow-right mx-1"></i>
+                                        <input class="form-control" name="max_rent" min="0" placeholder="800.000đ"
+                                            type="number">
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +84,7 @@
                         <a href="/post/list?id_district=1">
                             <div class="item-title text-white">
                                 <p class="fw-bold fs-5">TP. Thái Nguyên</p>
-                                <p class="fs-6">9 tin đăng</p>
+                                <p class="fs-6">{{ $post_count['thainguyen'] }} tin đăng </p>
                             </div>
                         </a>
                     </div>
@@ -81,7 +93,7 @@
                         <a href="/post/list?id_district=2">
                             <div class="item-title text-white">
                                 <p class="fw-bold fs-5">TP. Sông Công</p>
-                                <p class="fs-6">9 tin đăng</p>
+                                <p class="fs-6">{{ $post_count['songcong'] }} tin đăng</p>
                             </div>
                         </a>
                     </div>
@@ -89,7 +101,7 @@
                         <a href="/post/list?id_district=8">
                             <div class="item-title text-white">
                                 <p class="fw-bold fs-5">TP. Phổ Yên</p>
-                                <p class="fs-6">9 tin đăng</p>
+                                <p class="fs-6">{{ $post_count['phoyen'] }} tin đăng</p>
                             </div>
                         </a>
                     </div>
@@ -97,7 +109,7 @@
                         <a href="/post/list?id_district=9">
                             <div class="item-title text-white">
                                 <p class="fw-bold fs-5">Huyện Phú Bình</p>
-                                <p class="fs-6">9 tin đăng</p>
+                                <p class="fs-6">{{ $post_count['phubinh'] }} tin đăng</p>
                             </div>
                         </a>
                     </div>
@@ -105,7 +117,7 @@
                         <a href="/post/list?id_district=7">
                             <div class="item-title text-white">
                                 <p class="fw-bold fs-5">Huyện Đại Từ</p>
-                                <p class="fs-6">9 tin đăng</p>
+                                <p class="fs-6">{{ $post_count['daitu'] }} tin đăng</p>
                             </div>
                         </a>
                     </div>
@@ -128,9 +140,11 @@
                                     tiết</a>
                             </div>
                             <div class="details-post px-3 mx-2">
-                                <p class="fs-5 fw-bold mb-1 text-center">
-                                    {{ $post->title }}
-                                </p>
+                                <a href="/post/single/{{ $post->id }}">
+                                    <p class="fs-5 fw-bold mb-1 text-center">
+                                        {{ $post->title }}
+                                    </p>
+                                </a>
                                 <div class="row mb-1">
                                     <p class="mb-0 fs-6 col-6"><i class="bi bi-clock"></i>
                                         {{ $post->created_at->diffInHours($now) }} giờ trước</p>
@@ -431,9 +445,11 @@
                                         tiết</a>
                                 </div>
                                 <div class="details-post px-3 mt-2 mx-2">
-                                    <p class="fs-4 fw-bold mb-1 text-center">
-                                        {{ $post->title }}
-                                    </p>
+                                    <a href="/post/single/{{ $post->id }}">
+                                        <p class="fs-4 fw-bold mb-1 text-center">
+                                            {{ $post->title }}
+                                        </p>
+                                    </a>
                                     <div class="row mb-1">
                                         <p class="mb-0 fs-6 col-6"><i class="bi bi-clock"></i>
                                             {{ $post->created_at->diffInHours($now) }} giờ trước</p>

@@ -16,7 +16,8 @@ class UserController extends Controller
     {
         $credentials = $request->only('phone', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect('/');
+            if (Auth::user()->role == '1') return redirect('/admin');
+            return redirect('/')->with('success', 'Đăng nhập thành công!');
         }
         return redirect()->back()->with('incorrect', 'Số điện thoại hoặc mật khẩu không chính xác');
     }

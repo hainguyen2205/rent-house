@@ -168,8 +168,8 @@
                                                                 class="bi bi-coin text-color"></i>
                                                             {{ number_format($post->rent) }} đ/tháng</p>
                                                         <h6><i class="fa-solid fa-location-dot"></i>
-                                                            {{ Str::of($post->ward->ward_name . ', ' . $post->district->district_name)->words(10, '...') }}
-                                                        </h6>
+                                                            {{ $post->ward->ward_name }},
+                                                            {{ $post->district->district_name }}</h6>
                                                     </div>
                                                 </div>
                                             </div>

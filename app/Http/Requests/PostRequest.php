@@ -23,7 +23,7 @@ class PostRequest extends FormRequest
     {
         return [
            'title' => 'required',
-           'images' => 'required',
+           'images' => 'required|max:6',
            'id_district' =>'required',
            'id_ward' =>'required',
            'acreage' => 'required',
@@ -37,6 +37,7 @@ class PostRequest extends FormRequest
         return [
             'title.required' => 'Vui lòng nhập tiêu đề.',
             'images.required' => 'Chọn ít nhất 1 ảnh.',
+            'images.max' => 'Chọn đối đa 6 ảnh',
             'id_district.required' => 'Vui lòng chọn địa chỉ.',
             'id_ward.required' => 'Vui lòng chọn địa chỉ.',
             'acreage.required' => 'Vui lòng nhập diện tích.',
