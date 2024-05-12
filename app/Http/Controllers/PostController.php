@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
 use App\Models\District;
+use App\Models\Post_Interest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Models\Service;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
-    public $service;
+    protected $service;
 
     public function __construct(PostService $postService)
     {
@@ -25,13 +29,51 @@ class PostController extends Controller
         $this->service->insert($request);
         return redirect()->back();
     }
+    public function updatePost(PostRequest $request)
+    {
+        $this->service->update($request);
+        return back();
+    }
+    public function deletePost($id_post)
+    {
+        $post = Post::findOrFail($id_post);
+        if (!$post) {
+            Session::flash('error', 'Không tìm thấy tin đăng');
+            return back();
+        }
+        try {
+            $post->update(['id_status' => '3']);
+            Session::flash('success', 'Xóa tin đăng thành công');
+        } catch (\Throwable $th) {
+            Session::flash('error', 'Đã xảy ra lỗi khi xóa tin đăng');
+        }
+        return back();
+    }
+    public function displayEditForm($id_post)
+    {
+        $post = $this->obj->findOrFail($id_post);
+        $districts = District::get();
+        $wards = Ward::where('id_district', $post->id_district)->get();
+        $services = Service::get();
+        if ($post->id_user != Auth::user()->id) {
+            return abort(404);
+        }
+        $this->setTitle('Chỉnh sửa bài đăng');
+        return view('post.edit', [
+            'post' => $post,
+            'title' => $this->title,
+            'districts' => $districts,
+            'wards' => $wards,
+            'services' => $services,
+        ]);
+    }
     public function displayPostList(Request $request)
     {
         $now = Carbon::now();
         $search_title = '';
         $this->addFilter('id_status', '=', '2');
         $this->setTitle('Danh sách bài đăng');
-        $this->per_page = 8;
+        $this->per_page = 12;
 
         //Set orderby
         if ($request->orderby == 'news') {
@@ -45,41 +87,58 @@ class PostController extends Controller
         }
 
         //Set filters
-        if ($request->title != '') {
-            $search_title .= $request->title . '; ';
-            $this->addFilter('title', 'like', '%' . $request->title . '%');
+        $filter_title = trim($request->title);
+        if ($filter_title != '') {
+            $search_title .= $filter_title . '; ';
+            $this->addFilter('title', 'like', '%' . $filter_title . '%');
         }
 
-        if ($request->id_district != '') {
-            $this->addFilter('id_district', '=', $request->id_district);
-            $search_title .= District::find($request->id_district)->district_name . '; ';
+        $filter_district = trim($request->id_district);
+        if ($filter_district != '') {
+            $district = District::find($filter_district);
+            if ($district) {
+                $this->addFilter('id_district', '=', $filter_district);
+                $search_title .= $district->district_name . '; ';
+            } else {
+                abort(404);
+            }
         }
 
-        if ($request->id_ward != '') {
-            $this->addFilter('id_ward', '=', $request->id_ward);
-            $search_title .= Ward::find($request->id_ward)->ward_name . '; ';
+        $filter_ward = $request->id_ward;
+        if ($filter_ward != '') {
+            $ward = Ward::find($filter_ward);
+            if ($ward) {
+                $this->addFilter('id_ward', '=', $filter_ward);
+                $search_title .= $ward->ward_name . '; ';
+            } else {
+                abort(404);
+            }
         }
 
-        if ($request->min_acreage != '' && $request->max_acreage != '') {
-            $this->addFilter('acreage', 'between', [$request->min_acreage, $request->max_acreage]);
-            $search_title .= 'Diện tích từ ' . $request->min_acreage . ' đến ' . $request->max_acreage . '; ';
-        } elseif ($request->min_acreage != '') {
-            $this->addFilter('acreage', '>=', $request->min_acreage);
-            $search_title .= 'Diện tích từ ' . $request->min_acreage . ' trở lên; ';
-        } elseif ($request->max_acreage != '') {
-            $search_title .= 'Giá đến ' . $request->max_acreage . '; ';
-            $this->addFilter('acreage', '<=', $request->max_acreage);
+        $filter_min_acreage = $request->min_acreage;
+        $filter_max_acreage = $request->max_acreage;
+        if ($filter_min_acreage != '' && $filter_max_acreage != '' && is_numeric($filter_min_acreage) && is_numeric($filter_max_acreage)) {
+            $this->addFilter('acreage', 'between', [$filter_min_acreage, $filter_max_acreage]);
+            $search_title .= 'Diện tích từ ' . $filter_min_acreage . ' đến ' . $filter_max_acreage . '; ';
+        } elseif ($filter_min_acreage != '' && is_numeric($filter_min_acreage)) {
+            $this->addFilter('acreage', '>=', $filter_min_acreage);
+            $search_title .= 'Diện tích từ ' . $filter_min_acreage . ' trở lên; ';
+        } elseif ($filter_max_acreage != '' && is_numeric($filter_max_acreage)) {
+            $search_title .= 'Giá đến ' . $filter_max_acreage . '; ';
+            $this->addFilter('acreage', '<=', $filter_max_acreage);
         }
 
-        if ($request->min_rent != '' && $request->max_rent != '') {
-            $this->addFilter('rent', 'between', [$request->min_rent, $request->max_rent]);
-            $search_title .= 'Giá phòng từ ' . number_format($request->min_rent) . ' đến ' . number_format($request->max_rent) . '; ';
-        } elseif ($request->min_rent != '') {
-            $this->addFilter('rent', '>=', $request->min_rent);
-            $search_title .= 'Giá phòng từ ' . number_format($request->min_rent) . ' trở lên; ';
-        } elseif ($request->max_rent != '') {
-            $search_title .= 'Giá phòng từ ' . number_format($request->max_rent) . '; ';
-            $this->addFilter('rent', '<=', $request->max_rent);
+        $filter_min_rent = $request->min_rent;
+        $filter_max_rent = $request->max_rent;
+        if ($filter_min_rent != '' && $filter_max_rent != '' && is_numeric($filter_min_rent) && is_numeric($filter_max_rent)) {
+            $this->addFilter('rent', 'between', [$filter_min_rent, $filter_max_rent]);
+            $search_title .= 'Giá phòng từ ' . number_format($filter_min_rent) . ' đến ' . number_format($filter_max_rent) . '; ';
+        } elseif ($filter_min_rent != '') {
+            $this->addFilter('rent', '>=', $filter_min_rent);
+            $search_title .= 'Giá phòng từ ' . number_format($filter_min_rent) . ' trở lên; ';
+        } elseif ($filter_max_rent != '') {
+            $search_title .= 'Giá phòng từ ' . number_format($filter_max_rent) . '; ';
+            $this->addFilter('rent', '<=', $filter_max_rent);
         }
 
         return view('post.list', [
@@ -90,12 +149,40 @@ class PostController extends Controller
             'now' => $now,
         ]);
     }
+    public function updateView($id_post)
+    {
+        $this->obj::where('id', $id_post)->update(['views' => DB::raw('views + 1')]);
+    }
+    public function interestPost($id_post)
+    {
+        $post = $this->obj->findOrFail($id_post);
+        if (!$post) {
+            Session::flash('error', 'Đã xảy ra lỗi');
+            return back();
+        }
+        $was_interested = Post_Interest::where('id_user', Auth::user()->id)->where('id_post', $post->id)->count();
+        if ($was_interested != 0) {
+            Session::flash('error', 'Đã quan tâm');
+            return back();
+        }
+        try {
+            Post_Interest::create(['id_user' => Auth::user()->id, 'id_post' => $post->id]);
+            Session::flash('success', 'Đã quan tâm bài viết này!');
+            return back();
+        } catch (\Throwable $e) {
+            Session::flash('error', 'Đã xảy ra lỗi ' . $e);
+            return back();
+        }
+    }
     public function displayPostSingle($id_post)
     {
         $now = Carbon::now();
         $this->setTitle('Chi tiết bài đăng');
-        $post = $this->obj->getSinglePost($id_post);
-
+        $post = $this->obj->findOrFail($id_post);
+        $was_interested = Post_Interest::where('id_user', Auth::user()->id)->where('id_post', $post->id)->count();
+        $user_interested_list = Post_Interest::where('id_post', $post->id)->get();
+        // dd($user_interested_list[0]->user->name);
+        $this->updateView($post->id);
         $this->addFilter('id_status', '=', '2');
         $this->addFilter('id', '<>', $post->id);
         $this->addFilter('id_user', '=', $post->id_user);
@@ -110,21 +197,27 @@ class PostController extends Controller
             $related_address_posts = $this->obj->getAllData($this->filters, null, 6);
         }
 
+        if (count($related_address_posts) < 3) {
+            $related_address_posts = $this->obj->paginate(6);
+        }
+
         return view('post.single', [
             'title' => $this->title,
             'post' => $post,
             'posts_of_author' => $posts_of_author,
             'related_address_posts' => $related_address_posts,
+            'was_interested' => $was_interested,
+            'user_interested_list' => $user_interested_list,
             'now' => $now,
         ]);
     }
     public function displayCreatePost()
     {
         $this->setTitle('Tạo bài đăng');
-        $districts = new District();
+        $districts = District::get();
         return view('post.create', [
             'title' => $this->title,
-            'districts' => $districts->getAllData($this->filters, null, null),
+            'districts' => $districts,
         ]);
     }
 }

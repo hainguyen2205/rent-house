@@ -45,6 +45,7 @@
                                 </div>
                                 <div class="py-2 border-top">
                                     <p class="fw-bold mb-1">Thông tin mô tả:</p>
+                                    {{-- {!! $post->description !!} --}}
                                     <p class="card-text white-space-pre">{{ $post->description }}</p>
                                 </div>
                             </div>
@@ -120,12 +121,30 @@
                                         Những người quan tâm
                                     </p>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Nguyễn Văn Anh - 0965188209 - 2024-04-06</li>
-                                        <li class="list-group-item">Nguyễn Văn Anh - 0965188209 - 2024-04-06</li>
-                                        <li class="list-group-item">Nguyễn Văn Anh - 0965188209 - 2024-04-06</li>
+                                        @if (count($user_interested_list) > 0)
+                                            @foreach ($user_interested_list as $item)
+                                                <li class="list-group-item">
+                                                    <div class="d-flex">
+                                                        <img width="40px" height="40px"
+                                                            class="object-fit-cover rounded rounded-circle"
+                                                            src="{{ $item->user->avatar_url }}" alt="">
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{ $item->user->name }} -
+                                                                {{ $item->user->phone }}</p>
+                                                            <small class="m-0">{{ $item->created_at }}</small>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <div class="text-center py-2">
+                                                <img width="40px" src="/templates/front/images/emptybox.png"
+                                                    alt="" srcset="">
+                                                <small class="m-0 text-color">Không có người quan tâm</small>
+                                            </div>
+                                        @endif
                                     </ul>
                                 </div>
-
                             </div>
                         @else
                             <div class="rounded py-4 bg-light shadow">
@@ -136,10 +155,19 @@
                                                 height="80px"src="{{ $post->author->avatar_url }}" alt="">
                                         </div>
                                         <p class="text-center fw-bold fs-5 my-2">{{ $post->author->name }}</p>
-                                        <div class="rounded bg-info text-white text-center fw-bold py-2"><i
-                                                class="bi bi-telephone-fill"></i> {{ $post->author->phone }}</div>
-                                        <button class="btn btn-danger rounded w-100 mt-2 fw-bold"><i
-                                                class="bi bi-heart-fill"></i> Quan tâm</button>
+                                        @if ($was_interested != 0)
+                                            <div class="rounded bg-info text-white text-center fw-bold py-2"><i
+                                                    class="bi bi-telephone-fill"></i> {{ $post->author->phone }}</div>
+                                            <button disabled class="btn btn-danger rounded w-100 mt-2 fw-bold"><i
+                                                    class="bi bi-heart-fill"></i> Đã quan tâm</button>
+                                        @else
+                                            <div class="rounded bg-info text-white text-center fw-bold py-2"><i
+                                                    class="bi bi-telephone-fill"></i>
+                                                {{ Str::of($post->author->phone)->limit(4, '******') }} </div>
+                                            <a href="/post/interest/{{ $post->id }}"
+                                                class="btn btn-danger rounded w-100 mt-2 fw-bold"><i
+                                                    class="bi bi-heart-fill"></i> Quan tâm để hiện số</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -154,10 +182,17 @@
                                             <div class="posts">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <a class="w-100" href="/post/single/{{ $post->id }}">
+                                                        <div class="img-post position-relative w-100">
                                                             <img height="110px" src="{{ $post->images[0]->url }}"
                                                                 class="w-100 rounded-start" alt="...">
-                                                        </a>
+                                                            <a href="/post/single/{{ $post->id }}"
+                                                                class="btn btn-primary position-absolute top-50 start-50 translate-middle"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                        </div>
+                                                        {{-- <a class="w-100" href="/post/single/{{ $post->id }}">
+                                                            <img height="110px" src="{{ $post->images[0]->url }}"
+                                                                class="w-100 rounded-start" alt="...">
+                                                        </a> --}}
                                                     </div>
                                                     <div class="col-md-8 details-post">
                                                         <a href="/post/single/{{ $post->id }}">

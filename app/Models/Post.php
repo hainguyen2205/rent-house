@@ -23,10 +23,6 @@ class Post extends Model
         'id_status'
     ];
 
-    public function getSinglePost($id)
-    {
-        return Post::findOrFail($id);
-    }
     public function district()
     {
         return $this->hasOne(District::class, 'id', 'id_district');
@@ -50,5 +46,9 @@ class Post extends Model
     public function images()
     {
         return $this->hasMany(Image_Post::class, 'id_post', 'id');
+    }
+    public function user_interested_list()
+    {
+        return $this->hasMany(Post_Interest::class, 'id_post', 'id');
     }
 }

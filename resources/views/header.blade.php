@@ -40,10 +40,7 @@
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
                                 aria-labelledby="dropdownChat">
-                                <li><a class="dropdown-item" href="#">Action dqsadasdasdsadaseqweqw3123123</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Đang phát triển...</a>
                             </ul>
                         </div>
                     </li>
@@ -56,9 +53,7 @@
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
                                 aria-labelledby="dropdownNotify">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Đang phát triển...</a></li>
                             </ul>
                         </div>
                     </li>
@@ -75,7 +70,7 @@
                                         src="{{ Auth::user()->avatar_url }}" alt="">
                                 @endif
                             </div>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-md-end"
                                 aria-labelledby="triggerId">
                                 <li>
                                     <div class="dropdown-item">
@@ -101,10 +96,10 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <i class="bi bi-postcard"></i> Quản lý bài đăng</a>
-                                    </li>
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="/logout">
-                                        <i class="bi bi-box-arrow-right"></i>Đăng xuất
+                                        <i class="bi bi-box-arrow-right"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>

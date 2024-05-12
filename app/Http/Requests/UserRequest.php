@@ -21,40 +21,55 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $rules = [];
         if ($this->isMethod('post')) {
-            if ($this->is('register')) {
-                return [
-                    'name' => 'required|alpha',
-                    'phone' => 'required|regex:/[0-9]{10}/|unique:users,phone',
-                    'password' => 'min:5|max:16',
-                    'repassword' => 'min:5|max:16|same:password',
-                ];
-            }
-            if ($this->is('login')) {
-                return [
-                    'phone' => 'required|regex:/^0[0-9]{9}$/',
-                    'password' => 'required|min:5|max:16',
-                ];
-            }
-            if ($this->is('profile/update')) {
-                return [
-                    'name' => 'required',
-                    'avatar_url' => 'nullable',
-                    'password' => 'nullable|min:5|max:16',
-                    'repassword' => 'nullable|min:5|max:16|same:password|required_with:password',
-                    'date_of_birth' => 'nullable|date'
-                ];
-            }
-            if ($this->is('admin/user/create')) {
-                return [
-                    'avatar_url' => 'nullable',
-                    'name' => 'required|alpha',
-                    'phone' => 'required|regex:/[0-9]{10}/|unique:users,phone',
-                    'password' => 'required|min:5|max:16',
-                ];
+            switch ($this->getPathInfo()) {
+                case '/register':
+                    $rules = [
+                        'name' => 'required|alpha',
+                        'phone' => 'required|regex:/[0-9]{10}/|unique:users,phone',
+                        'password' => 'min:5|max:16',
+                        'repassword' => 'min:5|max:16|same:password',
+                    ];
+                    break;
+                case '/login':
+                    $rules = [
+                        'phone' => 'required|regex:/^0[0-9]{9}$/',
+                        'password' => 'required|min:5|max:16',
+                    ];
+                    break;
+                case '/profile/update':
+                    $rules = [
+                        'name' => 'required',
+                        'avatar_url' => 'nullable',
+                        'password' => 'nullable|min:5|max:16',
+                        'repassword' => 'nullable|min:5|max:16|same:password|required_with:password',
+                        'date_of_birth' => 'nullable|date'
+                    ];
+                    break;
+                case '/admin/user/create':
+                    $rules =  [
+                        'avatar_url' => 'nullable',
+                        'name' => 'required|alpha',
+                        'phone' => 'required|regex:/[0-9]{10}/|unique:users,phone',
+                        'password' => 'required|min:5|max:16',
+                    ];
+                    break;
+                case '/admin/user/update':
+                    $rules =  [
+                        'name' => 'required',
+                        'avatar_url' => 'nullable',
+                        'phone' => 'required|regex:/[0-9]{10}/|unique:users,phone',
+                        'password' => 'nullable|min:5|max:16',
+                        'date_of_birth' => 'nullable|date'
+                    ];
+                    break;
+                default:
+                    # code...
+                    break;
             }
         }
-        return [];
+        return $rules;
     }
     public function messages(): array
     {

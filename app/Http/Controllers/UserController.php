@@ -58,7 +58,7 @@ class UserController extends Controller
     }
     public function showPosts($status)
     {
-        $this->setTitle('Bài đăng đã duyệt');
+        $this->setTitle('Bài đăng cá nhân');
         $id_status_map = [
             'approved' => 2,
             'pending' => 1,
@@ -66,7 +66,7 @@ class UserController extends Controller
         ];
         $title_status_map = [
             'approved' => 'đã duyệt',
-            'pending' => 'đang chờ',
+            'pending' => 'đang chờ duyệt',
             'rejected' => 'bị từ chối',
         ];
         $id_status = $id_status_map[$status] ?? null;

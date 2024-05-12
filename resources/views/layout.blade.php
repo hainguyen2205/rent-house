@@ -58,17 +58,18 @@
                         <img width="80px" height="80px" class="mt-3"
                             src="\templates\front\images\customer-service-support-svgrepo-com.svg" alt="">
                     </div>
-                    <form action="#">
+                    <form action="/feedback/create" method="POST">
+                        @csrf
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="title-feedback" class="form-label">Tiêu đề</label>
-                                <input type="text" class="form-control is-invalid" name="title" id="title-feedback" required>
-                                <div class="invalid-feedback"></div>
+                                <input type="text" class="form-control" name="title" id="title-feedback" required>
+                                <div class="invalid-feedback">{{ $errors->first('title') }}</div>
                             </div>
                             <div>
                                 <label for="description-feedback" class="form-label">Nôi dung phản hồi</label>
-                                <textarea class="form-control is-invalid" name="description" id="description-feedback" required rows="3"></textarea>
-                                <div class="invalid-feedback"></div>
+                                <textarea class="form-control" name="description" id="description-feedback" required rows="3"></textarea>
+                                <div class="invalid-feedback">{{ $errors->first('description') }}</div>
                             </div>
                         </div>
                         <div class="px-3 pb-3 d-flex justify-content-end">

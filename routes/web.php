@@ -38,7 +38,11 @@ Route::prefix('/post')->middleware('auth')->group(
     function () {
         Route::get('/single/{id_post}', [PostController::class, 'displayPostSingle']);
         Route::get('/create', [PostController::class, 'displayCreatePost']);
+        Route::get('/edit/{id_post}', [PostController::class, 'displayEditForm']);
         Route::post('/create', [PostController::class, 'createPost']);
+        Route::post('/update', [PostController::class, 'updatePost']);
+        Route::get('/delete/{id_post}', [PostController::class, 'deletePost']);
+        Route::get('/interest/{id_post}', [PostController::class, 'interestPost']);
     }
 );
 Route::prefix('/feedback')->middleware('auth')->group(

@@ -44,25 +44,22 @@ class AdminUserController extends Controller
         $request->merge(['password' => Hash::make($request->password)]);
         try {
             $this->obj::create($request->all());
-            Session::flash('success', 'Thêm bài thành công');
-            return redirect('/admin/user/list');
+            Session::flash('success', 'Thêm người dùng mới thành công');  
         } catch (\Throwable $e) {
-            dd('hehe');
-            Session::flash('error', $e);
-            return back();
+            // dd('hehe');
+            Session::flash('error', 'Thêm người dùng mới người dùng thất bại');
         }
+        return back();
     }
     public function deleteUser($id_user)
     {
         try {
             $this->updateStatus($id_user, 2);
-            Session::flash('success', 'Thêm bài thành công');
-            return redirect('/admin/user/list');
+            Session::flash('success', 'Xóa người dùng thành công');
         } catch (\Throwable $e) {
-            dd('hehe');
-            Session::flash('error', $e);
-            return back();
+            Session::flash('error', 'Đã xảy ra lỗi khi xóa người dùng');
         }
+        return back();
     }
     public function updateUser(UserRequest $userInfoRequest)
     {
@@ -78,9 +75,10 @@ class AdminUserController extends Controller
         }
         try {
             $this->obj::where('id', $userInfoRequest->id)->update($updateData);
-            return redirect()->back()->with('success', 'Đã cập nhật thông tin');
+            Session::flash('success', 'Đã cập nhật thông tin');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Cập nhật thông tin thất bại');
+            Session::flash('error', 'Cập nhật thông tin thất bại');
         }
+        return back();
     }
 }

@@ -34,11 +34,56 @@ class PostService
                     Image_Post::insert(["id_post" => $post_id, "url" => $image]);
                 }
             }
-            DB::select('update users set account_balance = account_balance - 15000 where id = ' . Auth::user()->id);
+            User::where('id', '=', Auth::user()->id)->update(['account_balance' => DB::raw('account_balance - 15000')]);
             Session::flash('success', 'Đăng thành công');
         } catch (\Throwable $e) {
-            Session::flash('error', 'Lỗi' . $e);
+            Session::flash('error', 'Đã xảy ra lỗi khi đăng tin');
             return false;
+        }
+    }
+    public function update($request)
+    {
+        if (!$request->has('id')) {
+            Session::flash('error', 'Không tìm thấy id tin đăng');
+            return;
+        }
+        $post = Post::findOrFail($request->id);
+        if (!$post) {
+            Session::flash('error', 'Không tìm thấy tin đăng');
+            return;
+        }
+
+        $post_id = $post->id;
+        $services = $request->services;
+        $images = $request->images;
+        $post_info = $request->except(['_token', 'id', 'images', 'services']);
+        $updateData = [];
+        foreach ($post_info as $key => $value) {
+            if ($value !== null) {
+                $updateData[$key] = $value;
+            }
+        }
+        $updateData['id_status'] = 1;
+
+        try {
+            if ($services) {
+                Service_Post::where('id_post', $post_id)->delete();
+                foreach ($services as $service) {
+                    Service_Post::insert(['id_post' => $post_id, 'id_service' => $service]);
+                }
+            }
+            if ($images) {
+                Image_Post::where('id_post', $post_id)->delete();
+                foreach ($images as $image) {
+                    Image_Post::insert(["id_post" => $post_id, "url" => $image]);
+                }
+            }
+            $post->update($updateData);
+            Session::flash('success', 'Cập nhật tin đăng thành công');
+            return;
+        } catch (\Throwable $e) {
+            Session::flash('error', 'Đã xảy ra lỗi khi cập nhật tin');
+            return;
         }
     }
 }

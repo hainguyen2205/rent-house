@@ -538,7 +538,26 @@ h4 {
     display: none;
     position: absolute;
 }
-
+.btn-remove-img{
+    position: absolute;
+    top: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(207, 78, 78);
+    cursor: pointer;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.btn-remove-img i{
+    margin-top: 1px;
+    margin-left: 1px;
+}
+.btn-remove-img:hover{
+    background-color: rgb(218, 4, 4);
+}
 .filter-post .form-control {
     max-width: 150px !important;
 }

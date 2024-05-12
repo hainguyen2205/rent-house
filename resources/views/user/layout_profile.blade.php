@@ -27,10 +27,10 @@
             </div>
             <div class="col-md-9 col-sm-12">
                 <div class="card d-flex flex-column border-left-primary shadow py-4">
-                    <div class="card-body d-flex justify-content-center">
-                        <div class="w-75">
+                    <div class="card-body">
+                        {{-- <div class="w-75"> --}}
                             @yield('right_content')
-                        </div>
+                        {{-- </div> --}}
                     </div>
                 </div>
             </div>

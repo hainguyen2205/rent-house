@@ -3,13 +3,13 @@
     <div class="flex justify-content-center">
         @if (Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
+                <strong><i class="fa-regular fa-circle-check fa-bounce"></i> Success!</strong> {{ Session::get('success') }}.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($errors->any())
             <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-                <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> Kiểm tra lại các thông tin.
+                <strong><i class="fa-regular fa-circle-xmark fa-bounce"></i> Warning!</strong> Kiểm tra lại các thông tin.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

@@ -7,6 +7,102 @@
     percentPosition: selector === '.images-carousel'
   });
 });
+// window.addEventListener('DOMContentLoaded', () => {
+//   tinymce.init({
+//       selector: '#describeTextarea',
+//       skin: false,
+//       content_css: false
+//   });
+// });
+
+submitFormIfAgree();
+
+displayValidateNotify('#description-feedback');
+displayValidateNotify('#title-feedback');
+
+displayValidateNotifyImage();
+displayValidateNotify('#titleTextarea');
+displayValidateNotify('#districtSelect');
+displayValidateNotify('#wardSelect');
+displayValidateNotify('#acreageInput');
+displayValidateNotify('#rentInput');
+displayValidateNotify('#electricityPriceInput');
+displayValidateNotify('#waterPriceInput');
+
+displayValidateNotify('#nameInput');
+displayValidateNotify('#passwordInput');
+displayValidateNotify('#repasswordInput');
+displayValidateNotify('#addressInput');
+displayValidateNotify('#phonenumberInput');
+
+//Feedback form
+$('#title-feedback').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  var titleValue = $(this).val().trim();
+  if (!isNotEmpty(titleValue)) {
+    updateValidationState($(this), invalidFeedback, false, 'Tiêu đề không được bỏ trống');
+  } else {
+    handleInputValidation($(this), invalidFeedback, validateTitleFeedback, 'Tiêu đề không quá 30 ký tự');
+  }
+});
+
+$('#description-feedback').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  var titleValue = $(this).val().trim();
+  if (!isNotEmpty(titleValue)) {
+    updateValidationState($(this), invalidFeedback, false, 'Nôi dụng không được bỏ trống');
+  } else {
+    handleInputValidation($(this), invalidFeedback, validateDescriptionFeedback, 'Nội dung không quá 255 ký tự');
+  }
+});
+
+//Post form
+$('#titleTextarea').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Tiêu đề không được bỏ trống');
+});
+
+$('#acreageInput').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Diện tích không được bỏ trống');
+});
+
+$('#rentInput').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá phòng không được bỏ trống');
+});
+
+$('#electricityPriceInput').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá điện không được bỏ trống');
+});
+
+$('#waterPriceInput').on('blur keyup', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá nước không được bỏ trống');
+});
+
+//User form
+$('#phonenumberInput').on('blur keyup', function () {
+  handleInputValidation($(this), $('#phonenumberFeedback'), validatePhoneNumber, 'Số điện thoại không hợp lệ');
+});
+
+$('#nameInput').on('keyup blur', function () {
+  handleInputValidation($(this), $('#nameFeedback'), validateName, 'Tên cá nhân không hợp lệ');
+});
+
+$('#passwordInput').on('keyup blur', function () {
+  handleInputValidation($(this), $('#passwordFeedback'), validatePassword, 'Độ dài mật khẩu từ 5 đến 16 ký tự');
+});
+
+$('#repasswordInput').on('keyup blur', function () {
+  var repasswordInput = $(this);
+  var originalPassword = $('#passwordInput').val().trim();
+  handleInputValidation(repasswordInput, $('#repasswordFeedback'), function (password) {
+    return password === originalPassword;
+  }, 'Nhập lại mật khẩu không chính xác');
+});
+
 
 // Validation Form
 function defaulValidate() {
@@ -39,6 +135,12 @@ function validatePhoneNumber(phoneNumber) {
 }
 function validatePassword(password) {
   return (password.length > 4 && password.length < 17) ? true : false;
+}
+function validateTitleFeedback(title) {
+  return title.trim().length <= 30;
+}
+function validateDescriptionFeedback(title) {
+  return title.trim().length <= 255;
 }
 function validateName(name) {
   if (name.trim() === '') {
@@ -97,72 +199,13 @@ function displayValidateNotify(input) {
     $(input).addClass('is-invalid');
   }
 }
-
-$('#titleTextarea').on('blur keyup', function () {
-  var invalidFeedback = $(this).next('.invalid-feedback');
-  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Tiêu đề không được bỏ trống');
-});
-
-$('#acreageInput').on('blur keyup', function () {
-  var invalidFeedback = $(this).next('.invalid-feedback');
-  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Diện tích không được bỏ trống');
-});
-
-$('#rentInput').on('blur keyup', function () {
-  var invalidFeedback = $(this).next('.invalid-feedback');
-  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá phòng không được bỏ trống');
-});
-
-$('#electricityPriceInput').on('blur keyup', function () {
-  var invalidFeedback = $(this).next('.invalid-feedback');
-  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá điện không được bỏ trống');
-});
-
-$('#waterPriceInput').on('blur keyup', function () {
-  var invalidFeedback = $(this).next('.invalid-feedback');
-  handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá nước không được bỏ trống');
-});
-
-$('#phonenumberInput').on('blur keyup', function () {
-  handleInputValidation($(this), $('#phonenumberFeedback'), validatePhoneNumber, 'Số điện thoại không hợp lệ');
-});
-
-$('#nameInput').on('keyup blur', function () {
-  handleInputValidation($(this), $('#nameFeedback'), validateName, 'Tên cá nhân không hợp lệ');
-});
-
-$('#passwordInput').on('keyup blur', function () {
-  handleInputValidation($(this), $('#passwordFeedback'), validatePassword, 'Độ dài mật khẩu từ 5 đến 16 ký tự');
-});
-
-$('#repasswordInput').on('keyup blur', function () {
-  var repasswordInput = $(this);
-  var originalPassword = $('#passwordInput').val().trim();
-  handleInputValidation(repasswordInput, $('#repasswordFeedback'), function (password) {
-    return password === originalPassword;
-  }, 'Nhập lại mật khẩu không chính xác');
-});
-
-displayValidateNotifyImage();
-displayValidateNotify('#titleTextarea');
-displayValidateNotify('#districtSelect');
-displayValidateNotify('#wardSelect');
-displayValidateNotify('#acreageInput');
-displayValidateNotify('#rentInput');
-displayValidateNotify('#electricityPriceInput');
-displayValidateNotify('#waterPriceInput');
-
-displayValidateNotify('#nameInput');
-displayValidateNotify('#passwordInput');
-displayValidateNotify('#repasswordInput');
-displayValidateNotify('#addressInput');
-
-displayValidateNotify('#phonenumberInput');
-
-// End Validation Form
+function showConfirmForm(id_post){
+  $('#confirmBtn').attr('href', '/post/delete/' + id_post);
+}
 
 // Ajax Upload Image
-$('#imageInput').on('change', function () {
+$('#imageInput').on('input', function () {
+  // console.log("Input event fired");
   var imgCount = $('#preview-img img').length;
   if (imgCount > 5) {
     alert('Ảnh tối đa là 6');
@@ -189,8 +232,18 @@ $('#imageInput').on('change', function () {
           var url_array = response.urls.split('&&');
           for (let index = 0; index < url_array.length; index++) {
             if (url_array[index] != '') {
-              $('#preview-img').append('<img class="mx-1 mb-2" src="' + url_array[index] + '" alt="">');
-              $('#preview-img').append('<input type="hidden" name="images[]" value="' + url_array[index] + '">');
+              // $('#preview-img').append('<img class="mx-1 mb-2" src="' + url_array[index] + '" alt="">');
+              // $('#preview-img').append('<input type="hidden" name="images[]" value="' + url_array[index] + '">');
+              var html = '<div class="position-relative mx-1 mb-2">' +
+                '<div onclick="removeImage(this)" class="btn-remove-img">' +
+                '<i class="text-white bi bi-x"></i>' +
+                '</div>' +
+                '<div class="w-100">' +
+                '<img class="object-fit-cover" src="' + url_array[index] + '" alt="">' +
+                '<input class="d-none" type="hidden" name="images[]" value="' + url_array[index] + '">' +
+                '</div>' +
+                '</div>';
+              $('#preview-img').append(html);
             }
           }
         }
@@ -201,6 +254,22 @@ $('#imageInput').on('change', function () {
     });
   }
 });
+
+function removeImage(element) {
+  element.parentNode.remove();
+}
+function submitFormIfAgree() {
+  if ($('#agree-checkbox').prop('checked')) {
+    $('#submit-btn').prop('disabled', false);
+  }
+  else $('#submit-btn').prop('disabled', true);
+}
+$('#agree-checkbox').on('change', function () {
+  if ($(this).prop('checked')) {
+    $('#submit-btn').prop('disabled', false);
+  }
+  else $('#submit-btn').prop('disabled', true);
+})
 $('#avatarInput').on('change', function () {
   var formData = new FormData();
   var files = $(this)[0].files;
@@ -237,6 +306,7 @@ $('#wardSelect').on('change', function () {
   var invalidFeedback = $(this).next('.invalid-feedback');
   handleInputValidation($(this), invalidFeedback, defaulValidate, "Vui lòng chọn địa chỉ.");
 })
+
 // Ajax Get Ward's Name
 function fetchWards(idDistrict, wardSelect) {
   if (idDistrict != '') {
