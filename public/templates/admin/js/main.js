@@ -1,6 +1,23 @@
+$('#Table').DataTable({
+    "order": []
+});
 function isValidImage(file) {
     return file.type.startsWith('image/');
 }
+$('.alert').each(function () {
+    if ($(this).text().trim().length > 0) {
+        var alertElement = $(this);
+        setTimeout(function () {
+            alertElement.addClass('show');
+        }, 200);
+        setTimeout(function () {
+            alertElement.removeClass('show');
+            setTimeout(function () {
+                alertElement.addClass('d-none');
+            }, 500);
+        }, 5000);
+    }
+});
 function defaulValidate() {
     return true;
 }
@@ -13,60 +30,6 @@ function validateImage(input) {
         }
     }
     return false;
-}
-function isNotEmpty(input) {
-    return input.trim().length > 0;
-}
-function isValidImage(file) {
-    return file.type.startsWith('image/');
-}
-function validatePhoneNumber(phoneNumber) {
-    var stripped = phoneNumber.replace(/[\D]/g, '');
-    if (stripped.length === 10) {
-        if (stripped.charAt(0) === '0') {
-            return true;
-        }
-    }
-    return false;
-}
-function validatePassword(password) {
-    return (password.length > 4 && password.length < 17) ? true : false;
-}
-function validateName(name) {
-    if (name.trim() === '') {
-        return false;
-    }
-    var specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    if (specialChars.test(name)) {
-        return false;
-    }
-    var numbers = /\d/;
-    if (numbers.test(name)) {
-        return false;
-    }
-    return true;
-}
-function handleInputValidation(input, feedback, validationFunction, errorMessage) {
-    var value = input.val().trim();
-    if (value === '') {
-        updateValidationState(input, feedback, false, errorMessage);
-    } else {
-        if (!validationFunction(value)) {
-            updateValidationState(input, feedback, false, errorMessage);
-        } else {
-            updateValidationState(input, feedback, true, '');
-        }
-    }
-}
-
-function updateValidationState(input, feedback, isValid, message) {
-    if (isValid) {
-        input.removeClass('is-invalid').addClass('is-valid');
-        feedback.text('');
-    } else {
-        input.removeClass('is-valid').addClass('is-invalid');
-        feedback.text(message);
-    }
 }
 
 function displayValidateNotifyImage() {
@@ -81,73 +44,24 @@ function displayValidateNotifyImage() {
     }
 }
 
-function displayValidateNotify(input) {
-    var invalidFeedback = $(input).next('.invalid-feedback');
+function displayValidateNotify(element) {
+    var $element = $(element);
+    var invalidFeedback = $element.siblings('.invalid-feedback');
     if (invalidFeedback.length === 0) {
-        invalidFeedback = $(input).parent().find('.invalid-feedback');
+        invalidFeedback = $element.parent().find('.invalid-feedback');
     }
     if (invalidFeedback.text().trim() != '') {
-        $(input).addClass('is-invalid');
+        $element.addClass('is-invalid');
     }
 }
 
-$('#titleTextarea').on('blur keyup', function () {
-    var invalidFeedback = $(this).next('.invalid-feedback');
-    handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Tiêu đề không được bỏ trống');
-});
-
-$('#acreageInput').on('blur keyup', function () {
-    var invalidFeedback = $(this).next('.invalid-feedback');
-    handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Diện tích không được bỏ trống');
-});
-
-$('#rentInput').on('blur keyup', function () {
-    var invalidFeedback = $(this).next('.invalid-feedback');
-    handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá phòng không được bỏ trống');
-});
-
-$('#electricityPriceInput').on('blur keyup', function () {
-    var invalidFeedback = $(this).next('.invalid-feedback');
-    handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá điện không được bỏ trống');
-});
-
-$('#waterPriceInput').on('blur keyup', function () {
-    var invalidFeedback = $(this).next('.invalid-feedback');
-    handleInputValidation($(this), invalidFeedback, isNotEmpty, 'Giá nước không được bỏ trống');
-});
-
-$('#phoneInput').on('blur keyup', function () {
-    handleInputValidation($(this), $('#phoneFeedback'), validatePhoneNumber, 'Số điện thoại không hợp lệ');
-});
-
-$('#nameInput').on('keyup blur', function () {
-    handleInputValidation($(this), $('#nameFeedback'), validateName, 'Tên cá nhân không hợp lệ');
-});
-
-$('#passwordInput').on('keyup blur', function () {
-    handleInputValidation($(this), $('#passwordFeedback'), validatePassword, 'Độ dài mật khẩu từ 5 đến 16 ký tự');
+$('input.form-control, select.form-select, textarea.form-control').each(function () {
+    displayValidateNotify(this);
 });
 
 
 displayValidateNotifyImage();
-displayValidateNotify('#titleTextarea');
-displayValidateNotify('#districtSelect');
-displayValidateNotify('#wardSelect');
-displayValidateNotify('#acreageInput');
-displayValidateNotify('#rentInput');
-displayValidateNotify('#electricityPriceInput');
-displayValidateNotify('#waterPriceInput');
 
-displayValidateNotify('#nameInput');
-displayValidateNotify('#passwordInput');
-displayValidateNotify('#repasswordInput');
-displayValidateNotify('#addressInput');
-displayValidateNotify('#phoneInput');
-function showConfirm(userId, userName, actionType) {
-    // console.log(userId);
-    $('#userInfo').text('ID: ' + userId + ' - Họ tên: ' + userName + '.')
-    $('#btn-confirm').attr('href', '/admin/user/delete/' + userId);
-}
 function clearUserForm() {
     $('#avatar-url-input').val('')
     $('#nameInput').val('');
@@ -193,32 +107,52 @@ function viewPost(postId) {
         });
     }
 }
-function showUpdateForm(userId) {
+function fetchUser(userId) {
+    $.ajax({
+        url: '/admin/user/getuser',
+        method: 'GET',
+        data: { id: userId },
+        dataType: 'json',
+        success: function (response) {
+            console.log('Thông tin người dùng:', response);
+            $('#user-avatar').attr('src', response['avatar_url']);
+            $('#user-name').text(response['name']);
+            $('#user-phone').text(response['phone']);
+            $('#user-mail').text(response['email']);
+            $('#user-id').val(response['id']);
+        },
+        error: function (xhr, status, error) {
+            console.error('Lỗi khi yêu cầu thông tin người dùng:', error);
+        }
+    });
+}
+//User Confirm Form
+function showDeleteForm(userId) {
     if (userId !== '') {
-        $.ajax({
-            url: '/admin/user/getuser',
-            method: 'GET',
-            data: { id: userId },
-            dataType: 'json',
-            success: function (response) {
-                console.log('Thông tin người dùng:', response);
-                $('#modal-title').text('Cập nhật thông tin người dùng');
-                $('#userForm').attr('action', '/admin/user/update');
-                $('#userForm').append('<input type="hidden" name="id" value="' + userId + '">');
-                $('#avatar-preview').attr('src', response['avatar_url']);
-                $('#avatar-url-input').val(response['avatar_url'])
-                $('#nameInput').val(response['name']);
-                $('#phoneInput').val(response['phone']);
-                $('#dateInput').val(response['date_of_birth']);
-                $('#addressInput').val(response['address']);
-            },
-            error: function (xhr, status, error) {
-                console.error('Lỗi khi yêu cầu thông tin người dùng:', error);
-            }
-        });
+        $('#user-id').val(userId);
     }
 }
-
+function showConfirmUser(userId, typeAction) {
+    var textareaHTML = `
+        <div class="form-floating" id="textarea-block-reason">
+            <textarea class="form-control"  placeholder="" name="reason"></textarea>
+            <label for="floatingTextarea2">Lý do khóa</label>
+        </div>
+        `;
+    $('#user-id-2').val(userId);
+    if (typeAction === 'block') {
+        $('#user-form').attr('action', '/admin/user/block');
+        $('#title-action').text('Xác nhận khóa tài khoản này?')
+        if ($('#textarea-block-reason').length === 0) {
+            $('#form-body').append(textareaHTML);
+        }
+    } else if (typeAction === 'unblock') {
+        $('#user-form').attr('action', '/admin/user/unblock');
+        $('#title-action').text('Xác nhận mở khóa tài khoản này?')
+        $('#textarea-block-reason').remove();
+    }
+}
+//Post Confirm Form
 function showConfirmPost(idPost, actionType) {
     if (actionType === 'approve') {
         if (!$('#reject-form').hasClass('d-none')) $('#reject-form').addClass('d-none');
@@ -242,11 +176,6 @@ $('#reasonInput').on('keyup', function () {
     $("#btn-confirm").attr('href', url + '?reason=' + $(this).val());
 });
 
-function showCreateForm() {
-    clearUserForm();
-    $('#modal-title').text('Thêm người dùng mới');
-    $('#userForm').attr('action', '/admin/user/create');
-}
 $('#avatarInput').on('change', function () {
     var formData = new FormData();
     var files = $(this)[0].files;

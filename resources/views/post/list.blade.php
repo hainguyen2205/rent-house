@@ -6,60 +6,72 @@
                 <div class="col-md-6 col-sm-12">
                     <input class="w-100 form-control" type="text" name="title" placeholder="Đại học CNTT...">
                 </div>
-                <div class="col-md-5 col-sm-8">
-                    <div class="h-100 d-flex align-items-center">
-                        <div class="row">
-                            <div class="col-3">
-                                <select class="w-100 custom-select bg-transparent border border-0" name="id_district"
-                                    id="districtSelect">
-                                    <option value="">Quận/Huyện</option>
-                                    @foreach ($districts as $district)
-                                        <option value="{{ $district->id }}">{{ $district->district_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <select class="w-100 custom-select bg-transparent border border-0" name="id_ward"
-                                    id="wardSelect">
-                                    <option class="" value="">Phường/Xã</option>
-                                </select>
-                            </div>
-                            <div class="col-3 d-flex justify-content-center">
-                                <div class="filter-post positon-relative">Diện tích <i style="font-size: 11px"
-                                        class="ms-2 fa-solid fa-angle-down"></i>
-                                    <div class="p-1 bg-light border custom-dropdown">
-                                        <div class="d-flex align-items-center">
-                                            <input class="form-control" name="min_acreage" min="1" placeholder="15m2"
-                                                type="number">
-                                            <i class="text-dark bi bi-arrow-right mx-1"></i>
-                                            <input class="form-control" name="max_acreage" min="1" placeholder="25m2"
-                                                type="number">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 d-flex justify-content-center">
-                                <div class="filter-post positon-relative">Mức giá <i style="font-size: 11px"
-                                        class="ms-2 fa-solid fa-angle-down"></i>
-                                    <div class="p-1 bg-light custom-dropdown">
-                                        <div class="d-flex align-items-center">
-                                            <input class="form-control" name="min_rent" min="1000"
-                                                placeholder="600.000đ" type="number">
-                                            <i class="text-dark bi bi-arrow-right mx-1"></i>
-                                            <input class="form-control" name="max_rent" min="1000"
-                                                placeholder="800.000đ" type="number">
-                                        </div>
+                <div class="col-md-6 col-sm-12 my-md-0 my-sm-2">
+                    {{-- <div class="h-100 d-flex align-items-center"> --}}
+                    <div class="row">
+                        <div class="col-md-2 col-sm-6 py-md-0 py-sm-1 d-flex align-items-center">
+                            <select class="w-100 custom-select bg-transparent border border-0" name="id_district"
+                                id="districtSelect">
+                                <option value="">Quận/Huyện</option>
+                                @foreach ($districts as $district)
+                                    <option value="{{ $district->id }}">{{ $district->district_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-sm-6 py-md-0 py-sm-1 d-flex align-items-center">
+                            <select class="w-100 custom-select bg-transparent border border-0" name="id_ward"
+                                id="wardSelect">
+                                <option class="" value="">Phường/Xã</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-sm-4 py-md-0 py-sm-1 d-flex align-items-center">
+                            <select class="w-100 custom-select bg-transparent border border-0" name="type_house"
+                                id="typeHouseSelect">
+                                <option value="">Loại nhà</option>
+                                @foreach ($type_houses as $type)
+                                    <option value="{{ $type->id }}">{{ $type->type_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-sm-4 py-md-0 py-sm-1 d-flex justify-content-center align-items-center">
+                            <div class="filter-post positon-relative">Diện tích <i style="font-size: 11px"
+                                    class="ms-2 fa-solid fa-angle-down"></i>
+                                <div class="p-1 bg-light border custom-dropdown">
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control" name="min_acreage" min="1" placeholder="15m2"
+                                            type="number">
+                                        <i class="text-dark bi bi-arrow-right mx-1"></i>
+                                        <input class="form-control" name="max_acreage" min="1" placeholder="25m2"
+                                            type="number">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-2 col-sm-4 py-md-0 py-sm-1 d-flex justify-content-center align-items-center">
+                            <div class="filter-post positon-relative">Mức giá <i style="font-size: 11px"
+                                    class="ms-2 fa-solid fa-angle-down"></i>
+                                <div class="p-1 bg-light custom-dropdown">
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control" name="min_rent" min="1000" placeholder="600.000đ"
+                                            type="number">
+                                        <i class="text-dark bi bi-arrow-right mx-1"></i>
+                                        <input class="form-control" name="max_rent" min="1000" placeholder="800.000đ"
+                                            type="number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 p-0">
+                            <button type="submit" class="btn btn-light w-100"><i
+                                    class="fa-solid fa-magnifying-glass"></i> Tìm
+                                kiếm</button>
+                        </div>
                     </div>
+                    {{-- </div> --}}
                 </div>
-                <div class="col-md-1 col-sm-4 p-0">
-                    <button type="submit" class="btn btn-light"><i class="fa-solid fa-magnifying-glass fa-bounce"></i> Tìm
-                        kiếm</button>
-                </div>
+
             </form>
         </div>
     </div>
@@ -86,7 +98,7 @@
                         <p class="dropdown-item mb-0" onclick="orderByPosts('views')">Xem nhiều</p>
                     </li>
                     <li class="cursor-pointer">
-                        <p class="dropdown-item mb-0" onclick="orderByPosts('interests')">Được quan tâm</p>
+                        <p class="dropdown-item mb-0">Được quan tâm</p>
                     </li>
                 </ul>
             </div>
@@ -94,8 +106,8 @@
         <div class="row mb-3">
             @if (count($posts) == 0)
                 <div class="p-5 text-center mb-8">
-                    <img width="80px" src="/templates/front/images/emptybox.png" alt="" srcset="">
-                    <p>Không có bài đăng nào phù hợp</p>
+                    <img class="mb-3" width="90px" src="/templates/front/images/man.png" alt="" srcset="">
+                    <p class="m-0">Không có bài đăng nào phù hợp!</p>
                 </div>
             @endif
             @foreach ($posts as $post)

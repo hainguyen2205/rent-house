@@ -19,9 +19,9 @@
     </div>
     <h3 class="text-center text-color-primary fw-bold mb-3 border-bottom pb-3"> Danh sách bài {{ $title_status }} </h3>
     @if (count($posts) == 0)
-        <div class="p-5 text-center mb-8">
-            <img width="80px" src="/templates/front/images/emptybox.png" alt="" srcset="">
-            <p>Không có bài đăng nào phù hợp</p>
+        <div class="p-3 text-center mb-8">
+            <img class="mb-3" width="75px" src="/templates/front/images/man.png" alt="" srcset="">
+            <p class="m-0">Không có bài đăng nào phù hợp!</p>
         </div>
     @endif
     @foreach ($posts as $post)
@@ -75,4 +75,7 @@
 
         </div>
     @endforeach
+    <div class="d-flex justify-content-end mt-3 me-5">
+        {{ $posts->links() }}
+    </div>
 @endsection

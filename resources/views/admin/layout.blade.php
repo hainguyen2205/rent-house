@@ -7,25 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Nhachothue - Admin</title>
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link href="/templates/admin/css/admin.min.css" rel="stylesheet">
     <link href="/templates/admin/css/style.css" rel="stylesheet">
 
     <script src="/templates/admin/js/main.js" defer></script>
     <script src="/templates/admin/js/sidebar.min.js" defer></script>
-    <script src="/templates/admin/js/demo/chart-area-demo.js" defer></script>
-    <script src="/templates/admin/js/demo/chart-pie-demo.js" defer></script>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="siderbar-toggled">
+    <div class="position-fixed top-0 end-0 m-3 z-3">
+        @if (Session::has('error'))
+            <div class="alert alert-danger alert-dismissible fade shadow-lg" role="alert">
+                <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> {{ Session::get('error') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-warning alert-dismissible fade shadow-lg" role="alert">
+                <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> Kiểm tra lại các thông tin.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible shadow-lg" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
     <div id="wrapper">
-
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-icon">
                     <svg width="25px" viewBox="0 -0.5 24 24" id="meteor-icon-kit__solid-home" fill="none"
@@ -66,7 +79,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý người dùng</h6>
                         <a class="collapse-item" href="/admin/user/list">Danh sách người dùng</a>
-                        <a class="collapse-item" href="#">Phản hồi người dùng</a>
+                        <a class="collapse-item" href="/admin/feedback/list">Phản hồi người dùng</a>
                         <a class="collapse-item" href="#">Nạp tiền</a>
                     </div>
                 </div>
@@ -131,13 +144,10 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <div id="content">
-
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -292,6 +302,7 @@
 
                 <div class="container-fluid">
                     @yield('content')
+
                 </div>
 
             </div>
@@ -322,12 +333,9 @@
             </div>
         </div>
     </div>
-
     <script src="/templates/admin/js/jquery.min.js"></script>
     <script src="/templates/admin/js/bootstrap.bundle.min.js"></script>
     <script src="/templates/admin/js/jquery.easing.min.js"></script>
-    <script src="/templates/admin/js/chart.js/Chart.min.js"></script>
-
 </body>
 
 </html>

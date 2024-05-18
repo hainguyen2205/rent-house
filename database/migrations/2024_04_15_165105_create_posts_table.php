@@ -22,9 +22,10 @@ return new class extends Migration
             $table->bigInteger('rent');
             $table->bigInteger('electric_price');
             $table->bigInteger('water_price');
-            $table->integer("views");
-            $table->integer("interests");
-            $table->integer("id_status");
+            $table->integer("views")->default(0);
+            $table->integer("updated_count")->default(0);
+            $table->tinyInteger('type_house');
+            $table->integer("id_status")->default(1);
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class AdminPostController extends Controller
         if (!array_key_exists($status, $id_status_map)) {
             return abort(404);
         }
-        $posts = $this->obj::where('id_status', '=', $id_status)->paginate(10);
+        $posts = $this->obj::where('id_status', '=', $id_status)->get();
         return view('admin.posts', [
             'posts' => $posts,
         ]);

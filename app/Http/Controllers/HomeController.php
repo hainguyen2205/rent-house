@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AddressController;
 use App\Models\District;
 use App\Models\Post;
+use App\Models\TypeHouse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,8 @@ class HomeController extends Controller
             'daitu' => Post::where('id_status', '2')->where('id_district', '7')->count(),
         ];
         return view('home', [
-            'districts' => District::get(),
+            'districts' => District::all(),
+            'type_houses' => TypeHouse::all(),
             'title' => $this->title,
             'new_posts' => $new_posts,
             'popular_posts' => $popular_posts,

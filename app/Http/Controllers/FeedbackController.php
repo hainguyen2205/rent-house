@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Session;
 class FeedbackController extends Controller
 {
     public function createFeedback(FeedbackRequest $request)
-    {   
+    {
         $feedback = [
             'id_user' => Auth::user()->id,
         ];
         $requestData = $request->except('_token');
-        $feedback = array_merge($feedback, $requestData);        
+        $feedback = array_merge($feedback, $requestData);
         try {
             Feedback::create($feedback);
             Session::flash('success', 'Phản hồi đã được gửi thành công');
@@ -25,5 +25,13 @@ class FeedbackController extends Controller
             Session::flash('error', 'Đã xảy ra lỗi khi gửi phản hồi');
         }
         return back();
+    }
+    public function showFeedbacks()
+    {
+        $feedbacks = Feedback::where('id_user', Auth::user()->id)->get();
+        // dd($feedbacks[0]);
+        return view('user.feedback', [
+            'feedbacks' => $feedbacks
+        ]);
     }
 }

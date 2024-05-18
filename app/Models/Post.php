@@ -19,7 +19,7 @@ class Post extends Model
         'electric_price',
         'water_price',
         'views',
-        'interests',
+        'type_house',
         'id_status'
     ];
 

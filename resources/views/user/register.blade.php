@@ -27,38 +27,48 @@
                             @csrf
                             <div class="d-flex justify-content-between">
                                 <div class="me-1 w-50 form-floating mb-3 ">
-                                    <input type="tel" class="form-control" name="phone" id="phonenumberInput" placeholder=""
-                                        required>
+                                    <input type="tel" class="form-control" name="phone" id="phonenumberInput"
+                                        placeholder="" value="{{ old('phone') }}" >
                                     <label for="phonenumberInput"><i class="bi bi-telephone"></i> Số điện thoại</label>
                                     <div class="invalid-feedback" id="phonenumberFeedback">{{ $errors->first('phone') }}
                                     </div>
                                 </div>
                                 <div class="ms-1 w-50 form-floating mb-3">
-                                    <input type="text" id="nameInput" name="name" class="form-control" placeholder="" required >
+                                    <input type="text" id="nameInput" name="name" class="form-control" placeholder=""
+                                        value="{{ old('name') }}">
                                     <label class="label" for="nameInput"><i class="bi bi-person"></i> Tên đầy đủ</label>
                                     <div class="invalid-feedback" id="nameFeedback">{{ $errors->first('name') }}
                                     </div>
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" id="passwordInput" name="password" class="form-control" placeholder="" required >
+                                <input type="email" id="emailInput" name="email" class="form-control" placeholder=""
+                                    value="{{ old('email') }}">
+                                <label class="label" for="emailInput"><i class="bi bi-envelope-at"></i> Địa chỉ email
+                                </label>
+                                <div class="invalid-feedback" id="emailFeedback">{{ $errors->first('email') }}
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" id="passwordInput" name="password" class="form-control" placeholder="">
                                 <label class="label" for="passwordInput"><i class="bi bi-lock"></i> Mật khẩu</label>
                                 <div class="invalid-feedback" id="passwordFeedback">{{ $errors->first('password') }}
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" id="repasswordInput" name="repassword" class="form-control" placeholder="" required >
+                                <input type="password" id="repasswordInput" name="repassword" class="form-control" placeholder="">
                                 <label class="label" for="repasswordInput"><i class="bi bi-lock"></i> Nhập lại mật
                                     khẩu</label>
-                                <div class="invalid-feedback" id="repasswordFeedback">{{ $errors->first('repassword') }}</div>
+                                <div class="invalid-feedback" id="repasswordFeedback">{{ $errors->first('repassword') }}
+                                </div>
                             </div>
-
                             <div class="form-group mb-3">
                                 <button type="submit" class="form-control btn btn-primary rounded submit px-3">Đăng
                                     Ký</button>
                             </div>
                         </form>
-                        <p class="text-center">Đã có tài khoản? <a data-toggle="tab" href="/login" class="text-primary">Đăng nhập</a></p>
+                        <p class="text-center">Đã có tài khoản? <a data-toggle="tab" href="/login"
+                                class="text-primary">Đăng nhập</a></p>
                     </div>
                 </div>
             </div>

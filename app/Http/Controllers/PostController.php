@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
 use App\Models\District;
 use App\Models\Post_Interest;
+use App\Models\TypeHouse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Post;
@@ -26,12 +27,16 @@ class PostController extends Controller
     }
     public function createPost(PostRequest $request)
     {
-        $this->service->insert($request);
+        if($this->service->insert($request)) {
+            return redirect('/profile/post/pending');
+        };
         return redirect()->back();
     }
     public function updatePost(PostRequest $request)
     {
-        $this->service->update($request);
+        if($this->service->update($request)){
+           return redirect('/profile/post/pending'); 
+        }
         return back();
     }
     public function deletePost($id_post)
@@ -40,6 +45,9 @@ class PostController extends Controller
         if (!$post) {
             Session::flash('error', 'Không tìm thấy tin đăng');
             return back();
+        }
+        if ($post->id_user != Auth::user()->id) {
+            return abort(404);
         }
         try {
             $post->update(['id_status' => '3']);
@@ -65,6 +73,7 @@ class PostController extends Controller
             'districts' => $districts,
             'wards' => $wards,
             'services' => $services,
+            'type_houses' => TypeHouse::all(),
         ]);
     }
     public function displayPostList(Request $request)
@@ -76,25 +85,20 @@ class PostController extends Controller
         $this->per_page = 12;
 
         //Set orderby
-        if ($request->orderby == 'news') {
-            $this->setOrderBy('created_at', 'desc');
-        }
-        if ($request->orderby == 'views') {
-            $this->setOrderBy('views', 'desc');
-        }
-        if ($request->orderby == 'interests') {
-            $this->setOrderBy('interests', 'desc');
+        $orderByOptions = ['news' => 'created_at', 'views' => 'views', 'interests' => 'interests'];
+        if (isset($orderByOptions[$request->orderby])) {
+            $this->setOrderBy($orderByOptions[$request->orderby], 'desc');
         }
 
         //Set filters
         $filter_title = trim($request->title);
-        if ($filter_title != '') {
+        if (!empty($filter_title)) {
             $search_title .= $filter_title . '; ';
             $this->addFilter('title', 'like', '%' . $filter_title . '%');
         }
 
         $filter_district = trim($request->id_district);
-        if ($filter_district != '') {
+        if (!empty($filter_district)) {
             $district = District::find($filter_district);
             if ($district) {
                 $this->addFilter('id_district', '=', $filter_district);
@@ -104,8 +108,19 @@ class PostController extends Controller
             }
         }
 
+        $filter_type_house = $request->type_house;
+        if (!empty($filter_type_house)) {
+            $type = TypeHouse::find($filter_type_house);
+            if ($type) {
+                $this->addFilter('type_house', '=', $filter_type_house);
+                $search_title .= $type->type_name . '; ';
+            } else {
+                abort(404);
+            }
+        }
+
         $filter_ward = $request->id_ward;
-        if ($filter_ward != '') {
+        if (!empty($filter_ward)) {
             $ward = Ward::find($filter_ward);
             if ($ward) {
                 $this->addFilter('id_ward', '=', $filter_ward);
@@ -117,34 +132,35 @@ class PostController extends Controller
 
         $filter_min_acreage = $request->min_acreage;
         $filter_max_acreage = $request->max_acreage;
-        if ($filter_min_acreage != '' && $filter_max_acreage != '' && is_numeric($filter_min_acreage) && is_numeric($filter_max_acreage)) {
+        if (is_numeric($filter_min_acreage) && is_numeric($filter_max_acreage)) {
             $this->addFilter('acreage', 'between', [$filter_min_acreage, $filter_max_acreage]);
-            $search_title .= 'Diện tích từ ' . $filter_min_acreage . ' đến ' . $filter_max_acreage . '; ';
-        } elseif ($filter_min_acreage != '' && is_numeric($filter_min_acreage)) {
+            $search_title .= 'Diện tích từ ' . $filter_min_acreage . ' đến ' . $filter_max_acreage . 'm2; ';
+        } elseif (is_numeric($filter_min_acreage)) {
             $this->addFilter('acreage', '>=', $filter_min_acreage);
-            $search_title .= 'Diện tích từ ' . $filter_min_acreage . ' trở lên; ';
-        } elseif ($filter_max_acreage != '' && is_numeric($filter_max_acreage)) {
-            $search_title .= 'Giá đến ' . $filter_max_acreage . '; ';
+            $search_title .= 'Diện tích từ ' . $filter_min_acreage . 'm2 trở lên; ';
+        } elseif (is_numeric($filter_max_acreage)) {
+            $search_title .= 'Giá đến ' . $filter_max_acreage . 'm2; ';
             $this->addFilter('acreage', '<=', $filter_max_acreage);
         }
 
         $filter_min_rent = $request->min_rent;
         $filter_max_rent = $request->max_rent;
-        if ($filter_min_rent != '' && $filter_max_rent != '' && is_numeric($filter_min_rent) && is_numeric($filter_max_rent)) {
+        if (is_numeric($filter_min_rent) && is_numeric($filter_max_rent)) {
             $this->addFilter('rent', 'between', [$filter_min_rent, $filter_max_rent]);
-            $search_title .= 'Giá phòng từ ' . number_format($filter_min_rent) . ' đến ' . number_format($filter_max_rent) . '; ';
-        } elseif ($filter_min_rent != '') {
+            $search_title .= 'Giá phòng từ ' . number_format($filter_min_rent) . ' đến ' . number_format($filter_max_rent) . 'đ; ';
+        } elseif (is_numeric($filter_min_rent)) {
             $this->addFilter('rent', '>=', $filter_min_rent);
-            $search_title .= 'Giá phòng từ ' . number_format($filter_min_rent) . ' trở lên; ';
-        } elseif ($filter_max_rent != '') {
-            $search_title .= 'Giá phòng từ ' . number_format($filter_max_rent) . '; ';
+            $search_title .= 'Giá phòng từ ' . number_format($filter_min_rent) . 'đ trở lên; ';
+        } elseif (is_numeric($filter_max_rent)) {
+            $search_title .= 'Giá phòng từ ' . number_format($filter_max_rent) . 'đ ';
             $this->addFilter('rent', '<=', $filter_max_rent);
         }
 
         return view('post.list', [
             'title' => $this->title,
             'search_title' => $search_title,
-            'districts' => District::get(),
+            'districts' => District::all(),
+            'type_houses' => TypeHouse::all(),
             'posts' => $this->obj->getAllData($this->filters, $this->orderBy, $this->per_page),
             'now' => $now,
         ]);
@@ -168,11 +184,10 @@ class PostController extends Controller
         try {
             Post_Interest::create(['id_user' => Auth::user()->id, 'id_post' => $post->id]);
             Session::flash('success', 'Đã quan tâm bài viết này!');
-            return back();
         } catch (\Throwable $e) {
             Session::flash('error', 'Đã xảy ra lỗi ' . $e);
-            return back();
         }
+        return back();
     }
     public function displayPostSingle($id_post)
     {
@@ -181,7 +196,7 @@ class PostController extends Controller
         $post = $this->obj->findOrFail($id_post);
         $was_interested = Post_Interest::where('id_user', Auth::user()->id)->where('id_post', $post->id)->count();
         $user_interested_list = Post_Interest::where('id_post', $post->id)->get();
-        // dd($user_interested_list[0]->user->name);
+
         $this->updateView($post->id);
         $this->addFilter('id_status', '=', '2');
         $this->addFilter('id', '<>', $post->id);
@@ -214,10 +229,14 @@ class PostController extends Controller
     public function displayCreatePost()
     {
         $this->setTitle('Tạo bài đăng');
-        $districts = District::get();
+        $districts = District::all();
+        $type_houses = TypeHouse::all();
+        $services = Service::all();
         return view('post.create', [
             'title' => $this->title,
             'districts' => $districts,
+            'type_houses' => $type_houses,
+            'services' => $services,
         ]);
     }
 }

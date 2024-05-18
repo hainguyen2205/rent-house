@@ -21,7 +21,7 @@
                                     <p class="col-4 text-center fs-6 mb-0"><i class="bi bi-eye"></i> {{ $post->views }}
                                         Lượt xem</p>
                                     <p class="col-4 text-center fs-6 mb-0"><i class="bi bi-person-heart"></i>
-                                        {{ $post->interests }} Quan tâm</p>
+                                        0 Quan tâm</p>
                                 </div>
                                 <div class="row mb-2 fw-bold text-color border-top pt-2">
                                     <p class="mb-0 col-3"><i class="fa-solid fa-ruler"></i> Diện tích:
@@ -30,10 +30,6 @@
                                         <p class="mb-0 col-3">{!! html_entity_decode($service->icon) !!} {{ $service->services_name }} </p>
                                     @endforeach
                                 </div>
-                                <p class="mb-2 fw-bold text-color fs-6"><i class="fa-solid fa-location-dot me-1"></i> Địa
-                                    chỉ: {{ $post->ward->ward_name }},
-                                    {{ $post->district->district_name }}, Tỉnh Thái Nguyên.
-                                </p>
                                 <div class="row mb-2 text-danger">
                                     <p class="mb-0 col-4 fs-6 fw-bold"><i class="text-dark fa-solid fa-money-bill"></i>
                                         Phòng: {{ number_format($post->rent) }} đ/tháng</p>
@@ -44,15 +40,27 @@
                                         Điện: {{ number_format($post->electric_price) }} đ/số</p>
                                 </div>
                                 <div class="py-2 border-top">
-                                    <p class="fw-bold mb-1">Thông tin mô tả:</p>
+                                    <p class="fw-bold text-color-primary mb-1 fs-5">Thông tin mô tả:</p>
                                     {{-- {!! $post->description !!} --}}
                                     <p class="card-text white-space-pre">{{ $post->description }}</p>
                                 </div>
+                                <div class="border-top pt-2">
+                                    <p class="mb-2 text-color-primary fw-bold fs-5"><i
+                                            class="fa-solid fa-location-dot me-1"></i> Địa
+                                        chỉ: <span class="fs-6 text-color">{{ $post->ward->ward_name }},
+                                            {{ $post->district->district_name }}, Tỉnh Thái Nguyên.</span>
+                                    </p>
+                                    <iframe class="w-100" height="250px"
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118726.8900234756!2d105.721087550852!3d21.57751697621483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313526e41a2f48ff%3A0x9af085049fb0466f!2zVHAuIFRow6FpIE5ndXnDqm4sIFRow6FpIE5ndXnDqm4sIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1715786824727!5m2!1svi!2s"
+                                        style="border:0;" allowfullscreen="" loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-light rounded shadow mt-3">
+                    <div class="bg-light rounded shadow mt-3 d-none">
                         <div class="py-4 px-5">
                             <p class="border-bottom fw-bold text-color-primary mb-0 pb-2">Nhận được 3 lượt đánh giá</p>
                             <ul class="list-group list-group-flush">
@@ -138,9 +146,9 @@
                                             @endforeach
                                         @else
                                             <div class="text-center py-2">
-                                                <img width="40px" src="/templates/front/images/emptybox.png"
-                                                    alt="" srcset="">
-                                                <small class="m-0 text-color">Không có người quan tâm</small>
+                                                <img width="40px" src="/templates/front/images/man.png" alt=""
+                                                    srcset="">
+                                                <small class="m-0 text-color">Không có người quan tâm!</small>
                                             </div>
                                         @endif
                                     </ul>
@@ -176,41 +184,46 @@
                         <div class="rounded py-2 mt-3 bg-light shadow">
                             <div class="px-2">
                                 <p class="fw-bold text-color-primary mx-2 mb-0 pb-2">Tin cùng khu vực</p>
-                                <ul class="list-group list-group-flush">
-                                    @foreach ($related_address_posts as $post)
-                                        <li class="list-group-item p-2">
-                                            <div class="posts">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="img-post position-relative w-100">
-                                                            <img height="110px" src="{{ $post->images[0]->url }}"
-                                                                class="w-100 rounded-start" alt="...">
-                                                            <a href="/post/single/{{ $post->id }}"
-                                                                class="btn btn-primary position-absolute top-50 start-50 translate-middle"><i
-                                                                    class="bi bi-eye"></i></a>
+                                @if (count($related_address_posts) < 1)
+                                    <div class="text-center py-2">
+                                        <img width="40px" src="/templates/front/images/man.png" alt=""
+                                            srcset="">
+                                        <p class="m-0 text-color">Không có bài đăng phù hợp!</p>
+                                    </div>
+                                @else
+                                    <ul class="list-group list-group-flush">
+                                        @foreach ($related_address_posts as $post)
+                                            <li class="list-group-item p-2">
+                                                <div class="posts">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="img-post position-relative w-100">
+                                                                <img height="110px" src="{{ $post->images[0]->url }}"
+                                                                    class="w-100 rounded-start" alt="...">
+                                                                <a href="/post/single/{{ $post->id }}"
+                                                                    class="btn btn-primary position-absolute top-50 start-50 translate-middle"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                            </div>
                                                         </div>
-                                                        {{-- <a class="w-100" href="/post/single/{{ $post->id }}">
-                                                            <img height="110px" src="{{ $post->images[0]->url }}"
-                                                                class="w-100 rounded-start" alt="...">
-                                                        </a> --}}
-                                                    </div>
-                                                    <div class="col-md-8 details-post">
-                                                        <a href="/post/single/{{ $post->id }}">
-                                                            <p class="fw-bold fs-5 mb-0">
-                                                                {{ Str::of($post->title)->words(5, '...') }}</p>
-                                                        </a>
-                                                        <p class="card-text text-danger m-0"> <i
-                                                                class="bi bi-coin text-color"></i>
-                                                            {{ number_format($post->rent) }} đ/tháng</p>
-                                                        <h6><i class="fa-solid fa-location-dot"></i>
-                                                            {{ $post->ward->ward_name }},
-                                                            {{ $post->district->district_name }}</h6>
+                                                        <div class="col-md-8 details-post">
+                                                            <a href="/post/single/{{ $post->id }}">
+                                                                <p class="fw-bold fs-5 mb-0">
+                                                                    {{ Str::of($post->title)->words(5, '...') }}</p>
+                                                            </a>
+                                                            <p class="card-text text-danger m-0"> <i
+                                                                    class="bi bi-coin text-color"></i>
+                                                                {{ number_format($post->rent) }} đ/tháng</p>
+                                                            <h6><i class="fa-solid fa-location-dot"></i>
+                                                                {{ $post->ward->ward_name }},
+                                                                {{ $post->district->district_name }}</h6>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+
                             </div>
                         </div>
 
@@ -221,6 +234,13 @@
             <div class="row px-5 mx-3 mt-3">
                 <div class="bg-light mx-2 p-3 rounded shadow">
                     <p class="fw-bold text-color-primary fs-6 ms-3 mb-0 pb-2">Tin cùng người đăng</p>
+                    @if (count($posts_of_author) < 1)
+                        <div class="p-3 text-center mb-8">
+                            <img class="mb-3" width="75px" src="/templates/front/images/man.png" alt=""
+                                srcset="">
+                            <p class="m-0">Không có bài đăng nào phù hợp!</p>
+                        </div>
+                    @endif
                     @if (count($posts_of_author) > 3)
                         <div class="popular-posts-carousel mb-4 mt-2">
                             @foreach ($posts_of_author as $post)
@@ -302,7 +322,6 @@
                             @endforeach
                         </div>
                     @endif
-
                 </div>
             </div>
         </div>

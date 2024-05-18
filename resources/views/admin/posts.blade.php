@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-    <div class="flex justify-content-center">
+    {{-- <div class="flex justify-content-center">
         @if (Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                 <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
@@ -19,7 +19,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-    </div>
+    </div> --}}
 
     <!-- Modal Confirm -->
     <div class="modal fade" id="cofirmStaticModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -89,8 +89,8 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="custom-table table table-sm table-bordered table-hover" id="userTable" width="100%"
+            {{-- <div class="table-responsive"> --}}
+                <table class="position-stikey table table-hover" id="userTable" width="100%"
                     cellspacing="0">
                     <thead>
                         <tr class="text-center">
@@ -155,10 +155,10 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div class="d-flex justify-content-end">
+            {{-- </div> --}}
+            {{-- <div class="d-flex justify-content-end">
                 {{ $posts->links() }}
-            </div>
+            </div> --}}
 
         </div>
     </div>

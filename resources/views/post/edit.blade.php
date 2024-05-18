@@ -105,12 +105,24 @@
                             </div>
                         </div>
                         <div class="mb-2">
+                            <label class="form-label" for="typeHouseSelect">Loại hình
+                                nhà</label>
+                            <select class="form-select" name="type_house" id="typeHouseSelect">
+                                <option value="">Chọn</option>
+                                @foreach ($type_houses as $type)
+                                    <option value="{{ $type->id }}" {{ $post->type_house == $type->id ? 'selected' : '' }}>{{ $type->type_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">{{ $errors->first('type_house') }}</div>
+                        </div>
+                        <div class="mb-2">
                             <label class="form-label" for="describeTextarea">Mô tả</label>
                             <textarea class="form-control" name="description" id="describeTextarea" cols="30" rows="8">{{ $post->description }}</textarea>
                         </div>
                         <div class="mb-2 form-check">
                             <input id="agree-checkbox" type="checkbox" class="form-check-input">
-                            <label class="form-check-label fst-italic text-danger" for="">Tôi đồng ý với các điều kiện đăng bài của website. <a href="#" class="link-primary text-decoration-underline">Điều kiện đăng bài?</a></label>
+                            <label class="form-check-label fst-italic" for="">Đồng ý đăng với <a href="#" class="link-primary text-decoration-underline fst-italic">các điều khoản</a></label>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button id="submit-btn" type="submit" class="btn btn-primary"><i class="bi bi-floppy"></i> Cập nhật</button>

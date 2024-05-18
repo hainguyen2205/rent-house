@@ -17,7 +17,10 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.2",
+        "datatables.net-bs4": "^2.0.7",
+        "datatables.net-bs5": "^2.0.7",
         "jquery": "^3.7.1",
+        "jquery.easing": "^1.4.1",
         "mdb-ui-kit": "^7.2.0",
         "tinymce": "^7.1.0"
     }

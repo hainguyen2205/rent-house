@@ -40,7 +40,7 @@
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
                                 aria-labelledby="dropdownChat">
-                                <li><a class="dropdown-item" href="#">Đang phát triển...</a>
+                                <li><a class="dropdown-item" href="#">Coming soon...</a>
                             </ul>
                         </div>
                     </li>
@@ -53,7 +53,7 @@
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
                                 aria-labelledby="dropdownNotify">
-                                <li><a class="dropdown-item" href="#">Đang phát triển...</a></li>
+                                <li><a class="dropdown-item" href="#">Coming soon...</a></li>
                             </ul>
                         </div>
                     </li>
@@ -70,36 +70,42 @@
                                         src="{{ Auth::user()->avatar_url }}" alt="">
                                 @endif
                             </div>
-                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-md-end"
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-md-end "
                                 aria-labelledby="triggerId">
                                 <li>
-                                    <div class="dropdown-item">
-                                        <p class="m-0 fw-bold">{{ Auth::user()->name }}</p>
-                                        <i class="bi bi-coin"></i><span>
-                                            {{ number_format(Auth::user()->account_balance) }}
-                                            vnđ</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
                                     <a class="dropdown-item" href="/profile">
-                                        <i class="bi bi-person-video"></i> Thông tin cá nhân
+                                        <h6 class="m-0 fw-bold">{{ Auth::user()->name }}</h6>
+                                        <i
+                                            class="bi bi-coin me-2"></i>{{ number_format(Auth::user()->account_balance) }}đ
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <hr class="dropdown-divider my-1">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/profile/post">
+                                        <i class="bi bi-postcard me-2"></i>Quản lý tin</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa-solid fa-wallet me-2"></i>Nạp tài khoản
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-clock-history me-2"></i>Lịch sử nạp
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <i class="bi bi-cash"></i> Nạp tiền
+                                        <i class="bi bi-chat-dots me-2"></i>Xem phản hồi
                                     </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bi bi-postcard"></i> Quản lý bài đăng</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/logout">
-                                        <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                                        <i class="bi bi-box-arrow-right me-2"></i>Đăng xuất
                                     </a>
                                 </li>
                             </ul>

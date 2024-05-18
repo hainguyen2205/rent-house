@@ -22,22 +22,21 @@
 </head>
 
 <body class="mulish">
-
-    <div class="position-fixed top-0 w-100 z-3 d-flex justify-content-center">
+    <div class="position-fixed top-0 end-0 m-3 z-3">
         @if (Session::has('error'))
-            <div class="alert alert-danger alert-dismissible fade show mt-3 z-3 w-75 text-center" role="alert">
+            <div class="alert alert-danger alert-dismissible fade shadow-lg" role="alert">
                 <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> {{ Session::get('error') }}.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($errors->any())
-            <div class="alert alert-warning alert-dismissible fade show mt-3 z-3 w-75 text-center" role="alert">
+            <div class="alert alert-warning alert-dismissible fade shadow-lg" role="alert">
                 <strong><i class="bi bi-exclamation-circle"></i> Warning!</strong> Kiểm tra lại các thông tin.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-3 z-3 w-75 text-center" role="alert">
+            <div class="alert alert-success alert-dismissible fade shadow-lg" role="alert">
                 <strong><i class="bi bi-check-circle"></i> Success!</strong> {{ Session::get('success') }}.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>

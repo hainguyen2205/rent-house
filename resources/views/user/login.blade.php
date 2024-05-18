@@ -1,11 +1,6 @@
 @extends('layout')
 @section('content')
     <div class="container">
-        {{-- @if ($errors->any())
-            @php
-                dd($errors);
-            @endphp
-        @endif --}}
         <div class="row justify-content-center py-5">
             <div class="col-md-12 col-lg-10 my-3">
                 <div class="wrap d-md-flex">
@@ -32,13 +27,13 @@
                             @csrf
                             <div class="form-floating mb-3">
                                 <input type="tel" class="form-control" id="phonenumberInput" name="phone"
-                                    placeholder="" required>
+                                    placeholder="" value="{{ old('phone') }}">
                                 <label for="phonenumberInput"><i class="bi bi-telephone"></i> Số điện thoại</label>
                                 <div class="invalid-feedback" id="phonenumberFeedback">{{ $errors->first('phone') }}</div>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="password" id="passwordInput" class="form-control" name="password"
-                                    placeholder="" required>
+                                    placeholder="">
                                 <label class="label" for="passwordInput"><i class="bi bi-lock"></i> Mật khẩu</label>
                                 <div class="invalid-feedback" id="passwordFeedback">{{ $errors->first('password') }}</div>
                                 <small class="text-danger text-center">{{ Session::get('incorrect') }}</small>

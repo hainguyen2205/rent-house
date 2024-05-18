@@ -14,6 +14,22 @@
 //       content_css: false
 //   });
 // });
+var currentUrl = window.location.href;
+
+$('.alert').each(function() {
+  if ($(this).text().trim().length > 0) {
+      var alertElement = $(this);
+      setTimeout(function() {
+          alertElement.addClass('show');
+      }, 200);
+      setTimeout(function() {
+        alertElement.removeClass('show');
+        setTimeout(function() {
+          alertElement.addClass('d-none');
+      }, 500);
+    }, 5000);
+  }
+});
 
 submitFormIfAgree();
 
@@ -22,6 +38,7 @@ displayValidateNotify('#title-feedback');
 
 displayValidateNotifyImage();
 displayValidateNotify('#titleTextarea');
+displayValidateNotify('#typeHouseSelect');
 displayValidateNotify('#districtSelect');
 displayValidateNotify('#wardSelect');
 displayValidateNotify('#acreageInput');
@@ -31,6 +48,7 @@ displayValidateNotify('#waterPriceInput');
 
 displayValidateNotify('#nameInput');
 displayValidateNotify('#passwordInput');
+displayValidateNotify('#emailInput');
 displayValidateNotify('#repasswordInput');
 displayValidateNotify('#addressInput');
 displayValidateNotify('#phonenumberInput');
@@ -86,6 +104,9 @@ $('#waterPriceInput').on('blur keyup', function () {
 $('#phonenumberInput').on('blur keyup', function () {
   handleInputValidation($(this), $('#phonenumberFeedback'), validatePhoneNumber, 'Số điện thoại không hợp lệ');
 });
+$('#emailInput').on('blur keyup', function () {
+  handleInputValidation($(this), $('#emailFeedback'), validateEmail, 'Địa chỉ email không hợp lệ');
+});
 
 $('#nameInput').on('keyup blur', function () {
   handleInputValidation($(this), $('#nameFeedback'), validateName, 'Tên cá nhân không hợp lệ');
@@ -107,6 +128,10 @@ $('#repasswordInput').on('keyup blur', function () {
 // Validation Form
 function defaulValidate() {
   return true;
+}
+function validateEmail(email) {
+  const regix = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return regix.test(String(email).toLowerCase());
 }
 function validateImage(input) {
   var files = input.prop('files');
@@ -305,6 +330,10 @@ $('#avatarInput').on('change', function () {
 $('#wardSelect').on('change', function () {
   var invalidFeedback = $(this).next('.invalid-feedback');
   handleInputValidation($(this), invalidFeedback, defaulValidate, "Vui lòng chọn địa chỉ.");
+})
+$('#typeHouseSelect').on('change', function () {
+  var invalidFeedback = $(this).next('.invalid-feedback');
+  handleInputValidation($(this), invalidFeedback, defaulValidate, "Vui lòng chọn loại nhà.");
 })
 
 // Ajax Get Ward's Name

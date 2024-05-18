@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminFeedbackController;
 use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -48,6 +49,7 @@ Route::prefix('/post')->middleware('auth')->group(
 Route::prefix('/feedback')->middleware('auth')->group(
     function () {
         Route::post('/create', [FeedbackController::class, 'createFeedback']);
+        Route::get('/list', [FeedbackController::class, 'showFeedbacks']);
     }
 );
 Route::prefix('/admin')->middleware('admin_auth')->group(function () {
@@ -57,9 +59,16 @@ Route::prefix('/admin')->middleware('admin_auth')->group(function () {
     Route::prefix('/user')->group(function () {
         Route::get('/list', [AdminUserController::class, 'displayUsersPage']);
         Route::get('/getuser', [AdminUserController::class, 'getUser']);
+        Route::get('/create', [AdminUserController::class, 'displayCreateUser']);
         Route::post('/create', [AdminUserController::class, 'createUser']);
+        Route::get('/update/{id_user}', [AdminUserController::class, 'displayUpdateUser']);
         Route::post('/update', [AdminUserController::class, 'updateUser']);
-        Route::get('/delete/{id_user}', [AdminUserController::class, 'deleteUser']);
+        Route::post('/delete', [AdminUserController::class, 'deleteUser']);
+        Route::post('/block', [AdminUserController::class, 'blockUser']);
+        Route::post('/unblock', [AdminUserController::class, 'unblockUser']);
+    });
+    Route::prefix('/feedback')->group(function () {
+        Route::get('/list', [AdminFeedbackController::class, 'displayFeedbacks']);
     });
     Route::prefix('/post')->group(function () {
         Route::get('/list/{status}', [AdminPostController::class, 'displayPostsPage']);
@@ -78,6 +87,7 @@ Route::prefix('/profile')->middleware('auth')->group(
         Route::get('/edit', [UserController::class, 'showEditForm']);
         Route::post('/update', [UserController::class, 'updateUserInfo']);
         Route::get('/post/{post_status}', [UserController::class, 'showPosts']);
+        Route::get('/post', [UserController::class, 'postIndex']);
     }
 );
 

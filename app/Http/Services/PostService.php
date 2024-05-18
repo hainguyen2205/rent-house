@@ -15,6 +15,7 @@ class PostService
 {
     public function insert($request)
     {
+        DB::beginTransaction();
         try {
             $request->offsetUnset('_token');
             $request->merge(["id_user" => Auth::user()->id]);
@@ -35,9 +36,13 @@ class PostService
                 }
             }
             User::where('id', '=', Auth::user()->id)->update(['account_balance' => DB::raw('account_balance - 15000')]);
+            DB::commit();
             Session::flash('success', 'Đăng thành công');
+            return true;
         } catch (\Throwable $e) {
+            DB::rollBack();
             Session::flash('error', 'Đã xảy ra lỗi khi đăng tin');
+            dd($e);
             return false;
         }
     }
@@ -45,25 +50,27 @@ class PostService
     {
         if (!$request->has('id')) {
             Session::flash('error', 'Không tìm thấy id tin đăng');
-            return;
+            return false;
         }
         $post = Post::findOrFail($request->id);
         if (!$post) {
             Session::flash('error', 'Không tìm thấy tin đăng');
-            return;
+            return false;
+        }
+        // dd($post->updated_count);
+        if ($post->updated_count >= 1) {
+            Session::flash('error', 'Bài đăng đã quá số lần chỉnh sửa');
+            return false;
         }
 
         $post_id = $post->id;
         $services = $request->services;
         $images = $request->images;
         $post_info = $request->except(['_token', 'id', 'images', 'services']);
-        $updateData = [];
-        foreach ($post_info as $key => $value) {
-            if ($value !== null) {
-                $updateData[$key] = $value;
-            }
-        }
+        $updateData = array_filter($post_info);
         $updateData['id_status'] = 1;
+
+        DB::beginTransaction();
 
         try {
             if ($services) {
@@ -79,11 +86,14 @@ class PostService
                 }
             }
             $post->update($updateData);
+            $post->increment('updated_count');
+            DB::commit();
             Session::flash('success', 'Cập nhật tin đăng thành công');
-            return;
+            return true;
         } catch (\Throwable $e) {
+            DB::rollBack();
             Session::flash('error', 'Đã xảy ra lỗi khi cập nhật tin');
-            return;
+            return false;
         }
     }
 }

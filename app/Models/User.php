@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'avatar_url',
+        'email',
+        'gender_id',
         'password',
         'phone',
         'date_of_birth',
@@ -35,6 +37,17 @@ class User extends Authenticatable
     public function getRole()
     {
         return $this->hasOne(Role::class, 'id', 'role');
+    }
+    public function blockReason()
+    {
+        if ($this->status_of_account == 0) {
+            return $this->hasMany(Block_User::class, 'id_user', 'id');
+        }
+        return null;
+    }
+    public function genders()
+    {
+        return $this->hasOne(Gender::class, 'id', 'gender_id');
     }
 
 
