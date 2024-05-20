@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Image_Post;
 use App\Models\Post;
+use App\Models\Post_Interest;
 use App\Models\User;
 use App\Models\Service_Post;
 use Illuminate\Support\Facades\Auth;
@@ -93,6 +94,26 @@ class PostService
         } catch (\Throwable $e) {
             DB::rollBack();
             Session::flash('error', 'Đã xảy ra lỗi khi cập nhật tin');
+            return false;
+        }
+    }
+    public function delete($post_id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $post = Post::findOrFail($post_id);
+
+            Service_Post::where('id_post', $post->id)->delete();
+            Image_Post::where('id_post', $post->id)->delete();
+            Post_Interest::where('id_post', $post->id)->delete();
+            $post->delete();
+            DB::commit();
+            Session::flash('success', 'Đã xóa tin thành công');
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Session::flash('error', 'Đã xảy ra lỗi khi xóa tin' . $th->getMessage());
             return false;
         }
     }

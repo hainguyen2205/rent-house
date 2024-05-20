@@ -66,11 +66,11 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover" id="Table">
+                <table class="table table-sm table-hover" id="Table">
                     <thead>
                         <tr>
-                            <th class="text-nowrap" data-orderable="false">Avatar</th>
-                            <th class="text-nowrap">Họ tên</th>
+                            <th class="text-nowrap">#</th>
+                            <th class="text-nowrap">Người dùng</th>
                             <th class="text-nowrap">Số điện thoại</th>
                             <th class="text-nowrap">Email</th>
                             <th class="text-nowrap">Ngày sinh</th>
@@ -84,16 +84,14 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td class="align-middle">
-                                    <img class="rounded-circle object-fit-cover" width="40px" height="40px"
-                                        src="{{ $user->avatar_url }}" alt="">
-                                </td>
-                                <td class="align-middle">{{ $user->name }}</td>
+                                <td class="align-middle">{{ $user->id }}</td>
+                                <td class="align-middle text-nowrap"><img class="rounded-circle object-fit-cover me-2" width="30px" height="30px"
+                                    src="{{ $user->avatar_url }}" alt="">{{ $user->name }}</td>
                                 <td class="align-middle">{{ $user->phone }}</td>
                                 <td class="align-middle">{{ $user->email }}</td>
                                 <td class="align-middle">{{ $user->date_of_birth }}</td>
                                 <td class="align-middle">{{ $user->address }}</td>
-                                <td class="align-middle fs-6 fw-bold text-warning">
+                                <td class="align-middle text-danger">
                                     {{ number_format($user->account_balance) }}</td>
                                 <td class="align-middle">
                                     <small

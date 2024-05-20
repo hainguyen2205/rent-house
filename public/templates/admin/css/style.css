@@ -18,6 +18,32 @@
 .text-color {
     color: var(--text-color);
 }
+td {
+    font-size: 14px;
+}
+th {
+    font-size: 14px;
+}
 table.dataTable th.dt-type-numeric,table.dataTable th.dt-type-date,table.dataTable td.dt-type-numeric,table.dataTable td.dt-type-date {
     text-align:left;
+}
+.btn-remove-img{
+    position: absolute;
+    top: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(207, 78, 78);
+    cursor: pointer;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.btn-remove-img i{
+    margin-top: 1px;
+    margin-left: 1px;
+}
+.btn-remove-img:hover{
+    background-color: rgb(218, 4, 4);
 }

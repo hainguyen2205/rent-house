@@ -5,11 +5,11 @@
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
                 <h6 class="m-0 mt-2 font-weight-bold text-primary">Thêm mới người dùng</h6>
-                <a class="btn btn-sm btn-danger" href="/admin/user/list">Hủy</a>
+                <a class="btn btn-sm btn-danger" href="/admin/user/list"><i class="fa-solid fa-rotate-left"></i> Hủy</a>
             </div>
         </div>
         <div class="card-body d-flex justify-content-center">
-            <div class="w-75">
+            <div class="">
                 <form action="/admin/user/create" method="POST">
                     <div class="row">
                         @csrf
@@ -17,7 +17,8 @@
                             <img id="avatar-preview" width="100px" height="100px"
                                 src="/templates/front/images/undraw_profile.svg" class="rounded-circle object-fit-cover"
                                 alt="">
-                            <input id="avatar-url-input" name="avatar_url" type="hidden" value="/templates/front/images/undraw_profile.svg">
+                            <input id="avatar-url-input" name="avatar_url" type="hidden"
+                                value="/templates/front/images/undraw_profile.svg">
                             <div data-mdb-button-init data-mdb-ripple-init class="mt-2">
                                 <label id="label-image" class="form-label m-0 object-fill-cover" for="avatarInput"><i
                                         class="bi bi-pencil-square"></i> Thay
@@ -55,7 +56,8 @@
                         </div>
                         <div class="col-6 mb-2">
                             <label class="form-label">Ngày sinh</label>
-                            <input type="date" class="form-control" name="date_of_birth" value="{{ old('date_of_birth') }}">
+                            <input type="date" class="form-control" name="date_of_birth"
+                                value="{{ old('date_of_birth') }}">
                             <div class="invalid-feedback">{{ $errors->first('date_of_birth') }}</div>
                         </div>
                         <div class="col-6 mb-2">
@@ -76,7 +78,8 @@
                         </div>
                         <div class="col-6 mb-2">
                             <label class="form-label">Số dư</label>
-                            <input type="number" class="form-control" name="account_balance" value="{{ old('account_balance') }}">
+                            <input type="number" class="form-control" name="account_balance"
+                                value="{{ old('account_balance') }}">
                             <div class="invalid-feedback">{{ $errors->first('account_balance') }}</div>
                         </div>
                         <div class="col-12 mb-2">

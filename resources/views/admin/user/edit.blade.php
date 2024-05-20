@@ -5,7 +5,7 @@
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
                 <h6 class="m-0 mt-2 font-weight-bold text-primary">Sửa thông người dùng</h6>
-                <a class="btn btn-sm btn-danger" href="/admin/user/list">Hủy</a>
+                <a class="btn btn-sm btn-danger" href="/admin/user/list"><i class="fa-solid fa-rotate-left"></i> Hủy</a>
             </div>
         </div>
         <div class="card-body d-flex justify-content-center">
