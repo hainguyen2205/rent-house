@@ -6,6 +6,7 @@ use App\Http\Requests\UserInfoRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Gender;
 use App\Models\Post;
+use App\Models\Topup_Request;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -78,11 +79,13 @@ class UserController extends Controller
             'approved' => 2,
             'pending' => 1,
             'rejected' => 0,
+            'hidden' => 4
         ];
         $title_status_map = [
             'approved' => 'đã duyệt',
             'pending' => 'đang chờ duyệt',
             'rejected' => 'bị từ chối',
+            'hidden' => 'đã ẩn'
         ];
         if (!array_key_exists($status, $id_status_map)) {
             return abort(404);
@@ -104,11 +107,13 @@ class UserController extends Controller
         $approved_post_count = $postCounts->get(2, 0);
         $pending_post_count = $postCounts->get(1, 0);
         $rejected_post_count = $postCounts->get(0, 0);
+        $hidden_post_count = $postCounts->get(4, 0);
         return view('user.post.index', [
             'title' => $this->title,
             'approved_post_count' => $approved_post_count,
             'pending_post_count' => $pending_post_count,
-            'rejected_post_count' => $rejected_post_count
+            'rejected_post_count' => $rejected_post_count,
+            'hidden_post_count' => $hidden_post_count
         ]);
     }
     public function updateUserInfo(UserRequest $userInfoRequest)
@@ -127,5 +132,13 @@ class UserController extends Controller
             Session::flash('error', 'Cập nhật thông tin thất bại');
         }
         return back();
+    }
+    public function displayHistoryTopUp(){
+        $topup_requets = Topup_Request::where('id_user', Auth::user()->id)->get();
+        $this->setTitle('Lịch sử nạp');
+        return view('user.topup.history', [
+            'title' => $this->title,
+            'topup_requests' => $topup_requets
+        ]);
     }
 }

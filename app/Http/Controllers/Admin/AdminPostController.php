@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
+use App\Mail\PostStatusNotify;
 use App\Models\District;
 use App\Models\Image_Post;
 use App\Models\Post;
@@ -17,6 +18,7 @@ use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class AdminPostController extends Controller
@@ -147,6 +149,9 @@ class AdminPostController extends Controller
             Reject_Post::where('id_post', $post->id)->delete();
             DB::commit();
             Session::flash('success', 'Duyệt bài thành công');
+
+            $user_mail = $post->author->email;
+            Mail::to($user_mail)->send(new PostStatusNotify($post, 'approve'));
         } catch (\Throwable $e) {
             DB::rollBack();
             Session::flash('error', $e);
@@ -156,14 +161,20 @@ class AdminPostController extends Controller
     public function rejectPost(Request $request)
     {
         $id_post = $request->input('id_post');
+        $reason =  $request->input('reason');
+        if ($reason == '') {
+            $reason = 'Vi phạm quy định';
+        }
         DB::beginTransaction();
         try {
             $post = $this->obj::findOrFail($id_post);
             $post->update(['id_status' => '0']);
             User::where('id', '=', $post->id_user)->update(['account_balance' => DB::raw('account_balance + 15000')]);
-            Reject_Post::insert(['id_post' => $post->id, 'reason' => $request->input('reason')]);
+            Reject_Post::insert(['id_post' => $post->id, 'reason' => $reason]);
             DB::commit();
             Session::flash('success', 'Từ chối bài thành công');
+            $user_mail = $post->author->email;
+            Mail::to($user_mail)->send(new PostStatusNotify($post, 'reject'));
         } catch (\Throwable $e) {
             DB::rollBack();
             Session::flash('error', $e);
@@ -177,7 +188,12 @@ class AdminPostController extends Controller
             return back()->with('error', 'Không tìm tin đăng này');
         }
         $postSV = new PostService();
-        $postSV->delete($post->id);
+        $rs = $postSV->delete($post->id);
+        if ($rs) {
+            Session::flash('success', 'Đã xóa tin thành công');
+        } else {
+            Session::flash('error', 'Đã xảy ra lỗi khi xóa tin');
+        }
         return back();
     }
     public function getPost(Request $request)

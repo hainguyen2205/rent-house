@@ -2,16 +2,21 @@
 @section('right_content')
     <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-2">
-                        <i class="d-block fs-1 text-color fa-solid fa-trash-can"></i>
+                    <div class="text-center">
+                        <i style="font-size: 70px" class="fa-solid fa-question text-color-primary"></i>
                     </div>
-                    <h5 class="text-center mb-2 text-color">Bạn có chắc chắn muốn xóa bài đăng này?</h5>
+                    <h5 id="title-action" class="text-center mb-2 text-color">Action?</h5>
+                    <p class="text-center">Quá trình này không thể hoàn tác?</p>
                     <div class="mb-2 d-flex justify-content-center">
-                        <button type="button" class="btn btn-light mx-2 border" data-bs-dismiss="modal">Quay lại</button>
-                        <a id="confirmBtn" href="" class="btn btn-danger mx-2">Xóa tin</a>
+                        <button class="btn btn-light mx-2 border" data-bs-dismiss="modal">Quay lại</button>
+                        <form id="action-form" action="#" method="POST">
+                            @csrf
+                            <input type="hidden" id="id_post" name="id_post">
+                            <button id="confirmBtn" type="submit" class="btn btn-danger mx-2">Button</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -37,18 +42,22 @@
                                     class="btn btn-primary position-absolute top-50 start-50 translate-middle"><i
                                         class="bi bi-eye"></i> Xem</a>
                             </div>
-                            {{-- <a href="/post/single/{{ $post->id }}" class="text-color">
-                                <img src="{{ $post->images[0]->url }}" class="rounded-start object-fit-cover w-100 h-100"
-                                    alt="...">
-                            </a> --}}
                         </div>
                         <div class="col-md-8 col-sm-12 h-100 position-relative">
                             <div class="position-absolute top-0 end-0 mt-2 me-4">
-                                <a href="/post/edit/{{ $post->id }}" class="btn btn-sm btn-primary">Sửa</a>
-                                <button class="btn btn-sm btn-danger" onclick="showConfirmForm('{{ $post->id }}')"
-                                    data-bs-toggle="modal" data-bs-target="#confirmModal">Xóa</button>
+                                @if ($post->id_status == '2')
+                                    <button class="btn btn-sm btn-secondary"
+                                        onclick="showConfirmForm('{{ $post->id }}', 'hide')" data-bs-toggle="modal"
+                                        data-bs-target="#confirmModal">Ẩn</button>
+                                @endif
+                                @if ($post->id_status != '4')
+                                    <a href="/post/edit/{{ $post->id }}" class="btn btn-sm btn-primary">Sửa</a>
+                                @endif
+                                <button class="btn btn-sm btn-danger"
+                                    onclick="showConfirmForm('{{ $post->id }}', 'delete')" data-bs-toggle="modal"
+                                    data-bs-target="#confirmModal">Xóa</button>
                             </div>
-                            <div class="p-2 row">
+                            <div class="mt-2 row">
                                 <a href="/post/single/{{ $post->id }}" class="text-color mt-md-3 mt-sm-1 mb-1 col-12">
                                     <h5 class="card-tile m-0">
                                         {{ Str::of($post->title)->words(7, '...') }}</h5>
@@ -66,6 +75,11 @@
                                         class="text-color fa-solid fa-plug-circle-bolt"></i>
                                     {{ number_format($post->electric_price) }} đ/số</small>
                                 <small class="col-12">{{ Str::of($post->description)->words(20, '...') }}</small>
+                                @if ($post->id_status == 0)
+                                    <p class="col-11 ms-1 rounded mb-0 text-white bg-danger">Lý do :
+                                        {{ $post->reject_reason->reason }}</p>
+                                @endif
+
                             </div>
                         </div>
                     </div>

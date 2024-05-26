@@ -59,20 +59,6 @@ class Post extends Model
         }
         return null;
     }
-    public function calculateMonthlyRevenue()
-    {
-        $monthlyRevenue = $this::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as approved_post_count')
-            ->where('id_status', 2)
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get()
-            ->map(function ($item) {
-                $item->revenue = $item->approved_post_count * 15000;
-                return $item;
-            });
-        return $monthlyRevenue;
-    }
     public function countPostsByDistrict()
     {
         $postCounts = Post::with('district')

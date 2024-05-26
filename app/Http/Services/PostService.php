@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Models\Image_Post;
 use App\Models\Post;
 use App\Models\Post_Interest;
+use App\Models\Reject_Post;
 use App\Models\User;
 use App\Models\Service_Post;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class PostService
             $request->merge(["id_user" => Auth::user()->id]);
             if (Auth::user()->account_balance < 15000) {
                 Session::flash('error', 'Không đủ tiền');
-                return;
+                return null;
             }
             $post = Post::create($request->all());
             $post_id = $post->id;
@@ -39,12 +40,12 @@ class PostService
             User::where('id', '=', Auth::user()->id)->update(['account_balance' => DB::raw('account_balance - 15000')]);
             DB::commit();
             Session::flash('success', 'Đăng thành công');
-            return true;
+            return $post;
         } catch (\Throwable $e) {
             DB::rollBack();
             Session::flash('error', 'Đã xảy ra lỗi khi đăng tin');
             dd($e);
-            return false;
+            return null;
         }
     }
     public function update($request)
@@ -107,13 +108,12 @@ class PostService
             Service_Post::where('id_post', $post->id)->delete();
             Image_Post::where('id_post', $post->id)->delete();
             Post_Interest::where('id_post', $post->id)->delete();
+            Reject_Post::where('id_post', $post->id)->delete();
             $post->delete();
             DB::commit();
-            Session::flash('success', 'Đã xóa tin thành công');
             return true;
         } catch (\Throwable $th) {
             DB::rollBack();
-            Session::flash('error', 'Đã xảy ra lỗi khi xóa tin' . $th->getMessage());
             return false;
         }
     }

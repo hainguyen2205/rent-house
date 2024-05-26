@@ -18,7 +18,7 @@
                         <h4 id="text-confirm" class="m-0 mt-3 text-center fw-bold"></h4>
                         <div id="reject-form" class="my-2 d-none">
                             <label for="reasonInput" class="form-label">Lý do</label>
-                            <textarea name="reason" class="form-control" id="reasonInput" rows="3"></textarea>
+                            <textarea name="reason" class="form-control" id="reasonInput" rows="3" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

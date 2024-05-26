@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
+use App\Mail\PostStatusNotify;
 use App\Models\District;
 use App\Models\Post_Interest;
 use App\Models\TypeHouse;
@@ -14,6 +15,7 @@ use App\Models\Service;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
@@ -27,35 +29,51 @@ class PostController extends Controller
     }
     public function createPost(PostRequest $request)
     {
-        if($this->service->insert($request)) {
+        $post = $this->service->insert($request);
+        if ($post) {
+            $user_mail = $post->author->email;
+            Mail::to($user_mail)->send(new PostStatusNotify($post, 'pending'));
             return redirect('/profile/post/pending');
-        };
+        }
         return redirect()->back();
     }
     public function updatePost(PostRequest $request)
     {
-        if($this->service->update($request)){
-           return redirect('/profile/post/pending'); 
+        if ($this->service->update($request)) {
+            return redirect('/profile/post/pending');
         }
         return back();
     }
-    public function deletePost($id_post)
-    {
-        $post = Post::findOrFail($id_post);
+    public function deletePost(Request $request)
+    {        
+        $post = Post::findOrFail($request->id_post);
         if (!$post) {
-            Session::flash('error', 'Không tìm thấy tin đăng');
-            return back();
+            return abort(404);
         }
-        if ($post->id_user != Auth::user()->id) {
+        $rs = $this->service->delete($post->id);
+        if ($rs) {
+            Session::flash('success', 'Đã xóa tin thành công');
+        } else {
+            Session::flash('error', 'Đã xảy ra lỗi khi xóa tin');
+        }
+        return back();
+    }
+    public function hidePost(Request $request)
+    {
+        $post = Post::findOrFail($request->id_post);
+        if (!$post) {
             return abort(404);
         }
         try {
-            $post->update(['id_status' => '3']);
-            Session::flash('success', 'Xóa tin đăng thành công');
-        } catch (\Throwable $th) {
-            Session::flash('error', 'Đã xảy ra lỗi khi xóa tin đăng');
+            $post->update(['id_status' => 4]);
+            $post->save();
+            Session::flash('success', 'Ẩn tin thành công');
+            return redirect('/profile/post/hidden');
+        } catch (\Throwable $e) {
+            Session::flash('error', 'Đã xảy ra lỗi khi ẩn tin');
+            return back();
         }
-        return back();
+        
     }
     public function displayEditForm($id_post)
     {
@@ -155,6 +173,7 @@ class PostController extends Controller
             $search_title .= 'Giá phòng từ ' . number_format($filter_max_rent) . 'đ ';
             $this->addFilter('rent', '<=', $filter_max_rent);
         }
+        $post_count_total = $this->obj->getAllData($this->filters, $this->orderBy, null)->count();
 
         return view('post.list', [
             'title' => $this->title,
@@ -162,6 +181,7 @@ class PostController extends Controller
             'districts' => District::all(),
             'type_houses' => TypeHouse::all(),
             'posts' => $this->obj->getAllData($this->filters, $this->orderBy, $this->per_page),
+            'post_total' => $post_count_total,
             'now' => $now,
         ]);
     }

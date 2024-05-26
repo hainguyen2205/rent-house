@@ -1,4 +1,4 @@
-<header class="mulish">
+<header class="mulish bg-light border shadow">
     <div class="container">
         <nav class="navbar navbar-expand-sm navbar-light">
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
@@ -22,10 +22,13 @@
                         <a class="nav-link" href="/">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/post/create">Đăng bài</a>
+                        <a class="nav-link" href="/post/create">Đăng tin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/post/list">Danh sách bài đăng</a>
+                        <a class="nav-link" href="/post/list">Danh sách tin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news">Tin tức</a>
                     </li>
                 </ul>
             </div>
@@ -88,18 +91,18 @@
                                         <i class="bi bi-postcard me-2"></i>Quản lý tin</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/profile/topup">
                                         <i class="fa-solid fa-wallet me-2"></i>Nạp tài khoản
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/profile/topup/history">
                                         <i class="bi bi-clock-history me-2"></i>Lịch sử nạp
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/feedback/list">
                                         <i class="bi bi-chat-dots me-2"></i>Xem phản hồi
                                     </a>
                                 </li>

@@ -7,6 +7,14 @@
     percentPosition: selector === '.images-carousel'
   });
 });
+$('#table').DataTable({
+  "order": [],
+  "language": {
+    "info": "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+    "lengthMenu": "_MENU_ bản ghi mỗi trang",
+    "search": "Tìm kiếm"
+  }
+});
 // window.addEventListener('DOMContentLoaded', () => {
 //   tinymce.init({
 //       selector: '#describeTextarea',
@@ -16,16 +24,16 @@
 // });
 var currentUrl = window.location.href;
 
-$('.alert').each(function() {
+$('.alert').each(function () {
   if ($(this).text().trim().length > 0) {
-      var alertElement = $(this);
-      setTimeout(function() {
-          alertElement.addClass('show');
-      }, 200);
-      setTimeout(function() {
-        alertElement.removeClass('show');
-        setTimeout(function() {
-          alertElement.addClass('d-none');
+    var alertElement = $(this);
+    setTimeout(function () {
+      alertElement.addClass('show');
+    }, 200);
+    setTimeout(function () {
+      alertElement.removeClass('show');
+      setTimeout(function () {
+        alertElement.addClass('d-none');
       }, 500);
     }, 5000);
   }
@@ -52,6 +60,7 @@ displayValidateNotify('#emailInput');
 displayValidateNotify('#repasswordInput');
 displayValidateNotify('#addressInput');
 displayValidateNotify('#phonenumberInput');
+displayValidateNotify('#amountInput');
 
 //Feedback form
 $('#title-feedback').on('blur keyup', function () {
@@ -224,8 +233,19 @@ function displayValidateNotify(input) {
     $(input).addClass('is-invalid');
   }
 }
-function showConfirmForm(id_post){
-  $('#confirmBtn').attr('href', '/post/delete/' + id_post);
+function showConfirmForm(id_post, action) {
+  $('#id_post').val(id_post);
+  if (action == 'hide') {
+    $('#title-action').text('Bạn có chắc chắn muốn ẩn tin này')
+    $('#confirmBtn').text('Ẩn tin')
+    $('#action-form').attr('action', '/post/hide');
+  }
+  if (action == 'delete') {
+    $('#title-action').text('Bạn có chắc chắn muốn xóa tin này')
+    $('#confirmBtn').text('Xóa tin')
+    $('#action-form').attr('action', '/post/delete');
+  }
+
 }
 
 // Ajax Upload Image

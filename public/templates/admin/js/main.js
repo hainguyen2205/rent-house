@@ -3,7 +3,11 @@ $('#Table').DataTable({
     "language": {
         "info": "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
         "lengthMenu": "_MENU_ bản ghi mỗi trang",
-        "search": "Tìm kiếm"
+        "search": "Tìm kiếm",
+        "emptyTable": "Không có dữ liệu trong bảng",
+        "zeroRecords": "Không tìm thấy dữ liệu phù hợp",
+        "infoEmpty": "Hiển thị 0 đến 0 của 0 mục",
+        "infoFiltered": "(lọc từ _MAX_ mục tổng cộng)"
     }
 });
 
@@ -65,18 +69,8 @@ $('input.form-control, select.form-select, textarea.form-control').each(function
     displayValidateNotify(this);
 });
 
-
 displayValidateNotifyImage();
 
-// function clearUserForm() {
-//     $('#avatar-url-input').val('')
-//     $('#nameInput').val('');
-//     $('#phoneInput').val('');
-//     $('#dateInput').val('');
-//     $('#addressInput').val('');
-//     $('#avatar-preview').attr('src', '/templates/front/images/undraw_profile.svg');
-//     $('#userForm input[name="id"]').remove();
-// }
 function viewPost(postId) {
     console.log(postId);
     $('#images-post img').remove();
@@ -129,6 +123,18 @@ function showReplyForm(feedbackId) {
                 console.error('Lỗi khi yêu cầu:', error);
             }
         });
+    }
+}
+
+function showTopUpRequestForm(id, action) {
+    $('#topup-id').val(id);
+    if (action == 'success') {
+        $('#topup-form').attr('action', '/admin/topup/success');
+        $('#topup-title-action').text('Xác nhận hoàn thành yêu cầu nạp này?')
+    }
+    if (action == 'cancel') {
+        $('#topup-form').attr('action', '/admin/topup/cancel');
+        $('#topup-title-action').text('Xác nhận hủy bỏ yêu cầu nạp này?')
     }
 }
 function showFeedbackList(feedbackId) {
@@ -221,8 +227,8 @@ function showConfirmPost(idPost, actionType) {
         }
     }
 }
-function showServiceForm(serviceId){
-    if (serviceId=='') {
+function showServiceForm(serviceId) {
+    if (serviceId == '') {
         $('#staticBackdropLabel').text("Thêm mới dịch vụ");
         $('#service-form').attr('action', '/admin/service/create');
         $('#service-id').val(null);
@@ -250,8 +256,8 @@ function showServiceForm(serviceId){
         });
     }
 }
-function showTypeHouseForm(Id){
-    if (Id=='') {
+function showTypeHouseForm(Id) {
+    if (Id == '') {
         $('#staticBackdropLabel').text("Thêm mới loại hình nhà");
         $('#type-form').attr('action', '/admin/type-house/create');
         $('#type-id').val(null);
@@ -345,8 +351,6 @@ $('#imageInput').on('input', function () {
                     var url_array = response.urls.split('&&');
                     for (let index = 0; index < url_array.length; index++) {
                         if (url_array[index] != '') {
-                            // $('#preview-img').append('<img class="mx-1 mb-2" src="' + url_array[index] + '" alt="">');
-                            // $('#preview-img').append('<input type="hidden" name="images[]" value="' + url_array[index] + '">');
                             var html = '<div class="position-relative mx-1 mb-2">' +
                                 '<div onclick="removeImage(this)" class="btn-remove-img">' +
                                 '<i class="text-white bi bi-x"></i>' +

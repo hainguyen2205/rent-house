@@ -4,7 +4,7 @@
         <div class="container">
             <form class="row" action="/post/list" method="GET">
                 <div class="col-md-6 col-sm-12">
-                    <input class="w-100 form-control" type="text" name="title" placeholder="Đại học CNTT...">
+                    <input class="w-100 form-control" type="text" name="title" placeholder="Tìm theo tiêu đề">
                 </div>
                 <div class="col-md-6 col-sm-12 my-md-0 my-sm-2">
                     {{-- <div class="h-100 d-flex align-items-center"> --}}
@@ -81,8 +81,8 @@
             @if ($search_title != '')
                 <p class="text-color fst-italic text-center">Tìm kiếm: {{ $search_title }}</p>
             @endif
-            @if (count($posts) != 0)
-                <span class="custom-span">Khám phá {{ count($posts) }} bài đăng</span>
+            @if ($post_total != 0)
+                <span class="custom-span">Khám phá {{ $post_total }} bài đăng</span>
             @endif
         </div>
         <div class="mb-3">

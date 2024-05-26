@@ -22,14 +22,14 @@
                                 <p class="my-1"><i class="fa-solid fa-coins"></i> Số dư:
                                     {{ number_format(Auth::user()->account_balance) }}đ
                                 </p>
-                                <button class="btn btn-outline-primary"><i class="bi bi-cash-coin"></i> Nạp tiền +</button>
+                                <a href="/profile/topup" class="btn btn-outline-primary"><i class="bi bi-cash-coin"></i> Nạp tiền +</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-9 col-sm-12">
-                <div class="card d-flex flex-column border-left-primary shadow py-2">
+                <div class="card d-flex h-100 flex-column border-left-primary shadow py-2">
                     <div class="card-body">
                         @yield('right_content')
                     </div>

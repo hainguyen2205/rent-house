@@ -122,7 +122,7 @@
                         </div>
                         <div class="mb-2 form-check">
                             <input id="agree-checkbox" type="checkbox" class="form-check-input">
-                            <label class="form-check-label fst-italic" for="">Đồng ý đăng với <a href="#" class="link-primary text-decoration-underline fst-italic">các điều khoản</a></label>
+                            <label class="form-check-label fst-italic" for="">Đồng ý đăng với <a href="/news/posting-rules" class="link-primary text-decoration-underline fst-italic">các quy định</a></label>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button id="submit-btn" type="submit" class="btn btn-primary"><i class="bi bi-floppy"></i> Cập nhật</button>

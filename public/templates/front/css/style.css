@@ -24,6 +24,13 @@ a {
     color: var(--text-color);
     text-decoration: none;
 }
+.breadcrumb a{
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+.breadcrumb a:hover{
+    color: var(--text-color);
+}
 
 .nav .nav-item .dropdown .nav-icon{
     color: #d1d3e2;
@@ -625,6 +632,18 @@ h4 {
 
 .table td {
     vertical-align: middle;
+}
+
+.post-thumbnail{
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+}
+table.dataTable th.dt-type-numeric,table.dataTable th.dt-type-date,table.dataTable td.dt-type-numeric,table.dataTable td.dt-type-date {
+    text-align:left;
+}
+.list-group-item a:hover h4{
+    color: var(--primary-color);
 }
 
 @media (max-width: 991.98px) {

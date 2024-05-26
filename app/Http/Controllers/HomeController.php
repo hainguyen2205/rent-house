@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PostStatusNotify;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AddressController;
 use App\Models\District;
@@ -9,6 +10,7 @@ use App\Models\Post;
 use App\Models\TypeHouse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -53,6 +55,60 @@ class HomeController extends Controller
         $this->setTitle('Đăng ký');
         return view('user.register', [
             'title' => $this->title,
+        ]);
+    }
+    public function displayNewsPage()
+    {
+        $this->setTitle('Tin tức và kinh nghiệm');
+        $new_posts = Post::orderBy('created_at', 'desc')->where('id_status', '2')->paginate(5);
+        return view('news.list', [
+            'title' => $this->title,
+            'posts' => $new_posts
+        ]);
+    }
+    public function displayShareTipsPage()
+    {
+        $this->setTitle('Tin tức và kinh nghiệm');
+        $new_posts = Post::orderBy('created_at', 'desc')->where('id_status', '2')->paginate(5);
+        return view('news.share-tips', [
+            'title' => $this->title,
+            'posts' => $new_posts
+        ]);
+    }
+    public function displayScamWarningPage()
+    {
+        $this->setTitle('Tin tức và kinh nghiệm');
+        $new_posts = Post::orderBy('created_at', 'desc')->where('id_status', '2')->paginate(5);
+        return view('news.scam-warnings', [
+            'title' => $this->title,
+            'posts' => $new_posts
+        ]);
+    }
+    public function displayTipsPostingPage()
+    {
+        $this->setTitle('Tin tức và kinh nghiệm');
+        $new_posts = Post::orderBy('created_at', 'desc')->where('id_status', '2')->paginate(5);
+        return view('news.tips-for-posting', [
+            'title' => $this->title,
+            'posts' => $new_posts
+        ]);
+    }
+    public function displayPostingRulesPage()
+    {
+        $this->setTitle('Tin tức và kinh nghiệm');
+        $new_posts = Post::orderBy('created_at', 'desc')->where('id_status', '2')->paginate(5);
+        return view('news.posting-rules', [
+            'title' => $this->title,
+            'posts' => $new_posts
+        ]);
+    }
+    public function displayFaqPage()
+    {
+        $this->setTitle('Tin tức và kinh nghiệm');
+        $new_posts = Post::orderBy('created_at', 'desc')->where('id_status', '2')->paginate(5);
+        return view('news.faq', [
+            'title' => $this->title,
+            'posts' => $new_posts
         ]);
     }
 }

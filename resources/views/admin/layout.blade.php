@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="/templates/admin/images/admin.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Nhachothue - Admin</title>
 
@@ -82,7 +83,7 @@
                         <h6 class="collapse-header">Quản lý người dùng</h6>
                         <a class="collapse-item" href="/admin/user/list">Danh sách người dùng</a>
                         <a class="collapse-item" href="/admin/feedback/list">Phản hồi người dùng</a>
-                        <a class="collapse-item" href="#">Nạp tiền</a>
+                        <a class="collapse-item" href="/admin/topup">Nạp tiền</a>
                     </div>
                 </div>
             </li>

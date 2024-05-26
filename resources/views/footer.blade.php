@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
-                           Liên kết
+                            Liên kết
                         </h6>
                         <p>
                             <a href="/login" class="text-white">Đăng nhập</a>
@@ -45,7 +45,7 @@
                             <a href="/profile" class="text-white">Tài khoản</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Nạp tiền</a>
+                            <a href="/profile/topup" class="text-white">Nạp tiền</a>
                         </p>
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -53,20 +53,21 @@
                             Hữu ích
                         </h6>
                         <p>
-                            <a href="/#" class="text-white">Chia sẻ kinh nghiệm</a>
+                            <a href="/news" class="text-white">Tin tức</a>
+                        </p>
+
+                        <p>
+                            <a href="/news/posting-rules#fee" class="text-white">Phí đăng tin</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Bảng giá đăng tin</a>
+                            <a href="/news/posting-rules" class="text-white">Quy tắc đăng tin</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white">Bảng giá nạp tiền</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Khuyến mãi</a>
+                            <a href="/faq" class="text-white">Câu hỏi thường gặp</a>
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
                         <p class="text-white"><i class="fas fa-home me-3"></i>Thái Nguyên, Việt Nam</p>
                         <p class="text-white">
                             <i class="fas fa-envelope me-3 "></i>ng.vanhai@gmail.com

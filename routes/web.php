@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashBoardController;
 use App\Http\Controllers\Admin\AdminFeedbackController;
 use App\Http\Controllers\Admin\AdminTypeHouseController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\Admin\AdminTopupController;
 use App\Http\Controllers\FeedbackController;
 
 /*
@@ -32,6 +34,12 @@ Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/post/list', [PostController::class, 'displayPostList']);
+Route::get('/news',  [HomeController::class, 'displayNewsPage']);
+Route::get('/news/share-tips',  [HomeController::class, 'displayShareTipsPage']);
+Route::get('/news/scam-warnings',  [HomeController::class, 'displayScamWarningPage']);
+Route::get('/news/tips-for-posting',  [HomeController::class, 'displayTipsPostingPage']);
+Route::get('/news/posting-rules',  [HomeController::class, 'displayPostingRulesPage']);
+Route::get('/faq',[HomeController::class, 'displayFaqPage']);
 
 Route::post('/upload', [UploadController::class, 'store']);
 Route::get('/address/getwards', [AddressController::class, 'getAllWard']);
@@ -41,11 +49,12 @@ Route::prefix('/post')->middleware('auth')->group(
     function () {
         Route::get('/single/{id_post}', [PostController::class, 'displayPostSingle']);
         Route::get('/create', [PostController::class, 'displayCreatePost']);
-        Route::get('/edit/{id_post}', [PostController::class, 'displayEditForm']);
+        Route::get('/edit/{id_post}', [PostController::class, 'displayEditForm']);  
 
         Route::post('/create', [PostController::class, 'createPost']);
         Route::post('/update', [PostController::class, 'updatePost']);
-        Route::get('/delete/{id_post}', [PostController::class, 'deletePost']);
+        Route::post('/delete', [PostController::class, 'deletePost']);
+        Route::post('/hide', [PostController::class, 'hidePost']);
         Route::get('/interest/{id_post}', [PostController::class, 'interestPost']);
     }
 );
@@ -101,6 +110,11 @@ Route::prefix('/admin')->middleware('admin_auth')->group(function () {
         Route::post('/create', [AdminTypeHouseController::class, 'create']);
         Route::post('/update', [AdminTypeHouseController::class, 'update']);
     });
+    Route::prefix('/topup')->group(function () {
+        Route::get('/', [AdminTopupController::class, 'displayHistoryTopupPage']);
+        Route::post('/success', [AdminTopupController::class, 'setTopupSuccess']);
+        Route::post('/cancel', [AdminTopupController::class, 'setTopupCancel']);
+    });
 });
 
 Route::prefix('/profile')->middleware('auth')->group(
@@ -110,5 +124,23 @@ Route::prefix('/profile')->middleware('auth')->group(
         Route::post('/update', [UserController::class, 'updateUserInfo']);
         Route::get('/post/{post_status}', [UserController::class, 'showPosts']);
         Route::get('/post', [UserController::class, 'postIndex']);
+        
+        Route::prefix('/topup')->group(function () {
+            Route::get('/',function(){
+                return view('user.topup.index');
+            });
+            Route::get('/vnpay',function(){
+                return view('user.topup.vnpay');
+            });
+            Route::get('/vietqr',function(){
+                return view('user.topup.vietqr');
+            });
+            Route::get('/history', [UserController::class, 'displayHistoryTopUp']);
+            Route::post('vietqr-checkout', [PaymentController::class, 'vietqrCheckOut']);
+            Route::get('/vietqr-result', [PaymentController::class, 'vietqrGetResult'])->name('vietqr-return');
+            Route::post('/vnpay-checkout', [PaymentController::class, 'vnpayCheckOut']);
+            Route::get('/vnpay-result', [PaymentController::class, 'vnpayGetResult'])->name('vnpay-return');
+        });
+        
     }
 );
